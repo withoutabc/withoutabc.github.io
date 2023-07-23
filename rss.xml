@@ -10,9 +10,37 @@
         </author>
         <description>studying</description>
         <language>zh-CN</language>
-        <pubDate>Sat, 22 Jul 2023 18:24:56 +0800</pubDate>
-        <lastBuildDate>Sat, 22 Jul 2023 18:24:56 +0800</lastBuildDate>
+        <pubDate>Sun, 23 Jul 2023 18:18:38 +0800</pubDate>
+        <lastBuildDate>Sun, 23 Jul 2023 18:18:38 +0800</lastBuildDate>
         <category term="关键词1，关键词2" />
+        <item>
+            <guid isPermalink="true">http://example.com/2023/07/23/src-container/</guid>
+            <title>src/container</title>
+            <link>http://example.com/2023/07/23/src-container/</link>
+            <category term="go语言基础" scheme="http://example.com/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" />
+            <category term="语法" scheme="http://example.com/tags/%E8%AF%AD%E6%B3%95/" />
+            <pubDate>Sun, 23 Jul 2023 18:18:38 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;containerlist&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#containerlist&#34;&gt;#&lt;/a&gt; container/list&lt;/h1&gt;
+&lt;h2 id=&#34;结构&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#结构&#34;&gt;#&lt;/a&gt; 结构&lt;/h2&gt;
+&lt;p&gt;先看一下结构体由哪些部分组成：&lt;/p&gt;
+&lt;figure class=&#34;highlight go&#34;&gt;&lt;figcaption data-lang=&#34;go&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;type&lt;/span&gt; Element &lt;span class=&#34;token keyword&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    next&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; prev &lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt;Element&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    list       &lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt;List&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    Value      any&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;type&lt;/span&gt; List &lt;span class=&#34;token keyword&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    root Element&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token builtin&#34;&gt;len&lt;/span&gt;  &lt;span class=&#34;token builtin&#34;&gt;int&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h2 id=&#34;element方法&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#element方法&#34;&gt;#&lt;/a&gt; Element 方法&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;func (e *Element) Next() *Element&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;返回链表下一个节点或者空指针&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;func (e *Element) Prev() *Element&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;返回链表上一个节点或者空指针&lt;/p&gt;
+&lt;h2 id=&#34;list方法&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#list方法&#34;&gt;#&lt;/a&gt; List 方法&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;func New() *List&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;初始化一个链表&lt;/p&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">http://example.com/2023/07/23/%E4%BA%8C%E5%8F%89%E6%A0%91/</guid>
+            <title>二叉树</title>
+            <link>http://example.com/2023/07/23/%E4%BA%8C%E5%8F%89%E6%A0%91/</link>
+            <category term="算法" scheme="http://example.com/tags/%E7%AE%97%E6%B3%95/" />
+            <pubDate>Sun, 23 Jul 2023 17:13:02 +0800</pubDate>
+            <description><![CDATA[  ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">http://example.com/2023/07/22/%E7%BD%AE%E9%A1%B6/</guid>
             <title>置顶</title>
