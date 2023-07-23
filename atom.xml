@@ -14,32 +14,40 @@
         <id>http://example.com/2023/07/23/src-container/</id>
         <title>src/container</title>
         <link rel="alternate" href="http://example.com/2023/07/23/src-container/"/>
-        <content type="html">&lt;h1 id=&#34;container包&#34;&gt;&lt;a href=&#34;#container包&#34; class=&#34;headerlink&#34; title=&#34;container包&#34;&gt;&lt;/a&gt;container包&lt;/h1&gt;&lt;h2 id=&#34;container-list&#34;&gt;&lt;a href=&#34;#container-list&#34; class=&#34;headerlink&#34; title=&#34;container&amp;#x2F;list&#34;&gt;&lt;/a&gt;container&amp;#x2F;list&lt;/h2&gt;&lt;h3 id=&#34;结构&#34;&gt;&lt;a href=&#34;#结构&#34; class=&#34;headerlink&#34; title=&#34;结构&#34;&gt;&lt;/a&gt;结构&lt;/h3&gt;&lt;p&gt;先看一下结构体由哪些部分组成：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;go&#34;&gt;type Element struct &amp;#123;
-    next, prev *Element
-    list       *List
-    Value      any
-&amp;#125;
-
-type List struct &amp;#123;
-    root Element
-    len  int
-&amp;#125;
+        <content type="html">&lt;h1 id=&#34;container包&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#container包&#34;&gt;#&lt;/a&gt; container 包&lt;/h1&gt;
+&lt;h2 id=&#34;containerlist&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#containerlist&#34;&gt;#&lt;/a&gt; container/list&lt;/h2&gt;
+&lt;h3 id=&#34;结构&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#结构&#34;&gt;#&lt;/a&gt; 结构&lt;/h3&gt;
+&lt;p&gt;先看一下结构体由哪些部分组成：&lt;/p&gt;
+&lt;figure class=&#34;highlight go&#34;&gt;&lt;figcaption data-lang=&#34;go&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;type&lt;/span&gt; Element &lt;span class=&#34;token keyword&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    next&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; prev &lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt;Element&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    list       &lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt;List&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    Value      any&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;type&lt;/span&gt; List &lt;span class=&#34;token keyword&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    root Element&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token builtin&#34;&gt;len&lt;/span&gt;  &lt;span class=&#34;token builtin&#34;&gt;int&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h3 id=&#34;element方法&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#element方法&#34;&gt;#&lt;/a&gt; Element 方法&lt;/h3&gt;
+&lt;h4 id=&#34;下一个节点&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#下一个节点&#34;&gt;#&lt;/a&gt; 下一个节点&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;func (e *Element) Next() *Element&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;上一个节点&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#上一个节点&#34;&gt;#&lt;/a&gt; 上一个节点&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;func (e *Element) Prev() *Element&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;list方法&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#list方法&#34;&gt;#&lt;/a&gt; List 方法&lt;/h3&gt;
+&lt;h4 id=&#34;初始化链表&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#初始化链表&#34;&gt;#&lt;/a&gt; 初始化链表&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;func New() *List&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;链表长度&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#链表长度&#34;&gt;#&lt;/a&gt; 链表长度&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;func (l *List) Len() int&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;链表第一个节点&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#链表第一个节点&#34;&gt;#&lt;/a&gt; 链表第一个节点&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;func (l *List) Front() *Element&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;链表最后一个节点&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#链表最后一个节点&#34;&gt;#&lt;/a&gt; 链表最后一个节点&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;func (l *List) Back() *Element&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;初始化或清空一个链表&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#初始化或清空一个链表&#34;&gt;#&lt;/a&gt; 初始化或清空一个链表&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;func (l *List) Init() *List&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;指定节点前添加节点&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#指定节点前添加节点&#34;&gt;#&lt;/a&gt; 指定节点前添加节点&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;func (l *List) InsertAfter(v any, mark *Element) *Element&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;若 mark 不属于 l，则链表不修改。&lt;/p&gt;
+&lt;h4 id=&#34;指定节点后添加节点&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#指定节点后添加节点&#34;&gt;#&lt;/a&gt; 指定节点后添加节点&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;func (l *List) InsertBefore(v any, mark *Element) *Element&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;若 mark 不属于 l，则链表不修改。&lt;/p&gt;
+&lt;h4 id=&#34;链表末尾添加节点&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#链表末尾添加节点&#34;&gt;#&lt;/a&gt; 链表末尾添加节点&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;func (l *List) PushBack(v any) *Element&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;链表开头添加节点&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#链表开头添加节点&#34;&gt;#&lt;/a&gt; 链表开头添加节点&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;func (l *List) PushBackList(other *List)&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;删除节点&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#删除节点&#34;&gt;#&lt;/a&gt; 删除节点&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;func (l *List) Remove(e *Element) any&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;func (l *List) MoveAfter(e, mark *Element)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;Element方法&#34;&gt;&lt;a href=&#34;#Element方法&#34; class=&#34;headerlink&#34; title=&#34;Element方法&#34;&gt;&lt;/a&gt;Element方法&lt;/h3&gt;&lt;h4 id=&#34;下一个节点&#34;&gt;&lt;a href=&#34;#下一个节点&#34; class=&#34;headerlink&#34; title=&#34;下一个节点&#34;&gt;&lt;/a&gt;下一个节点&lt;/h4&gt;&lt;p&gt;&lt;code&gt;func (e *Element) Next() *Element&lt;/code&gt; &lt;/p&gt;
-&lt;h4 id=&#34;上一个节点&#34;&gt;&lt;a href=&#34;#上一个节点&#34; class=&#34;headerlink&#34; title=&#34;上一个节点&#34;&gt;&lt;/a&gt;上一个节点&lt;/h4&gt;&lt;p&gt;&lt;code&gt;func (e *Element) Prev() *Element&lt;/code&gt;&lt;/p&gt;
-&lt;h3 id=&#34;List方法&#34;&gt;&lt;a href=&#34;#List方法&#34; class=&#34;headerlink&#34; title=&#34;List方法&#34;&gt;&lt;/a&gt;List方法&lt;/h3&gt;&lt;h4 id=&#34;初始化链表&#34;&gt;&lt;a href=&#34;#初始化链表&#34; class=&#34;headerlink&#34; title=&#34;初始化链表&#34;&gt;&lt;/a&gt;初始化链表&lt;/h4&gt;&lt;p&gt;&lt;code&gt;func New() *List&lt;/code&gt;&lt;/p&gt;
-&lt;h4 id=&#34;链表长度&#34;&gt;&lt;a href=&#34;#链表长度&#34; class=&#34;headerlink&#34; title=&#34;链表长度&#34;&gt;&lt;/a&gt;链表长度&lt;/h4&gt;&lt;p&gt;&lt;code&gt;func (l *List) Len() int&lt;/code&gt;&lt;/p&gt;
-&lt;h4 id=&#34;链表第一个节点&#34;&gt;&lt;a href=&#34;#链表第一个节点&#34; class=&#34;headerlink&#34; title=&#34;链表第一个节点&#34;&gt;&lt;/a&gt;链表第一个节点&lt;/h4&gt;&lt;p&gt;&lt;code&gt;func (l *List) Front() *Element&lt;/code&gt;&lt;/p&gt;
-&lt;h4 id=&#34;链表最后一个节点&#34;&gt;&lt;a href=&#34;#链表最后一个节点&#34; class=&#34;headerlink&#34; title=&#34;链表最后一个节点&#34;&gt;&lt;/a&gt;链表最后一个节点&lt;/h4&gt;&lt;p&gt;&lt;code&gt;func (l *List) Back() *Element&lt;/code&gt;&lt;/p&gt;
-&lt;h4 id=&#34;初始化或清空一个链表&#34;&gt;&lt;a href=&#34;#初始化或清空一个链表&#34; class=&#34;headerlink&#34; title=&#34;初始化或清空一个链表&#34;&gt;&lt;/a&gt;初始化或清空一个链表&lt;/h4&gt;&lt;p&gt;&lt;code&gt;func (l *List) Init() *List&lt;/code&gt;&lt;/p&gt;
-&lt;h4 id=&#34;指定节点前添加节点&#34;&gt;&lt;a href=&#34;#指定节点前添加节点&#34; class=&#34;headerlink&#34; title=&#34;指定节点前添加节点&#34;&gt;&lt;/a&gt;指定节点前添加节点&lt;/h4&gt;&lt;p&gt;&lt;code&gt;func (l *List) InsertAfter(v any, mark *Element) *Element&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;若mark不属于l，则链表不修改。&lt;/p&gt;
-&lt;h4 id=&#34;指定节点后添加节点&#34;&gt;&lt;a href=&#34;#指定节点后添加节点&#34; class=&#34;headerlink&#34; title=&#34;指定节点后添加节点&#34;&gt;&lt;/a&gt;指定节点后添加节点&lt;/h4&gt;&lt;p&gt;&lt;code&gt;func (l *List) InsertBefore(v any, mark *Element) *Element&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;若mark不属于l，则链表不修改。&lt;/p&gt;
-&lt;h4 id=&#34;链表末尾添加节点&#34;&gt;&lt;a href=&#34;#链表末尾添加节点&#34; class=&#34;headerlink&#34; title=&#34;链表末尾添加节点&#34;&gt;&lt;/a&gt;链表末尾添加节点&lt;/h4&gt;&lt;p&gt;&lt;code&gt;func (l *List) PushBack(v any) *Element&lt;/code&gt;&lt;/p&gt;
-&lt;h4 id=&#34;链表开头添加节点&#34;&gt;&lt;a href=&#34;#链表开头添加节点&#34; class=&#34;headerlink&#34; title=&#34;链表开头添加节点&#34;&gt;&lt;/a&gt;链表开头添加节点&lt;/h4&gt;&lt;p&gt;&lt;code&gt;func (l *List) PushBackList(other *List)&lt;/code&gt;&lt;/p&gt;
-&lt;h4 id=&#34;删除节点&#34;&gt;&lt;a href=&#34;#删除节点&#34; class=&#34;headerlink&#34; title=&#34;删除节点&#34;&gt;&lt;/a&gt;删除节点&lt;/h4&gt;&lt;p&gt;&lt;code&gt;func (l *List) Remove(e *Element) any&lt;/code&gt;&lt;/p&gt;
 </content>
         <category term="go语言基础" scheme="http://example.com/categories/gobase/" />
         <category term="语法" scheme="http://example.com/tags/%E8%AF%AD%E6%B3%95/" />
