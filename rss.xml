@@ -24,6 +24,7 @@
             <guid isPermalink="true">http://example.com/2023/07/22/NFS%E5%8A%A8%E6%80%81%E5%8D%B7%E9%83%A8%E7%BD%B2yaml%E6%96%87%E4%BB%B6/</guid>
             <title>NFS动态卷部署yaml文件</title>
             <link>http://example.com/2023/07/22/NFS%E5%8A%A8%E6%80%81%E5%8D%B7%E9%83%A8%E7%BD%B2yaml%E6%96%87%E4%BB%B6/</link>
+            <category term="运维" scheme="http://example.com/categories/operations/" />
             <category term="k8s" scheme="http://example.com/tags/k8s/" />
             <pubDate>Sat, 22 Jul 2023 17:02:42 +0800</pubDate>
             <description><![CDATA[ &lt;h1 id=&#34;部署nfs动态存储卷&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#部署nfs动态存储卷&#34;&gt;#&lt;/a&gt; 部署 NFS 动态存储卷&lt;/h1&gt;
@@ -475,6 +476,7 @@ kubectl describe secret user
             <guid isPermalink="true">http://example.com/2023/07/22/nfs%E9%85%8D%E7%BD%AE/</guid>
             <title>NFS配置</title>
             <link>http://example.com/2023/07/22/nfs%E9%85%8D%E7%BD%AE/</link>
+            <category term="运维" scheme="http://example.com/categories/operations/" />
             <category term="k8s" scheme="http://example.com/tags/k8s/" />
             <pubDate>Sat, 22 Jul 2023 13:46:35 +0800</pubDate>
             <description><![CDATA[ &lt;h1 id=&#34;nfs配置&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#nfs配置&#34;&gt;#&lt;/a&gt; NFS 配置&lt;/h1&gt;
