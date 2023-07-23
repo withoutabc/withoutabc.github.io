@@ -43,11 +43,27 @@
 &lt;h4 id=&#34;链表末尾添加节点&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#链表末尾添加节点&#34;&gt;#&lt;/a&gt; 链表末尾添加节点&lt;/h4&gt;
 &lt;p&gt;&lt;code&gt;func (l *List) PushBack(v any) *Element&lt;/code&gt;&lt;/p&gt;
 &lt;h4 id=&#34;链表开头添加节点&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#链表开头添加节点&#34;&gt;#&lt;/a&gt; 链表开头添加节点&lt;/h4&gt;
-&lt;p&gt;&lt;code&gt;func (l *List) PushBackList(other *List)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;func (l *List) PushFront(other *List)&lt;/code&gt;&lt;/p&gt;
 &lt;h4 id=&#34;删除节点&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#删除节点&#34;&gt;#&lt;/a&gt; 删除节点&lt;/h4&gt;
 &lt;p&gt;&lt;code&gt;func (l *List) Remove(e *Element) any&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;func (l *List) MoveAfter(e, mark *Element)
-&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;把指定节点移动到指定节点之后&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#把指定节点移动到指定节点之后&#34;&gt;#&lt;/a&gt; 把指定节点移动到指定节点之后&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;func (l *List) MoveAfter(e, mark *Element)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;若 e 或 mark 不属于 l，则链表不修改。&lt;/p&gt;
+&lt;h4 id=&#34;把指定节点移动到指定节点之前&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#把指定节点移动到指定节点之前&#34;&gt;#&lt;/a&gt; 把指定节点移动到指定节点之前&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;func (l *List) MoveBefore(e, mark *Element)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;若 e 或 mark 不属于 l，则链表不修改。&lt;/p&gt;
+&lt;h4 id=&#34;把指定节点移动到链表末尾&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#把指定节点移动到链表末尾&#34;&gt;#&lt;/a&gt; 把指定节点移动到链表末尾&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;func (l *List) MoveToBack(e *Element)&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;把指定节点移动到链表开头&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#把指定节点移动到链表开头&#34;&gt;#&lt;/a&gt; 把指定节点移动到链表开头&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;func (l *List) MoveToFront(e *Element)&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;把指定节点移动到链表末尾-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#把指定节点移动到链表末尾-2&#34;&gt;#&lt;/a&gt; 把指定节点移动到链表末尾&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;func (l *List) MoveToBack(e *Element)&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;把指定节点移动到链表开头-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#把指定节点移动到链表开头-2&#34;&gt;#&lt;/a&gt; 把指定节点移动到链表开头&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;func (l *List) MoveToFront(e *Element)&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;结尾追加链表&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#结尾追加链表&#34;&gt;#&lt;/a&gt; 结尾追加链表&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;func (l *List) PushBackList(other *List)&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;开头加入链表&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#开头加入链表&#34;&gt;#&lt;/a&gt; 开头加入链表&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;func (l *List) PushFrontList(other *List)&lt;/code&gt;&lt;/p&gt;
 </content>
         <category term="go语言基础" scheme="http://example.com/categories/gobase/" />
         <category term="语法" scheme="http://example.com/tags/%E8%AF%AD%E6%B3%95/" />
