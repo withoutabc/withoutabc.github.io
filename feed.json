@@ -7,8 +7,8 @@
     "home_page_url": "http://example.com",
     "items": [
         {
-            "id": "http://example.com/2023/07/23/tech/Nginx/",
-            "url": "http://example.com/2023/07/23/tech/Nginx/",
+            "id": "http://example.com/2023/07/23/Nginx/",
+            "url": "http://example.com/2023/07/23/Nginx/",
             "title": "Nginx",
             "date_published": "2023-07-23T13:24:34.000Z",
             "content_html": "",

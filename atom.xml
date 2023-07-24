@@ -11,9 +11,9 @@
     <updated>2023-07-23T13:24:34.000Z</updated>
     <category term="关键词1，关键词2" />
     <entry>
-        <id>http://example.com/2023/07/23/tech/Nginx/</id>
+        <id>http://example.com/2023/07/23/Nginx/</id>
         <title>Nginx</title>
-        <link rel="alternate" href="http://example.com/2023/07/23/tech/Nginx/"/>
+        <link rel="alternate" href="http://example.com/2023/07/23/Nginx/"/>
         <content type="html"></content>
         <category term="技术栈" scheme="http://example.com/categories/tech/" />
         <updated>2023-07-23T13:24:34.000Z</updated>
