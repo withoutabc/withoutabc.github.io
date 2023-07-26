@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <rss version="2.0">
     <channel>
-        <title>yjx</title>
+        <title>镜玄的博客</title>
         <subtitle></subtitle>
         <icon>http://example.com/images/favicon.ico</icon>
         <link>http://example.com</link>
         <author>
-          <name>yjx</name>
+          <name>镜玄</name>
         </author>
-        <description>studying</description>
+        <description>时不可兮再得，聊逍遥兮容与。</description>
         <language>zh-CN</language>
         <pubDate>Mon, 24 Jul 2023 19:13:43 +0800</pubDate>
         <lastBuildDate>Mon, 24 Jul 2023 19:13:43 +0800</lastBuildDate>
