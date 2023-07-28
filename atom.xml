@@ -14,30 +14,25 @@
         <id>http://example.com/2023/07/26/Redis%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/</id>
         <title>Redis常见数据类型和应用场景</title>
         <link rel="alternate" href="http://example.com/2023/07/26/Redis%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/"/>
-        <content type="html">&lt;h1 id=&#34;redis常见数据类型和应用场景&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#redis常见数据类型和应用场景&#34;&gt;#&lt;/a&gt; Redis 常见数据类型和应用场景&lt;/h1&gt;
-&lt;p&gt;我们都知道 Redis 提供了丰富的数据类型，常见的有五种： &lt;code&gt;String（字符串）&lt;/code&gt; ， &lt;code&gt;Hash（哈希）&lt;/code&gt; ， &lt;code&gt;List（列表）&lt;/code&gt; ， &lt;code&gt;Set（集合）&lt;/code&gt; 、 &lt;code&gt;Zset（有序集合）&lt;/code&gt; 。&lt;/p&gt;
-&lt;p&gt;随着 Redis 版本的更新，后面又支持了四种数据类型：  &lt;code&gt;BitMap（2.2 版新增）&lt;/code&gt; 、 &lt;code&gt;HyperLogLog（2.8 版新增）&lt;/code&gt; 、 &lt;code&gt;GEO（3.2 版新增）&lt;/code&gt; 、 &lt;code&gt;Stream（5.0 版新增）&lt;/code&gt; 。&lt;/p&gt;
-&lt;h2 id=&#34;string&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#string&#34;&gt;#&lt;/a&gt; String&lt;/h2&gt;
-&lt;h3 id=&#34;介绍&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#介绍&#34;&gt;#&lt;/a&gt; 介绍&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;key-value 结构，key 是唯一标识，value 是具体的值&lt;/li&gt;
-&lt;li&gt;value 其实不仅是字符串， 也可以是数字（整数或浮点数）&lt;/li&gt;
-&lt;li&gt;value 最多可以容纳的数据长度是  &lt;code&gt;512M&lt;/code&gt;&lt;/li&gt;
+        <content type="html">&lt;h1 id=&#34;Redis常见数据类型和应用场景&#34;&gt;&lt;a href=&#34;#Redis常见数据类型和应用场景&#34; class=&#34;headerlink&#34; title=&#34;Redis常见数据类型和应用场景&#34;&gt;&lt;/a&gt;Redis常见数据类型和应用场景&lt;/h1&gt;&lt;p&gt;我们都知道 Redis 提供了丰富的数据类型，常见的有五种：&lt;code&gt;String（字符串）&lt;/code&gt;，&lt;code&gt;Hash（哈希）&lt;/code&gt;，&lt;code&gt;List（列表）&lt;/code&gt;，&lt;code&gt;Set（集合）&lt;/code&gt;、&lt;code&gt;Zset（有序集合）&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;随着 Redis 版本的更新，后面又支持了四种数据类型： &lt;code&gt;BitMap（2.2 版新增）&lt;/code&gt;、&lt;code&gt;HyperLogLog（2.8 版新增）&lt;/code&gt;、&lt;code&gt;GEO（3.2 版新增）&lt;/code&gt;、&lt;code&gt;Stream（5.0 版新增）&lt;/code&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;String&#34;&gt;&lt;a href=&#34;#String&#34; class=&#34;headerlink&#34; title=&#34;String&#34;&gt;&lt;/a&gt;String&lt;/h2&gt;&lt;h3 id=&#34;介绍&#34;&gt;&lt;a href=&#34;#介绍&#34; class=&#34;headerlink&#34; title=&#34;介绍&#34;&gt;&lt;/a&gt;介绍&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;key-value结构，key 是唯一标识，value 是具体的值&lt;/li&gt;
+&lt;li&gt;value其实不仅是字符串， 也可以是数字（整数或浮点数）&lt;/li&gt;
+&lt;li&gt;value 最多可以容纳的数据长度是 &lt;code&gt;512M&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;内部实现&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#内部实现&#34;&gt;#&lt;/a&gt; 内部实现&lt;/h3&gt;
-&lt;p&gt;String 类型的底层的数据结构实现主要是 int 和 SDS（简单动态字符串）&lt;/p&gt;
+&lt;h3 id=&#34;内部实现&#34;&gt;&lt;a href=&#34;#内部实现&#34; class=&#34;headerlink&#34; title=&#34;内部实现&#34;&gt;&lt;/a&gt;内部实现&lt;/h3&gt;&lt;p&gt;String 类型的底层的数据结构实现主要是 int 和 SDS（简单动态字符串） &lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;SDS 不仅可以保存文本数据，还可以保存二进制数据&lt;/strong&gt;。因为  &lt;code&gt;SDS&lt;/code&gt;  使用  &lt;code&gt;len&lt;/code&gt;  属性的值而不是空字符来判断字符串是否结束，并且 SDS 的所有 API 都会以 &lt;code&gt;处理二进制的方式&lt;/code&gt; 来处理 SDS 存放在  &lt;code&gt;buf[]&lt;/code&gt;  数组里的数据。所以 SDS 不光能存放文本数据，而且能保存图片、音频、视频、压缩文件这样的二进制数据。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;SDS 获取字符串长度的时间复杂度是 O (1)&lt;/strong&gt;。因为 C 语言的字符串并不记录自身长度，所以获取长度的复杂度为 O (n)；而 SDS 结构里用  &lt;code&gt;len&lt;/code&gt;  属性记录了字符串长度，所以复杂度为  &lt;code&gt;O(1)&lt;/code&gt; 。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Redis 的 SDS API 是安全的，拼接字符串不会造成缓冲区溢出&lt;/strong&gt;。因为 SDS 在拼接字符串之前会检查 SDS 空间是否满足要求，如果空间不够会 &lt;code&gt;自动扩容&lt;/code&gt; ，所以不会导致缓冲区溢出的问题。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SDS 不仅可以保存文本数据，还可以保存二进制数据&lt;/strong&gt;。因为 &lt;code&gt;SDS&lt;/code&gt; 使用 &lt;code&gt;len&lt;/code&gt; 属性的值而不是空字符来判断字符串是否结束，并且 SDS 的所有 API 都会以&lt;code&gt;处理二进制的方式&lt;/code&gt;来处理 SDS 存放在 &lt;code&gt;buf[]&lt;/code&gt; 数组里的数据。所以 SDS 不光能存放文本数据，而且能保存图片、音频、视频、压缩文件这样的二进制数据。&lt;/li&gt;
+&lt;li&gt;**SDS 获取字符串长度的时间复杂度是 O(1)**。因为 C 语言的字符串并不记录自身长度，所以获取长度的复杂度为 O(n)；而 SDS 结构里用 &lt;code&gt;len&lt;/code&gt; 属性记录了字符串长度，所以复杂度为 &lt;code&gt;O(1)&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Redis 的 SDS API 是安全的，拼接字符串不会造成缓冲区溢出&lt;/strong&gt;。因为 SDS 在拼接字符串之前会检查 SDS 空间是否满足要求，如果空间不够会&lt;code&gt;自动扩容&lt;/code&gt;，所以不会导致缓冲区溢出的问题。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h4 id=&#34;内部编码方式&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#内部编码方式&#34;&gt;#&lt;/a&gt; 内部编码方式&lt;/h4&gt;
-&lt;p&gt;3 种内部编码（encoding） ：&lt;strong&gt;int、raw 和 embstr&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://s2.loli.net/2023/07/26/k7BsA5dailzynq8.webp&#34; alt=&#34;string结构.png&#34; /&gt;&lt;/p&gt;
+&lt;h4 id=&#34;内部编码方式&#34;&gt;&lt;a href=&#34;#内部编码方式&#34; class=&#34;headerlink&#34; title=&#34;内部编码方式&#34;&gt;&lt;/a&gt;内部编码方式&lt;/h4&gt;&lt;p&gt; 3 种内部编码（encoding） ：&lt;strong&gt;int、raw和 embstr&lt;/strong&gt;。 &lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s2.loli.net/2023/07/26/k7BsA5dailzynq8.webp&#34; alt=&#34;string结构.png&#34;&gt;&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;如果一个字符串对象保存的是整数值，并且这个整数值可以用 &lt;code&gt;long&lt;/code&gt;  类型来表示，那么字符串对象会将整数值保存在字符串对象结构的 &lt;code&gt;ptr&lt;/code&gt;  属性里面（将 &lt;code&gt;void*&lt;/code&gt;  转换成 long），并将字符串对象的编码设置为 &lt;code&gt;int&lt;/code&gt; 。 &lt;img data-src=&#34;https://s2.loli.net/2023/07/26/tc7HMVI5ej9rmF3.webp&#34; alt=&#34;int.png&#34; /&gt;&lt;/li&gt;
-&lt;li&gt;如果字符串对象保存的是一个字符串，并且这个字符申的长度小于等于 32 字节（redis 2.+ 版本），那么字符串对象将使用一个简单动态字符串（SDS）来保存这个字符串，并将对象的编码设置为 &lt;code&gt;embstr&lt;/code&gt; ，  &lt;code&gt;embstr&lt;/code&gt;  编码是专门用于保存&lt;strong&gt;短字符串&lt;/strong&gt;的一种优化编码方式：&lt;img data-src=&#34;https://s2.loli.net/2023/07/26/8EeG9nOTs3ykU72.webp&#34; alt=&#34;embstr.png&#34; /&gt;&lt;/li&gt;
-&lt;li&gt;如果字符串对象保存的是一个字符串，并且这个字符串的长度大于 32 字节（redis 2.+ 版本），那么字符串对象将使用一个简单动态字符串（SDS）来保存这个字符串，并将对象的编码设置为 &lt;code&gt;raw&lt;/code&gt; ： &lt;img data-src=&#34;https://s2.loli.net/2023/07/26/8EeG9nOTs3ykU72.webp&#34; alt=&#34;embstr.png&#34; /&gt;&lt;img data-src=&#34;https://s2.loli.net/2023/07/26/51W4sOKTtiJcCFz.webp&#34; alt=&#34;raw.png&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;如果一个字符串对象保存的是整数值，并且这个整数值可以用&lt;code&gt;long&lt;/code&gt;类型来表示，那么字符串对象会将整数值保存在字符串对象结构的&lt;code&gt;ptr&lt;/code&gt;属性里面（将&lt;code&gt;void*&lt;/code&gt;转换成 long），并将字符串对象的编码设置为&lt;code&gt;int&lt;/code&gt;。 &lt;img data-src=&#34;https://s2.loli.net/2023/07/26/tc7HMVI5ej9rmF3.webp&#34; alt=&#34;int.png&#34;&gt;&lt;/li&gt;
+&lt;li&gt;如果字符串对象保存的是一个字符串，并且这个字符申的长度小于等于 32 字节（redis 2.+版本），那么字符串对象将使用一个简单动态字符串（SDS）来保存这个字符串，并将对象的编码设置为&lt;code&gt;embstr&lt;/code&gt;， &lt;code&gt;embstr&lt;/code&gt;编码是专门用于保存&lt;strong&gt;短字符串&lt;/strong&gt;的一种优化编码方式：&lt;img data-src=&#34;https://s2.loli.net/2023/07/26/8EeG9nOTs3ykU72.webp&#34; alt=&#34;embstr.png&#34;&gt;&lt;/li&gt;
+&lt;li&gt;如果字符串对象保存的是一个字符串，并且这个字符串的长度大于 32 字节（redis 2.+版本），那么字符串对象将使用一个简单动态字符串（SDS）来保存这个字符串，并将对象的编码设置为&lt;code&gt;raw&lt;/code&gt;： &lt;img data-src=&#34;https://s2.loli.net/2023/07/26/8EeG9nOTs3ykU72.webp&#34; alt=&#34;embstr.png&#34;&gt;&lt;img data-src=&#34;https://s2.loli.net/2023/07/26/51W4sOKTtiJcCFz.webp&#34; alt=&#34;raw.png&#34;&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;注意，embstr 编码和 raw 编码的边界在 redis 不同版本中是不一样的：&lt;/p&gt;
 &lt;ul&gt;
@@ -45,47 +40,110 @@
 &lt;li&gt;redis 3.0-4.0 是 39 字节&lt;/li&gt;
 &lt;li&gt;redis 5.0 是 44 字节&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h4 id=&#34;embstr和raw&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#embstr和raw&#34;&gt;#&lt;/a&gt;  &lt;code&gt;embstr&lt;/code&gt;  和 &lt;code&gt;raw&lt;/code&gt;&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;都会使用 &lt;code&gt;SDS&lt;/code&gt;  来保存值；&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;embstr&lt;/code&gt;  会通过一次内存分配函数来分配一块连续的内存空间来保存 &lt;code&gt;redisObject&lt;/code&gt;  和 &lt;code&gt;SDS&lt;/code&gt;  ;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;raw&lt;/code&gt;  编码会通过调用两次内存分配函数来分别分配两块空间来保存 &lt;code&gt;redisObject&lt;/code&gt;  和 &lt;code&gt;SDS&lt;/code&gt;  。&lt;/li&gt;
+&lt;h4 id=&#34;embstr和raw&#34;&gt;&lt;a href=&#34;#embstr和raw&#34; class=&#34;headerlink&#34; title=&#34;embstr和raw&#34;&gt;&lt;/a&gt;&lt;code&gt;embstr&lt;/code&gt;和&lt;code&gt;raw&lt;/code&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;都会使用&lt;code&gt;SDS&lt;/code&gt;来保存值 ;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;embstr&lt;/code&gt;会通过一次内存分配函数来分配一块连续的内存空间来保存&lt;code&gt;redisObject&lt;/code&gt;和&lt;code&gt;SDS&lt;/code&gt; ;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;raw&lt;/code&gt;编码会通过调用两次内存分配函数来分别分配两块空间来保存&lt;code&gt;redisObject&lt;/code&gt;和&lt;code&gt;SDS&lt;/code&gt; 。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h5 id=&#34;好处&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#好处&#34;&gt;#&lt;/a&gt; 好处&lt;/h5&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;embstr&lt;/code&gt;  编码将创建字符串对象所需的内存分配次数从  &lt;code&gt;raw&lt;/code&gt;  编码的&lt;strong&gt;两次降低为一次&lt;/strong&gt;；&lt;/li&gt;
-&lt;li&gt;释放  &lt;code&gt;embstr&lt;/code&gt;  编码的字符串对象同样&lt;strong&gt;只需要调用一次&lt;/strong&gt;内存释放函数；&lt;/li&gt;
-&lt;li&gt;因为 &lt;code&gt;embstr&lt;/code&gt;  编码的字符串对象的所有数据都保存在一块连续的内存里面可以更好的利用 CPU 缓存提升性能。&lt;/li&gt;
+&lt;h5 id=&#34;好处&#34;&gt;&lt;a href=&#34;#好处&#34; class=&#34;headerlink&#34; title=&#34;好处&#34;&gt;&lt;/a&gt;好处&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;embstr&lt;/code&gt;编码将创建字符串对象所需的内存分配次数从 &lt;code&gt;raw&lt;/code&gt; 编码的&lt;strong&gt;两次降低为一次&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;释放 &lt;code&gt;embstr&lt;/code&gt;编码的字符串对象同样&lt;strong&gt;只需要调用一次&lt;/strong&gt;内存释放函数；&lt;/li&gt;
+&lt;li&gt;因为&lt;code&gt;embstr&lt;/code&gt;编码的字符串对象的所有数据都保存在一块连续的内存里面可以更好的利用 CPU 缓存提升性能。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h5 id=&#34;缺点&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#缺点&#34;&gt;#&lt;/a&gt; 缺点&lt;/h5&gt;
-&lt;p&gt;如果字符串的长度增加需要重新分配内存时，整个 redisObject 和 sds 都需要重新分配空间，所以&lt;strong&gt; embstr 编码的字符串对象实际上是只读的&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;当我们对 embstr 编码的字符串对象执行任何修改命令（例如 append）时，程序会先将对象的编码从 embstr 转换成 raw，然后再执行修改命令 。&lt;/p&gt;
-&lt;h3 id=&#34;常用指令&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#常用指令&#34;&gt;#&lt;/a&gt; 常用指令&lt;/h3&gt;
-&lt;h4 id=&#34;普通字符串的基本操作&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#普通字符串的基本操作&#34;&gt;#&lt;/a&gt; 普通字符串的基本操作&lt;/h4&gt;
-&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 设置 key-value 类型的值&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; SET name lin&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;OK&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 根据 key 获得对应的 value&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; GET name&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token string&#34;&gt;&#34;lin&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 判断某个 key 是否存在&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; EXISTS name&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;integer&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 返回 key 所储存的字符串值的长度&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; STRLEN name&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;integer&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;3&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 删除某个 key 对应的值&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; DEL name&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;integer&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h4 id=&#34;批量设置&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#批量设置&#34;&gt;#&lt;/a&gt; 批量设置&lt;/h4&gt;
-&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 批量设置 key-value 类型的值&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; MSET key1 value1 key2 value2 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;OK&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 批量获取多个 key 对应的 value&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; MGET key1 key2 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;value1&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token number&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;value2&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h4 id=&#34;计数器&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#计数器&#34;&gt;#&lt;/a&gt; 计数器&lt;/h4&gt;
-&lt;p&gt;（字符串的内容为整数的时候可以使用）&lt;/p&gt;
-&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 设置 key-value 类型的值&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; SET number &lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;OK&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 将 key 中储存的数字值增一&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; INCR number&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;integer&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 将 key 中存储的数字值加 10&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; INCRBY number &lt;span class=&#34;token number&#34;&gt;10&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;integer&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;11&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 将 key 中储存的数字值减一&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; DECR number&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;integer&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;10&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 将 key 中存储的数字值键 10&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; DECRBY number &lt;span class=&#34;token number&#34;&gt;10&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;integer&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h4 id=&#34;过期&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#过期&#34;&gt;#&lt;/a&gt; 过期&lt;/h4&gt;
-&lt;p&gt;（默认为永不过期）&lt;/p&gt;
-&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 设置 key 在 60 秒后过期（该方法是针对已经存在的 key 设置过期时间）&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; EXPIRE name  &lt;span class=&#34;token number&#34;&gt;60&lt;/span&gt; &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;integer&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 查看数据还有多久过期&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; TTL name &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;integer&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;51&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;#设置 key-value 类型的值，并设置该 key 的过期时间为 60 秒&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; SET key  value EX &lt;span class=&#34;token number&#34;&gt;60&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;OK&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; SETEX key  &lt;span class=&#34;token number&#34;&gt;60&lt;/span&gt; value&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;OK&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;不存在就插入：&lt;/p&gt;
-&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 不存在就插入（not exists）&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt;SETNX key value&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;integer&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h3 id=&#34;应用场景&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#应用场景&#34;&gt;#&lt;/a&gt; 应用场景&lt;/h3&gt;
-&lt;h4 id=&#34;缓存对象&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#缓存对象&#34;&gt;#&lt;/a&gt; 缓存对象&lt;/h4&gt;
-&lt;p&gt;使用 String 来缓存对象有两种方式：&lt;/p&gt;
+&lt;h5 id=&#34;缺点&#34;&gt;&lt;a href=&#34;#缺点&#34; class=&#34;headerlink&#34; title=&#34;缺点&#34;&gt;&lt;/a&gt;缺点&lt;/h5&gt;&lt;p&gt;如果字符串的长度增加需要重新分配内存时，整个redisObject和sds都需要重新分配空间，所以&lt;strong&gt;embstr编码的字符串对象实际上是只读的&lt;/strong&gt; &lt;/p&gt;
+&lt;p&gt;当我们对embstr编码的字符串对象执行任何修改命令（例如append）时，程序会先将对象的编码从embstr转换成raw，然后再执行修改命令 。&lt;/p&gt;
+&lt;h3 id=&#34;常用指令&#34;&gt;&lt;a href=&#34;#常用指令&#34; class=&#34;headerlink&#34; title=&#34;常用指令&#34;&gt;&lt;/a&gt;常用指令&lt;/h3&gt;&lt;h4 id=&#34;普通字符串的基本操作&#34;&gt;&lt;a href=&#34;#普通字符串的基本操作&#34; class=&#34;headerlink&#34; title=&#34;普通字符串的基本操作&#34;&gt;&lt;/a&gt;普通字符串的基本操作&lt;/h4&gt;&lt;pre&gt;&lt;code class=&#34;bash&#34;&gt;# 设置 key-value 类型的值
+&amp;gt; SET name lin
+OK
+# 根据 key 获得对应的 value
+&amp;gt; GET name
+&amp;quot;lin&amp;quot;
+# 判断某个 key 是否存在
+&amp;gt; EXISTS name
+(integer) 1
+# 返回 key 所储存的字符串值的长度
+&amp;gt; STRLEN name
+(integer) 3
+# 删除某个 key 对应的值
+&amp;gt; DEL name
+(integer) 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;批量设置&#34;&gt;&lt;a href=&#34;#批量设置&#34; class=&#34;headerlink&#34; title=&#34;批量设置&#34;&gt;&lt;/a&gt;批量设置&lt;/h4&gt;&lt;pre&gt;&lt;code class=&#34;bash&#34;&gt;# 批量设置 key-value 类型的值
+&amp;gt; MSET key1 value1 key2 value2 
+OK
+# 批量获取多个 key 对应的 value
+&amp;gt; MGET key1 key2 
+1) &amp;quot;value1&amp;quot;
+2) &amp;quot;value2&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;计数器&#34;&gt;&lt;a href=&#34;#计数器&#34; class=&#34;headerlink&#34; title=&#34;计数器&#34;&gt;&lt;/a&gt;计数器&lt;/h4&gt;&lt;p&gt;（字符串的内容为整数的时候可以使用）&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;bash&#34;&gt;# 设置 key-value 类型的值
+&amp;gt; SET number 0
+OK
+# 将 key 中储存的数字值增一
+&amp;gt; INCR number
+(integer) 1
+# 将key中存储的数字值加 10
+&amp;gt; INCRBY number 10
+(integer) 11
+# 将 key 中储存的数字值减一
+&amp;gt; DECR number
+(integer) 10
+# 将key中存储的数字值键 10
+&amp;gt; DECRBY number 10
+(integer) 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;过期&#34;&gt;&lt;a href=&#34;#过期&#34; class=&#34;headerlink&#34; title=&#34;过期&#34;&gt;&lt;/a&gt;过期&lt;/h4&gt;&lt;p&gt;（默认为永不过期）&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;bash&#34;&gt;# 设置 key 在 60 秒后过期（该方法是针对已经存在的key设置过期时间）
+&amp;gt; EXPIRE name  60 
+(integer) 1
+# 查看数据还有多久过期
+&amp;gt; TTL name 
+(integer) 51
+
+#设置 key-value 类型的值，并设置该key的过期时间为 60 秒
+&amp;gt; SET key  value EX 60
+OK
+&amp;gt; SETEX key  60 value
+OK
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;不存在就插入：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;bash&#34;&gt;# 不存在就插入（not exists）
+&amp;gt;SETNX key value
+(integer) 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;应用场景&#34;&gt;&lt;a href=&#34;#应用场景&#34; class=&#34;headerlink&#34; title=&#34;应用场景&#34;&gt;&lt;/a&gt;应用场景&lt;/h3&gt;&lt;h4 id=&#34;缓存对象&#34;&gt;&lt;a href=&#34;#缓存对象&#34; class=&#34;headerlink&#34; title=&#34;缓存对象&#34;&gt;&lt;/a&gt;缓存对象&lt;/h4&gt;&lt;p&gt;使用 String 来缓存对象有两种方式：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;直接缓存整个对象的 JSON，命令例子：  &lt;code&gt;SET user:1 &#39;&amp;#123;&amp;quot;name&amp;quot;:&amp;quot;xiaolin&amp;quot;, &amp;quot;age&amp;quot;:18&amp;#125;&#39;&lt;/code&gt; 。&lt;/li&gt;
-&lt;li&gt;采用将 key 进行分离为 user:ID: 属性，采用 MSET 存储，用 MGET 获取各属性值，命令例子：  &lt;code&gt;MSET user:1:name xiaolin user:1:age 18 user:2:name xiaomei user:2:age 20&lt;/code&gt; 。&lt;/li&gt;
+&lt;li&gt;直接缓存整个对象的 JSON，命令例子： &lt;code&gt;SET user:1 &amp;#39;&amp;#123;&amp;quot;name&amp;quot;:&amp;quot;xiaolin&amp;quot;, &amp;quot;age&amp;quot;:18&amp;#125;&amp;#39;&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;采用将 key 进行分离为 user:ID:属性，采用 MSET 存储，用 MGET 获取各属性值，命令例子： &lt;code&gt;MSET user:1:name xiaolin user:1:age 18 user:2:name xiaomei user:2:age 20&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h4 id=&#34;常规计数&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#常规计数&#34;&gt;#&lt;/a&gt; 常规计数&lt;/h4&gt;
-&lt;p&gt;因为 Redis 处理命令是单线程，所以执行命令的过程是原子的。因此 String 数据类型适合计数场景，比如计算访问次数、点赞、转发、库存数量等等。&lt;/p&gt;
+&lt;h4 id=&#34;常规计数&#34;&gt;&lt;a href=&#34;#常规计数&#34; class=&#34;headerlink&#34; title=&#34;常规计数&#34;&gt;&lt;/a&gt;常规计数&lt;/h4&gt;&lt;p&gt;因为 Redis 处理命令是单线程，所以执行命令的过程是原子的。因此 String 数据类型适合计数场景，比如计算访问次数、点赞、转发、库存数量等等。&lt;/p&gt;
 &lt;p&gt;比如计算文章的阅读量：&lt;/p&gt;
-&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 初始化文章的阅读量&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; SET aritcle:readcount:1001 &lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;OK&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;#阅读量 + 1&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; INCR aritcle:readcount:1001&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;integer&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;#阅读量 + 1&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; INCR aritcle:readcount:1001&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;integer&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;2&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;#阅读量 + 1&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; INCR aritcle:readcount:1001&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;integer&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;3&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 获取对应文章的阅读量&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; GET aritcle:readcount:1001&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token string&#34;&gt;&#34;3&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h4 id=&#34;分布式锁&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#分布式锁&#34;&gt;#&lt;/a&gt; 分布式锁&lt;/h4&gt;
-&lt;p&gt;SET 命令有个 NX 参数可以实现「key 不存在才插入」，可以用它来实现分布式锁：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;bash&#34;&gt;# 初始化文章的阅读量
+&amp;gt; SET aritcle:readcount:1001 0
+OK
+#阅读量+1
+&amp;gt; INCR aritcle:readcount:1001
+(integer) 1
+#阅读量+1
+&amp;gt; INCR aritcle:readcount:1001
+(integer) 2
+#阅读量+1
+&amp;gt; INCR aritcle:readcount:1001
+(integer) 3
+# 获取对应文章的阅读量
+&amp;gt; GET aritcle:readcount:1001
+&amp;quot;3&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;分布式锁&#34;&gt;&lt;a href=&#34;#分布式锁&#34; class=&#34;headerlink&#34; title=&#34;分布式锁&#34;&gt;&lt;/a&gt;分布式锁&lt;/h4&gt;&lt;p&gt;SET 命令有个 NX 参数可以实现「key不存在才插入」，可以用它来实现分布式锁：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;如果 key 不存在，则显示插入成功，可以用来表示加锁成功；&lt;/li&gt;
 &lt;li&gt;如果 key 存在，则会显示插入失败，可以用来表示加锁失败。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;一般而言，还会对分布式锁加上过期时间，分布式锁的命令如下：&lt;/p&gt;
-&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;SET lock_key unique_value NX PX &lt;span class=&#34;token number&#34;&gt;10000&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;ul&gt;
+&lt;pre&gt;&lt;code class=&#34;bash&#34;&gt;SET lock_key unique_value NX PX 10000
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
 &lt;li&gt;lock_key 就是 key 键；&lt;/li&gt;
 &lt;li&gt;unique_value 是客户端生成的唯一的标识；&lt;/li&gt;
 &lt;li&gt;NX 代表只在 lock_key 不存在时，才对 lock_key 进行设置操作；&lt;/li&gt;
@@ -93,56 +151,73 @@
 &lt;/ul&gt;
 &lt;p&gt;而解锁的过程就是将 lock_key 键删除，但不能乱删，要保证执行操作的客户端就是加锁的客户端。所以，解锁的时候，我们要先判断锁的 unique_value 是否为加锁客户端，是的话，才将 lock_key 键删除。&lt;/p&gt;
 &lt;p&gt;可以看到，解锁是有两个操作，这时就需要 Lua 脚本来保证解锁的原子性，因为 Redis 在执行 Lua 脚本时，可以以原子性的方式执行，保证了锁释放操作的原子性。&lt;/p&gt;
-&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;// 释放锁时，先比较 unique_value 是否相等，避免锁的误释放&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; redis.call&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;get&#34;&lt;/span&gt;,KEYS&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;==&lt;/span&gt; ARGV&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;then&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token builtin class-name&#34;&gt;return&lt;/span&gt; redis.call&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;del&#34;&lt;/span&gt;,KEYS&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;else&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token builtin class-name&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;end&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;这样一来，就通过使用 SET 命令和 Lua 脚本在 Redis 单节点上完成了分布式锁的加锁和解锁。&lt;/p&gt;
-&lt;h4 id=&#34;共享-session-信息&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#共享-session-信息&#34;&gt;#&lt;/a&gt; 共享 Session 信息&lt;/h4&gt;
-&lt;p&gt;通常我们在开发后台管理系统时，会使用 Session 来保存用户的会话 (登录) 状态，这些 Session 信息会被保存在服务器端，但这只适用于单系统应用，如果是分布式系统此模式将不再适用。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;bash&#34;&gt;// 释放锁时，先比较 unique_value 是否相等，避免锁的误释放
+if redis.call(&amp;quot;get&amp;quot;,KEYS[1]) == ARGV[1] then
+    return redis.call(&amp;quot;del&amp;quot;,KEYS[1])
+else
+    return 0
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这样一来，就通过使用 SET 命令和 Lua 脚本在 Redis 单节点上完成了分布式锁的加锁和解锁。&lt;/p&gt;
+&lt;h4 id=&#34;共享-Session-信息&#34;&gt;&lt;a href=&#34;#共享-Session-信息&#34; class=&#34;headerlink&#34; title=&#34;共享 Session 信息&#34;&gt;&lt;/a&gt;共享 Session 信息&lt;/h4&gt;&lt;p&gt;通常我们在开发后台管理系统时，会使用 Session 来保存用户的会话(登录)状态，这些 Session 信息会被保存在服务器端，但这只适用于单系统应用，如果是分布式系统此模式将不再适用。&lt;/p&gt;
 &lt;p&gt;例如用户一的 Session 信息被存储在服务器一，但第二次访问时用户一被分配到服务器二，这个时候服务器并没有用户一的 Session 信息，就会出现需要重复登录的问题，问题在于分布式系统每次会把请求随机分配到不同的服务器。&lt;/p&gt;
 &lt;p&gt;分布式系统单独存储 Session 流程图：&lt;/p&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/Session1.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/Session1.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
 &lt;p&gt;因此，我们需要借助 Redis 对这些 Session 信息进行统一的存储和管理，这样无论请求发送到那台服务器，服务器都会去同一个 Redis 获取相关的 Session 信息，这样就解决了分布式系统下 Session 存储的问题。&lt;/p&gt;
 &lt;p&gt;分布式系统使用同一个 Redis 存储 Session 流程图：&lt;/p&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/Session2.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
-&lt;h2 id=&#34;list&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#list&#34;&gt;#&lt;/a&gt; List&lt;/h2&gt;
-&lt;h3 id=&#34;介绍-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#介绍-2&#34;&gt;#&lt;/a&gt; 介绍&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;简单的字符串列表，&lt;strong&gt;按照插入顺序排序&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;列表的最大长度为  &lt;code&gt;2^32 - 1&lt;/code&gt; ，也即每个列表支持超过  &lt;code&gt;40 亿&lt;/code&gt; 个元素。&lt;/li&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/Session2.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;List&#34;&gt;&lt;a href=&#34;#List&#34; class=&#34;headerlink&#34; title=&#34;List&#34;&gt;&lt;/a&gt;List&lt;/h2&gt;&lt;h3 id=&#34;介绍-1&#34;&gt;&lt;a href=&#34;#介绍-1&#34; class=&#34;headerlink&#34; title=&#34;介绍&#34;&gt;&lt;/a&gt;介绍&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;简单的字符串列表，&lt;strong&gt;按照插入顺序排序&lt;/strong&gt; &lt;/li&gt;
+&lt;li&gt;列表的最大长度为 &lt;code&gt;2^32 - 1&lt;/code&gt;，也即每个列表支持超过 &lt;code&gt;40 亿&lt;/code&gt;个元素。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;内部实现-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#内部实现-2&#34;&gt;#&lt;/a&gt; 内部实现&lt;/h3&gt;
-&lt;p&gt;List 类型的底层数据结构是由&lt;strong&gt;双向链表或压缩列表&lt;/strong&gt;实现的：&lt;/p&gt;
+&lt;h3 id=&#34;内部实现-1&#34;&gt;&lt;a href=&#34;#内部实现-1&#34; class=&#34;headerlink&#34; title=&#34;内部实现&#34;&gt;&lt;/a&gt;内部实现&lt;/h3&gt;&lt;p&gt;List 类型的底层数据结构是由&lt;strong&gt;双向链表或压缩列表&lt;/strong&gt;实现的：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;如果列表的元素个数小于  &lt;code&gt;512&lt;/code&gt;  个（默认值，可由  &lt;code&gt;list-max-ziplist-entries&lt;/code&gt;  配置），列表每个元素的值都小于  &lt;code&gt;64&lt;/code&gt;  字节（默认值，可由  &lt;code&gt;list-max-ziplist-value&lt;/code&gt;  配置），Redis 会使用&lt;strong&gt;压缩列表&lt;/strong&gt;作为 List 类型的底层数据结构；&lt;/li&gt;
+&lt;li&gt;如果列表的元素个数小于 &lt;code&gt;512&lt;/code&gt; 个（默认值，可由 &lt;code&gt;list-max-ziplist-entries&lt;/code&gt; 配置），列表每个元素的值都小于 &lt;code&gt;64&lt;/code&gt; 字节（默认值，可由 &lt;code&gt;list-max-ziplist-value&lt;/code&gt; 配置），Redis 会使用&lt;strong&gt;压缩列表&lt;/strong&gt;作为 List 类型的底层数据结构；&lt;/li&gt;
 &lt;li&gt;如果列表的元素不满足上面的条件，Redis 会使用&lt;strong&gt;双向链表&lt;/strong&gt;作为 List 类型的底层数据结构；&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;但是&lt;strong&gt;在 Redis 3.2 版本之后，List 数据类型底层数据结构就只由 quicklist 实现了，替代了双向链表和压缩列表&lt;/strong&gt;。&lt;/p&gt;
-&lt;h3 id=&#34;常用命令&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#常用命令&#34;&gt;#&lt;/a&gt; 常用命令&lt;/h3&gt;
-&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 将一个或多个值 value 插入到 key 列表的表头 (最左边)，最后的值在最前面&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;LPUSH key value &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;value &lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;.&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 将一个或多个值 value 插入到 key 列表的表尾 (最右边)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;RPUSH key value &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;value &lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;.&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 移除并返回 key 列表的头元素&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;LPOP key     &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 移除并返回 key 列表的尾元素&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;RPOP key &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 返回列表 key 中指定区间内的元素，区间以偏移量 start 和 stop 指定，从 0 开始&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;LRANGE key start stop&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 从 key 列表表头弹出一个元素，没有就阻塞 timeout 秒，如果 timeout=0 则一直阻塞&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;BLPOP key &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;key &lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;.&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;timeout&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 从 key 列表表尾弹出一个元素，没有就阻塞 timeout 秒，如果 timeout=0 则一直阻塞&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;BRPOP key &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;key &lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;.&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;timeout&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h3 id=&#34;应用场景-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#应用场景-2&#34;&gt;#&lt;/a&gt; 应用场景&lt;/h3&gt;
-&lt;h4 id=&#34;消息队列&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#消息队列&#34;&gt;#&lt;/a&gt; 消息队列&lt;/h4&gt;
-&lt;p&gt;消息队列在存取消息时，必须要满足三个需求，分别是&lt;strong&gt;消息保序、处理重复的消息和保证消息可靠性&lt;/strong&gt;。&lt;/p&gt;
+&lt;h3 id=&#34;常用命令&#34;&gt;&lt;a href=&#34;#常用命令&#34; class=&#34;headerlink&#34; title=&#34;常用命令&#34;&gt;&lt;/a&gt;常用命令&lt;/h3&gt;&lt;pre&gt;&lt;code class=&#34;bash&#34;&gt;# 将一个或多个值value插入到key列表的表头(最左边)，最后的值在最前面
+LPUSH key value [value ...] 
+# 将一个或多个值value插入到key列表的表尾(最右边)
+RPUSH key value [value ...]
+# 移除并返回key列表的头元素
+LPOP key     
+# 移除并返回key列表的尾元素
+RPOP key 
+
+# 返回列表key中指定区间内的元素，区间以偏移量start和stop指定，从0开始
+LRANGE key start stop
+
+# 从key列表表头弹出一个元素，没有就阻塞timeout秒，如果timeout=0则一直阻塞
+BLPOP key [key ...] timeout
+# 从key列表表尾弹出一个元素，没有就阻塞timeout秒，如果timeout=0则一直阻塞
+BRPOP key [key ...] timeout
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;应用场景-1&#34;&gt;&lt;a href=&#34;#应用场景-1&#34; class=&#34;headerlink&#34; title=&#34;应用场景&#34;&gt;&lt;/a&gt;应用场景&lt;/h3&gt;&lt;h4 id=&#34;消息队列&#34;&gt;&lt;a href=&#34;#消息队列&#34; class=&#34;headerlink&#34; title=&#34;消息队列&#34;&gt;&lt;/a&gt;消息队列&lt;/h4&gt;&lt;p&gt;消息队列在存取消息时，必须要满足三个需求，分别是&lt;strong&gt;消息保序、处理重复的消息和保证消息可靠性&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;Redis 的 List 和 Stream 两种数据类型，就可以满足消息队列的这三个需求。我们先来了解下基于 List 的消息队列实现方法，后面在介绍 Stream 数据类型时候，在详细说说 Stream。&lt;/p&gt;
-&lt;h5 id=&#34;消息保序&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#消息保序&#34;&gt;#&lt;/a&gt; 消息保序&lt;/h5&gt;
-&lt;p&gt;List 可以使用 LPUSH + RPOP （或者反过来，RPUSH+LPOP）命令实现消息队列。&lt;/p&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/list%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
+&lt;h5 id=&#34;消息保序&#34;&gt;&lt;a href=&#34;#消息保序&#34; class=&#34;headerlink&#34; title=&#34;消息保序&#34;&gt;&lt;/a&gt;消息保序&lt;/h5&gt;&lt;p&gt;List 可以使用 LPUSH + RPOP （或者反过来，RPUSH+LPOP）命令实现消息队列。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/list%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;生产者使用  &lt;code&gt;LPUSH key value[value...]&lt;/code&gt;  将消息插入到队列的头部，如果 key 不存在则会创建一个空的队列再插入消息。&lt;/li&gt;
-&lt;li&gt;消费者使用  &lt;code&gt;RPOP key&lt;/code&gt;  依次读取队列的消息，先进先出。&lt;/li&gt;
+&lt;li&gt;生产者使用 &lt;code&gt;LPUSH key value[value...]&lt;/code&gt; 将消息插入到队列的头部，如果 key 不存在则会创建一个空的队列再插入消息。&lt;/li&gt;
+&lt;li&gt;消费者使用 &lt;code&gt;RPOP key&lt;/code&gt; 依次读取队列的消息，先进先出。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;潜在的性能风险点&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;在生产者往 List 中写入数据时，List 并不会主动地通知消费者有新消息写入，如果消费者想要及时处理消息，就需要在程序中不停地调用  &lt;code&gt;RPOP&lt;/code&gt;  命令（比如使用一个 while (1) 循环）。如果有新消息写入，RPOP 命令就会返回结果，否则，RPOP 命令返回空值，再继续循环。&lt;/p&gt;
-&lt;p&gt;所以，即使没有新消息写入 List，消费者也要不停地调用 RPOP 命令，这就会导致消费者程序的 CPU 一直消耗在执行 RPOP 命令上，带来不必要的性能损失。&lt;/p&gt;
-&lt;p&gt;为了解决这个问题，Redis 提供了 BRPOP 命令。&lt;strong&gt;BRPOP 命令也称为阻塞式读取，客户端在没有读到队列数据时，自动阻塞，直到有新的数据写入队列，再开始读取新数据&lt;/strong&gt;。和消费者程序自己不停地调用 RPOP 命令相比，这种方式能节省 CPU 开销。&lt;/p&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
-&lt;h5 id=&#34;处理重复的消息&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#处理重复的消息&#34;&gt;#&lt;/a&gt; 处理重复的消息&lt;/h5&gt;
-&lt;p&gt;消费者要实现重复消息的判断，需要 2 个方面的要求：&lt;/p&gt;
+&lt;p&gt;在生产者往 List 中写入数据时，List 并不会主动地通知消费者有新消息写入，如果消费者想要及时处理消息，就需要在程序中不停地调用 &lt;code&gt;RPOP&lt;/code&gt; 命令（比如使用一个while(1)循环）。如果有新消息写入，RPOP命令就会返回结果，否则，RPOP命令返回空值，再继续循环。&lt;/p&gt;
+&lt;p&gt;所以，即使没有新消息写入List，消费者也要不停地调用 RPOP 命令，这就会导致消费者程序的 CPU 一直消耗在执行 RPOP 命令上，带来不必要的性能损失。&lt;/p&gt;
+&lt;p&gt;为了解决这个问题，Redis提供了 BRPOP 命令。&lt;strong&gt;BRPOP命令也称为阻塞式读取，客户端在没有读到队列数据时，自动阻塞，直到有新的数据写入队列，再开始读取新数据&lt;/strong&gt;。和消费者程序自己不停地调用RPOP命令相比，这种方式能节省CPU开销。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
+&lt;h5 id=&#34;处理重复的消息&#34;&gt;&lt;a href=&#34;#处理重复的消息&#34; class=&#34;headerlink&#34; title=&#34;处理重复的消息&#34;&gt;&lt;/a&gt;处理重复的消息&lt;/h5&gt;&lt;p&gt;消费者要实现重复消息的判断，需要 2 个方面的要求：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;每个消息都有一个全局的 ID。&lt;/li&gt;
 &lt;li&gt;消费者要记录已经处理过的消息的 ID。当收到一条消息后，消费者程序就可以对比收到的消息 ID 和记录的已处理过的消息 ID，来判断当前收到的消息有没有经过处理。如果已经处理过，那么，消费者程序就不再进行处理了。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;但是 &lt;strong&gt;List 并不会为每个消息生成 ID 号，所以我们需要自行为每个消息生成一个全局唯一 ID&lt;/strong&gt;，生成之后，我们在用 LPUSH 命令把消息插入 List 时，需要在消息中包含这个全局唯一 ID。&lt;/p&gt;
+&lt;p&gt;但是 &lt;strong&gt;List 并不会为每个消息生成 ID 号，所以我们需要自行为每个消息生成一个全局唯一ID&lt;/strong&gt;，生成之后，我们在用 LPUSH 命令把消息插入 List 时，需要在消息中包含这个全局唯一 ID。&lt;/p&gt;
 &lt;p&gt;例如，我们执行以下命令，就把一条全局 ID 为 111000102、库存量为 99 的消息插入了消息队列：&lt;/p&gt;
-&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; LPUSH mq &lt;span class=&#34;token string&#34;&gt;&#34;111000102:stock:99&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;integer&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h5 id=&#34;保证消息可靠性&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#保证消息可靠性&#34;&gt;#&lt;/a&gt; 保证消息可靠性&lt;/h5&gt;
-&lt;p&gt;当消费者程序从 List 中读取一条消息后，List 就不会再留存这条消息了。所以，如果消费者程序在处理消息的过程出现了故障或宕机，就会导致消息没有处理完成，那么，消费者程序再次启动后，就没法再次从 List 中读取消息了。&lt;/p&gt;
-&lt;p&gt;为了留存消息，List 类型提供了  &lt;code&gt;BRPOPLPUSH&lt;/code&gt;  命令，这个命令的&lt;strong&gt;作用是让消费者程序从一个 List 中读取消息，同时，Redis 会把这个消息再插入到另一个 List（可以叫作备份 List）留存&lt;/strong&gt;。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;bash&#34;&gt;&amp;gt; LPUSH mq &amp;quot;111000102:stock:99&amp;quot;
+(integer) 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h5 id=&#34;保证消息可靠性&#34;&gt;&lt;a href=&#34;#保证消息可靠性&#34; class=&#34;headerlink&#34; title=&#34;保证消息可靠性&#34;&gt;&lt;/a&gt;保证消息可靠性&lt;/h5&gt;&lt;p&gt;当消费者程序从 List 中读取一条消息后，List 就不会再留存这条消息了。所以，如果消费者程序在处理消息的过程出现了故障或宕机，就会导致消息没有处理完成，那么，消费者程序再次启动后，就没法再次从 List 中读取消息了。&lt;/p&gt;
+&lt;p&gt;为了留存消息，List 类型提供了 &lt;code&gt;BRPOPLPUSH&lt;/code&gt; 命令，这个命令的&lt;strong&gt;作用是让消费者程序从一个 List 中读取消息，同时，Redis 会把这个消息再插入到另一个 List（可以叫作备份 List）留存&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;这样一来，如果消费者程序读了消息但没能正常处理，等它重启后，就可以从备份 List 中重新读取消息并进行处理了。&lt;/p&gt;
 &lt;p&gt;好了，到这里可以知道基于 List 类型的消息队列，满足消息队列的三大需求（消息保序、处理重复的消息和保证消息可靠性）。&lt;/p&gt;
 &lt;ul&gt;
@@ -157,43 +232,695 @@
 &lt;p&gt;&lt;strong&gt;List 不支持多个消费者消费同一条消息&lt;/strong&gt;，因为一旦消费者拉取一条消息后，这条消息就从 List 中删除了，无法被其它消费者再次消费。&lt;/p&gt;
 &lt;p&gt;要实现一条消息可以被多个消费者消费，那么就要将多个消费者组成一个消费组，使得多个消费者可以消费同一条消息，但是 &lt;strong&gt;List 类型并不支持消费组的实现&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;这就要说起 Redis 从 5.0 版本开始提供的 Stream 数据类型了，Stream 同样能够满足消息队列的三大需求，而且它还支持「消费组」形式的消息读取。&lt;/p&gt;
-&lt;h2 id=&#34;hash&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#hash&#34;&gt;#&lt;/a&gt; Hash&lt;/h2&gt;
-&lt;h3 id=&#34;介绍-3&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#介绍-3&#34;&gt;#&lt;/a&gt; 介绍&lt;/h3&gt;
-&lt;p&gt;Hash 是一个键值对（key - value）集合，其中 value 的形式如：  &lt;code&gt;value=[&amp;#123;field1，value1&amp;#125;，...&amp;#123;fieldN，valueN&amp;#125;]&lt;/code&gt; 。Hash 特别适合用于存储对象。&lt;/p&gt;
+&lt;h2 id=&#34;Hash&#34;&gt;&lt;a href=&#34;#Hash&#34; class=&#34;headerlink&#34; title=&#34;Hash&#34;&gt;&lt;/a&gt;Hash&lt;/h2&gt;&lt;h3 id=&#34;介绍-2&#34;&gt;&lt;a href=&#34;#介绍-2&#34; class=&#34;headerlink&#34; title=&#34;介绍&#34;&gt;&lt;/a&gt;介绍&lt;/h3&gt;&lt;p&gt;Hash 是一个键值对（key - value）集合，其中 value 的形式如： &lt;code&gt;value=[&amp;#123;field1，value1&amp;#125;，...&amp;#123;fieldN，valueN&amp;#125;]&lt;/code&gt;。Hash 特别适合用于存储对象。&lt;/p&gt;
 &lt;p&gt;Hash 与 String 对象的区别如下图所示:&lt;/p&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/hash.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
-&lt;h3 id=&#34;内部实现-3&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#内部实现-3&#34;&gt;#&lt;/a&gt; 内部实现&lt;/h3&gt;
-&lt;p&gt;Hash 类型的底层数据结构是由&lt;strong&gt;压缩列表或哈希表&lt;/strong&gt;实现的：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/hash.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;内部实现-2&#34;&gt;&lt;a href=&#34;#内部实现-2&#34; class=&#34;headerlink&#34; title=&#34;内部实现&#34;&gt;&lt;/a&gt;内部实现&lt;/h3&gt;&lt;p&gt;Hash 类型的底层数据结构是由&lt;strong&gt;压缩列表或哈希表&lt;/strong&gt;实现的： &lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;如果哈希类型元素个数小于  &lt;code&gt;512&lt;/code&gt;  个（默认值，可由  &lt;code&gt;hash-max-ziplist-entries&lt;/code&gt;  配置），所有值小于  &lt;code&gt;64&lt;/code&gt;  字节（默认值，可由  &lt;code&gt;hash-max-ziplist-value&lt;/code&gt;  配置）的话，Redis 会使用&lt;strong&gt;压缩列表&lt;/strong&gt;作为 Hash 类型的底层数据结构；&lt;/li&gt;
+&lt;li&gt;如果哈希类型元素个数小于 &lt;code&gt;512&lt;/code&gt; 个（默认值，可由 &lt;code&gt;hash-max-ziplist-entries&lt;/code&gt; 配置），所有值小于 &lt;code&gt;64&lt;/code&gt; 字节（默认值，可由 &lt;code&gt;hash-max-ziplist-value&lt;/code&gt; 配置）的话，Redis 会使用&lt;strong&gt;压缩列表&lt;/strong&gt;作为 Hash 类型的底层数据结构；&lt;/li&gt;
 &lt;li&gt;如果哈希类型元素不满足上面条件，Redis 会使用&lt;strong&gt;哈希表&lt;/strong&gt;作为 Hash 类型的 底层数据结构。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;在 Redis 7.0 中，压缩列表数据结构已经废弃了，交由 listpack 数据结构来实现了&lt;/strong&gt;&lt;/p&gt;
-&lt;h3 id=&#34;常用命令-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#常用命令-2&#34;&gt;#&lt;/a&gt; 常用命令&lt;/h3&gt;
-&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 存储一个哈希表 key 的键值&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;HSET key field value   &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 获取哈希表 key 对应的 field 键值&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;HGET key field&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 在一个哈希表 key 中存储多个键值对&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;HMSET key field value &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;field value&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;.&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 批量获取哈希表 key 中多个 field 键值&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;HMGET key field &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;field &lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;.&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;       &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 删除哈希表 key 中的 field 键值&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;HDEL key field &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;field &lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;.&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;    &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 返回哈希表 key 中 field 的数量&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;HLEN key       &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 返回哈希表 key 中所有的键值&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;HGETALL key &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;18&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 为哈希表 key 中 field 键的值加上增量 n&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;19&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;HINCRBY key field n&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h3 id=&#34;应用场景-3&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#应用场景-3&#34;&gt;#&lt;/a&gt; 应用场景&lt;/h3&gt;
-&lt;h4 id=&#34;缓存对象-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#缓存对象-2&#34;&gt;#&lt;/a&gt; 缓存对象&lt;/h4&gt;
-&lt;p&gt;Hash 类型的 （key，field， value） 的结构与对象的（对象 id， 属性， 值）的结构相似，也可以用来存储对象。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;在 Redis 7.0 中，压缩列表数据结构已经废弃了，交由 listpack 数据结构来实现了&lt;/strong&gt; &lt;/p&gt;
+&lt;h3 id=&#34;常用命令-1&#34;&gt;&lt;a href=&#34;#常用命令-1&#34; class=&#34;headerlink&#34; title=&#34;常用命令&#34;&gt;&lt;/a&gt;常用命令&lt;/h3&gt;&lt;pre&gt;&lt;code class=&#34;bash&#34;&gt;# 存储一个哈希表key的键值
+HSET key field value   
+# 获取哈希表key对应的field键值
+HGET key field
+
+# 在一个哈希表key中存储多个键值对
+HMSET key field value [field value...] 
+# 批量获取哈希表key中多个field键值
+HMGET key field [field ...]       
+# 删除哈希表key中的field键值
+HDEL key field [field ...]    
+
+# 返回哈希表key中field的数量
+HLEN key       
+# 返回哈希表key中所有的键值
+HGETALL key 
+
+# 为哈希表key中field键的值加上增量n
+HINCRBY key field n                   
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;应用场景-2&#34;&gt;&lt;a href=&#34;#应用场景-2&#34; class=&#34;headerlink&#34; title=&#34;应用场景&#34;&gt;&lt;/a&gt;应用场景&lt;/h3&gt;&lt;h4 id=&#34;缓存对象-1&#34;&gt;&lt;a href=&#34;#缓存对象-1&#34; class=&#34;headerlink&#34; title=&#34;缓存对象&#34;&gt;&lt;/a&gt;缓存对象&lt;/h4&gt;&lt;p&gt;Hash 类型的 （key，field， value） 的结构与对象的（对象id， 属性， 值）的结构相似，也可以用来存储对象。&lt;/p&gt;
 &lt;p&gt;我们以用户信息为例，它在关系型数据库中的结构是这样的：&lt;/p&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
 &lt;p&gt;我们可以使用如下命令，将用户对象的信息存储到 Hash 类型：&lt;/p&gt;
-&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 存储一个哈希表 uid:1 的键值&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; HMSET uid:1 name Tom age &lt;span class=&#34;token number&#34;&gt;15&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token number&#34;&gt;2&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 存储一个哈希表 uid:2 的键值&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; HMSET uid:2 name Jerry age &lt;span class=&#34;token number&#34;&gt;13&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token number&#34;&gt;2&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 获取哈希表用户 id 为 1 中所有的键值&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; HGETALL uid:1&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;name&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token number&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;Tom&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token number&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;age&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token number&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;15&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;Redis Hash 存储其结构如下图：&lt;/p&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/hash%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;在介绍 String 类型的应用场景时有所介绍，String + Json 也是存储对象的一种方式，那么存储对象时，到底用 String + json 还是用 Hash 呢？&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;bash&#34;&gt;# 存储一个哈希表uid:1的键值
+&amp;gt; HMSET uid:1 name Tom age 15
+2
+# 存储一个哈希表uid:2的键值
+&amp;gt; HMSET uid:2 name Jerry age 13
+2
+# 获取哈希表用户id为1中所有的键值
+&amp;gt; HGETALL uid:1
+1) &amp;quot;name&amp;quot;
+2) &amp;quot;Tom&amp;quot;
+3) &amp;quot;age&amp;quot;
+4) &amp;quot;15&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Redis Hash 存储其结构如下图：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/hash%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
+&lt;p&gt;在介绍 String 类型的应用场景时有所介绍，String + Json也是存储对象的一种方式，那么存储对象时，到底用 String + json 还是用 Hash 呢？&lt;/p&gt;
 &lt;p&gt;一般对象用 String + Json 存储，对象中某些频繁变化的属性可以考虑抽出来用 Hash 类型存储。&lt;/p&gt;
-&lt;h4 id=&#34;购物车&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#购物车&#34;&gt;#&lt;/a&gt; 购物车&lt;/h4&gt;
-&lt;p&gt;以用户 id 为 key，商品 id 为 field，商品数量为 value，恰好构成了购物车的 3 个要素，如下图所示。&lt;/p&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E8%B4%AD%E7%89%A9%E8%BD%A6.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
+&lt;h4 id=&#34;购物车&#34;&gt;&lt;a href=&#34;#购物车&#34; class=&#34;headerlink&#34; title=&#34;购物车&#34;&gt;&lt;/a&gt;购物车&lt;/h4&gt;&lt;p&gt;以用户 id 为 key，商品 id 为 field，商品数量为 value，恰好构成了购物车的3个要素，如下图所示。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E8%B4%AD%E7%89%A9%E8%BD%A6.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
 &lt;p&gt;涉及的命令如下：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;添加商品： &lt;code&gt;HSET cart:&amp;#123;用户id&amp;#125; &amp;#123;商品id&amp;#125; 1&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;添加数量： &lt;code&gt;HINCRBY cart:&amp;#123;用户id&amp;#125; &amp;#123;商品id&amp;#125; 1&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;商品总数： &lt;code&gt;HLEN cart:&amp;#123;用户id&amp;#125;&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;删除商品： &lt;code&gt;HDEL cart:&amp;#123;用户id&amp;#125; &amp;#123;商品id&amp;#125;&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;获取购物车所有商品： &lt;code&gt;HGETALL cart:&amp;#123;用户id&amp;#125;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;添加商品：&lt;code&gt;HSET cart:&amp;#123;用户id&amp;#125; &amp;#123;商品id&amp;#125; 1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;添加数量：&lt;code&gt;HINCRBY cart:&amp;#123;用户id&amp;#125; &amp;#123;商品id&amp;#125; 1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;商品总数：&lt;code&gt;HLEN cart:&amp;#123;用户id&amp;#125;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;删除商品：&lt;code&gt;HDEL cart:&amp;#123;用户id&amp;#125; &amp;#123;商品id&amp;#125;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;获取购物车所有商品：&lt;code&gt;HGETALL cart:&amp;#123;用户id&amp;#125;&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;当前仅仅是将商品 ID 存储到了 Redis 中，在回显商品具体信息的时候，还需要拿着商品 id 查询一次数据库，获取完整的商品的信息。&lt;/p&gt;
-&lt;h1 id=&#34;参考文章&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考文章&#34;&gt;#&lt;/a&gt; 参考文章&lt;/h1&gt;
-&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cueGlhb2xpbmNvZGluZy5jb20vcmVkaXMvZGF0YV9zdHJ1Y3QvY29tbWFuZC5odG1s&#34;&gt;https://www.xiaolincoding.com/redis/data_struct/command.html&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;当前仅仅是将商品ID存储到了Redis 中，在回显商品具体信息的时候，还需要拿着商品 id 查询一次数据库，获取完整的商品的信息。&lt;/p&gt;
+&lt;h2 id=&#34;Set&#34;&gt;&lt;a href=&#34;#Set&#34; class=&#34;headerlink&#34; title=&#34;Set&#34;&gt;&lt;/a&gt;Set&lt;/h2&gt;&lt;h3 id=&#34;介绍-3&#34;&gt;&lt;a href=&#34;#介绍-3&#34; class=&#34;headerlink&#34; title=&#34;介绍&#34;&gt;&lt;/a&gt;介绍&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;无序并唯一的键值集合，存储顺序不会按照插入的先后顺序进行存储&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;一个集合最多可以存储 &lt;code&gt;2^32-1&lt;/code&gt; 个元素。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;概念和数学中个的集合基本类似，可以交集，并集，差集等等，所以 Set 类型除了支持集合内的增删改查，同时还支持多个集合取交集、并集、差集。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;Set与List区别&#34;&gt;&lt;a href=&#34;#Set与List区别&#34; class=&#34;headerlink&#34; title=&#34;Set与List区别&#34;&gt;&lt;/a&gt;Set与List区别&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;List可储存重复元素，Set只能储存非重复元素&lt;/li&gt;
+&lt;li&gt;List按照存放先后顺序储存，Set无序&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;内部实现-3&#34;&gt;&lt;a href=&#34;#内部实现-3&#34; class=&#34;headerlink&#34; title=&#34;内部实现&#34;&gt;&lt;/a&gt;内部实现&lt;/h3&gt;&lt;p&gt;Set 类型的底层数据结构是由&lt;strong&gt;哈希表或整数集合&lt;/strong&gt;实现的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果集合中的元素都是整数且元素个数小于 &lt;code&gt;512&lt;/code&gt; （默认值，&lt;code&gt;set-maxintset-entries&lt;/code&gt;配置）个，Redis 会使用&lt;strong&gt;整数集合&lt;/strong&gt;作为 Set 类型的底层数据结构；&lt;/li&gt;
+&lt;li&gt;如果集合中的元素不满足上面条件，则 Redis 使用&lt;strong&gt;哈希表&lt;/strong&gt;作为 Set 类型的底层数据结构。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;常用命令-2&#34;&gt;&lt;a href=&#34;#常用命令-2&#34; class=&#34;headerlink&#34; title=&#34;常用命令&#34;&gt;&lt;/a&gt;常用命令&lt;/h3&gt;&lt;p&gt;Set常用操作：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;# 往集合key中存入元素，元素存在则忽略，若key不存在则新建
+SADD key member [member ...]
+# 从集合key中删除元素
+SREM key member [member ...] 
+# 获取集合key中所有元素
+SMEMBERS key
+# 获取集合key中的元素个数
+SCARD key
+
+# 判断member元素是否存在于集合key中
+SISMEMBER key member
+
+# 从集合key中随机选出count个元素，元素不从key中删除
+SRANDMEMBER key [count]
+# 从集合key中随机选出count个元素，元素从key中删除
+SPOP key [count]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Set运算操作：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;# 交集运算
+SINTER key [key ...]
+# 将交集结果存入新集合destination中
+SINTERSTORE destination key [key ...]
+
+# 并集运算
+SUNION key [key ...]
+# 将并集结果存入新集合destination中
+SUNIONSTORE destination key [key ...]
+
+# 差集运算
+SDIFF key [key ...]
+# 将差集结果存入新集合destination中
+SDIFFSTORE destination key [key ...]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;应用场景-3&#34;&gt;&lt;a href=&#34;#应用场景-3&#34; class=&#34;headerlink&#34; title=&#34;应用场景&#34;&gt;&lt;/a&gt;应用场景&lt;/h3&gt;&lt;p&gt;集合的主要几个特性，无序、不可重复、支持并交差等操作。&lt;/p&gt;
+&lt;p&gt;因此 Set 类型比较适合用来数据去重和保障数据的唯一性，还可以用来统计多个集合的交集、错集和并集等，当我们存储的数据是无序并且需要去重的情况下，比较适合使用集合类型进行存储。&lt;/p&gt;
+&lt;p&gt;但是要提醒你一下，这里有一个潜在的风险。&lt;strong&gt;Set 的差集、并集和交集的计算复杂度较高，在数据量较大的情况下，如果直接执行这些计算，会导致 Redis 实例阻塞&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;在主从集群中，为了避免主库因为 Set 做聚合计算（交集、差集、并集）时导致主库被阻塞，我们可以选择一个从库完成聚合统计，或者把数据返回给客户端，由客户端来完成聚合统计。&lt;/p&gt;
+&lt;h4 id=&#34;点赞&#34;&gt;&lt;a href=&#34;#点赞&#34; class=&#34;headerlink&#34; title=&#34;点赞&#34;&gt;&lt;/a&gt;点赞&lt;/h4&gt;&lt;p&gt;Set 类型可以保证一个用户只能点一个赞，这里举例子一个场景，key 是文章id，value 是用户id。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;uid:1&lt;/code&gt; 、&lt;code&gt;uid:2&lt;/code&gt;、&lt;code&gt;uid:3&lt;/code&gt; 三个用户分别对 article:1 文章点赞了。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;# uid:1 用户对文章 article:1 点赞
+&amp;gt; SADD article:1 uid:1
+(integer) 1
+# uid:2 用户对文章 article:1 点赞
+&amp;gt; SADD article:1 uid:2
+(integer) 1
+# uid:3 用户对文章 article:1 点赞
+&amp;gt; SADD article:1 uid:3
+(integer) 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;uid:1&lt;/code&gt; 取消了对 article:1 文章点赞。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;text&#34;&gt;&amp;gt; SREM article:1 uid:1
+(integer) 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;获取 article:1 文章所有点赞用户 :&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;&amp;gt; SMEMBERS article:1
+1) &amp;quot;uid:3&amp;quot;
+2) &amp;quot;uid:2&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;获取 article:1 文章的点赞用户数量：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;&amp;gt; SCARD article:1
+(integer) 2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;判断用户 &lt;code&gt;uid:1&lt;/code&gt; 是否对文章 article:1 点赞了：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;&amp;gt; SISMEMBER article:1 uid:1
+(integer) 0  # 返回0说明没点赞，返回1则说明点赞了
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;共同关注&#34;&gt;&lt;a href=&#34;#共同关注&#34; class=&#34;headerlink&#34; title=&#34;共同关注&#34;&gt;&lt;/a&gt;共同关注&lt;/h4&gt;&lt;p&gt;Set 类型支持交集运算，所以可以用来计算共同关注的好友、公众号等。&lt;/p&gt;
+&lt;p&gt;key 可以是用户id，value 则是已关注的公众号的id。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;uid:1&lt;/code&gt; 用户关注公众号 id 为 5、6、7、8、9，&lt;code&gt;uid:2&lt;/code&gt; 用户关注公众号 id 为 7、8、9、10、11。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;# uid:1 用户关注公众号 id 为 5、6、7、8、9
+&amp;gt; SADD uid:1 5 6 7 8 9
+(integer) 5
+# uid:2  用户关注公众号 id 为 7、8、9、10、11
+&amp;gt; SADD uid:2 7 8 9 10 11
+(integer) 5
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;uid:1&lt;/code&gt; 和 &lt;code&gt;uid:2&lt;/code&gt; 共同关注的公众号：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;# 获取共同关注
+&amp;gt; SINTER uid:1 uid:2
+1) &amp;quot;7&amp;quot;
+2) &amp;quot;8&amp;quot;
+3) &amp;quot;9&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;给 &lt;code&gt;uid:2&lt;/code&gt; 推荐 &lt;code&gt;uid:1&lt;/code&gt; 关注的公众号：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;&amp;gt; SDIFF uid:1 uid:2
+1) &amp;quot;5&amp;quot;
+2) &amp;quot;6&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;验证某个公众号是否同时被 &lt;code&gt;uid:1&lt;/code&gt; 或 &lt;code&gt;uid:2&lt;/code&gt; 关注:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;&amp;gt; SISMEMBER uid:1 5
+(integer) 1 # 返回0，说明关注了
+&amp;gt; SISMEMBER uid:2 5
+(integer) 0 # 返回0，说明没关注
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;抽奖活动&#34;&gt;&lt;a href=&#34;#抽奖活动&#34; class=&#34;headerlink&#34; title=&#34;抽奖活动&#34;&gt;&lt;/a&gt;抽奖活动&lt;/h4&gt;&lt;p&gt;存储某活动中中奖的用户名 ，Set 类型因为有去重功能，可以保证同一个用户不会中奖两次。&lt;/p&gt;
+&lt;p&gt;key为抽奖活动名，value为员工名称，把所有员工名称放入抽奖箱 ：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;&amp;gt;SADD lucky Tom Jerry John Sean Marry Lindy Sary Mark
+(integer) 5
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果允许重复中奖，可以使用 SRANDMEMBER 命令。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;# 抽取 1 个一等奖：
+&amp;gt; SRANDMEMBER lucky 1
+1) &amp;quot;Tom&amp;quot;
+# 抽取 2 个二等奖：
+&amp;gt; SRANDMEMBER lucky 2
+1) &amp;quot;Mark&amp;quot;
+2) &amp;quot;Jerry&amp;quot;
+# 抽取 3 个三等奖：
+&amp;gt; SRANDMEMBER lucky 3
+1) &amp;quot;Sary&amp;quot;
+2) &amp;quot;Tom&amp;quot;
+3) &amp;quot;Jerry&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果不允许重复中奖，可以使用 SPOP 命令。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;# 抽取一等奖1个
+&amp;gt; SPOP lucky 1
+1) &amp;quot;Sary&amp;quot;
+# 抽取二等奖2个
+&amp;gt; SPOP lucky 2
+1) &amp;quot;Jerry&amp;quot;
+2) &amp;quot;Mark&amp;quot;
+# 抽取三等奖3个
+&amp;gt; SPOP lucky 3
+1) &amp;quot;John&amp;quot;
+2) &amp;quot;Sean&amp;quot;
+3) &amp;quot;Lindy&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;Zset&#34;&gt;&lt;a href=&#34;#Zset&#34; class=&#34;headerlink&#34; title=&#34;Zset&#34;&gt;&lt;/a&gt;Zset&lt;/h2&gt;&lt;h3 id=&#34;介绍-4&#34;&gt;&lt;a href=&#34;#介绍-4&#34; class=&#34;headerlink&#34; title=&#34;介绍&#34;&gt;&lt;/a&gt;介绍&lt;/h3&gt;&lt;p&gt;Zset 类型（有序集合类型）相比于 Set 类型多了一个排序属性 score（分值），对于有序集合 ZSet 来说，每个存储元素相当于有两个值组成的，一个是有序集合的元素值，一个是排序值。&lt;/p&gt;
+&lt;p&gt;有序集合保留了集合不能有重复成员的特性（分值可以重复），但不同的是，有序集合中的元素可以排序。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/zset.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;内部实现-4&#34;&gt;&lt;a href=&#34;#内部实现-4&#34; class=&#34;headerlink&#34; title=&#34;内部实现&#34;&gt;&lt;/a&gt;内部实现&lt;/h3&gt;&lt;p&gt;Zset 类型的底层数据结构是由&lt;strong&gt;压缩列表或跳表&lt;/strong&gt;实现的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果有序集合的元素个数小于 &lt;code&gt;128&lt;/code&gt; 个，并且每个元素的值小于 &lt;code&gt;64&lt;/code&gt; 字节时，Redis 会使用&lt;strong&gt;压缩列表&lt;/strong&gt;作为 Zset 类型的底层数据结构；&lt;/li&gt;
+&lt;li&gt;如果有序集合的元素不满足上面的条件，Redis 会使用&lt;strong&gt;跳表&lt;/strong&gt;作为 Zset 类型的底层数据结构；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;在 Redis 7.0 中，压缩列表数据结构已经废弃了，交由 listpack 数据结构来实现了。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;常用命令-3&#34;&gt;&lt;a href=&#34;#常用命令-3&#34; class=&#34;headerlink&#34; title=&#34;常用命令&#34;&gt;&lt;/a&gt;常用命令&lt;/h3&gt;&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;# 往有序集合key中加入带分值元素
+ZADD key score member [[score member]...]   
+# 往有序集合key中删除元素
+ZREM key member [member...]                 
+# 返回有序集合key中元素member的分值
+ZSCORE key member
+# 返回有序集合key中元素个数
+ZCARD key 
+
+# 为有序集合key中元素member的分值加上increment
+ZINCRBY key increment member 
+
+# 正序获取有序集合key从start下标到stop下标的元素
+ZRANGE key start stop [WITHSCORES]
+# 倒序获取有序集合key从start下标到stop下标的元素
+ZREVRANGE key start stop [WITHSCORES]
+
+# 返回有序集合中指定分数区间内的成员，分数由低到高排序。
+ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT offset count]
+
+# 返回指定成员区间内的成员，按字典正序排列, 分数必须相同。
+ZRANGEBYLEX key min max [LIMIT offset count]
+# 返回指定成员区间内的成员，按字典倒序排列, 分数必须相同
+ZREVRANGEBYLEX key max min [LIMIT offset count]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Zset 运算操作（相比于 Set 类型，ZSet 类型没有支持差集运算）：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;# 并集计算(相同元素分值相加)，numberkeys一共多少个key，WEIGHTS每个key对应的分值乘积
+ZUNIONSTORE destkey numberkeys key [key...] 
+# 交集计算(相同元素分值相加)，numberkeys一共多少个key，WEIGHTS每个key对应的分值乘积
+ZINTERSTORE destkey numberkeys key [key...]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;应用场景-4&#34;&gt;&lt;a href=&#34;#应用场景-4&#34; class=&#34;headerlink&#34; title=&#34;应用场景&#34;&gt;&lt;/a&gt;应用场景&lt;/h3&gt;&lt;p&gt;Zset 类型（Sorted Set，有序集合） 可以根据元素的权重来排序，我们可以自己来决定每个元素的权重值。比如说，我们可以根据元素插入 Sorted Set 的时间确定权重值，先插入的元素权重小，后插入的元素权重大。&lt;/p&gt;
+&lt;p&gt;在面对需要展示最新列表、排行榜等场景时，如果数据更新频繁或者需要分页显示，可以优先考虑使用 Sorted Set。&lt;/p&gt;
+&lt;h4 id=&#34;排行榜&#34;&gt;&lt;a href=&#34;#排行榜&#34; class=&#34;headerlink&#34; title=&#34;排行榜&#34;&gt;&lt;/a&gt;排行榜&lt;/h4&gt;&lt;p&gt;有序集合比较典型的使用场景就是排行榜。例如学生成绩的排名榜、游戏积分排行榜、视频播放排名、电商系统中商品的销量排名等。&lt;/p&gt;
+&lt;p&gt;我们以博文点赞排名为例，小林发表了五篇博文，分别获得赞为 200、40、100、50、150。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;# arcticle:1 文章获得了200个赞
+&amp;gt; ZADD user:xiaolin:ranking 200 arcticle:1
+(integer) 1
+# arcticle:2 文章获得了40个赞
+&amp;gt; ZADD user:xiaolin:ranking 40 arcticle:2
+(integer) 1
+# arcticle:3 文章获得了100个赞
+&amp;gt; ZADD user:xiaolin:ranking 100 arcticle:3
+(integer) 1
+# arcticle:4 文章获得了50个赞
+&amp;gt; ZADD user:xiaolin:ranking 50 arcticle:4
+(integer) 1
+# arcticle:5 文章获得了150个赞
+&amp;gt; ZADD user:xiaolin:ranking 150 arcticle:5
+(integer) 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;文章 arcticle:4 新增一个赞，可以使用 ZINCRBY 命令（为有序集合key中元素member的分值加上increment）：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;&amp;gt; ZINCRBY user:xiaolin:ranking 1 arcticle:4
+&amp;quot;51&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;查看某篇文章的赞数，可以使用 ZSCORE 命令（返回有序集合key中元素个数）：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;&amp;gt; ZSCORE user:xiaolin:ranking arcticle:4
+&amp;quot;50&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;获取小林文章赞数最多的 3 篇文章，可以使用 ZREVRANGE 命令（倒序获取有序集合 key 从start下标到stop下标的元素）：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;# WITHSCORES 表示把 score 也显示出来
+&amp;gt; ZREVRANGE user:xiaolin:ranking 0 2 WITHSCORES
+1) &amp;quot;arcticle:1&amp;quot;
+2) &amp;quot;200&amp;quot;
+3) &amp;quot;arcticle:5&amp;quot;
+4) &amp;quot;150&amp;quot;
+5) &amp;quot;arcticle:3&amp;quot;
+6) &amp;quot;100&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;获取小林 100 赞到 200 赞的文章，可以使用 ZRANGEBYSCORE 命令（返回有序集合中指定分数区间内的成员，分数由低到高排序）：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;&amp;gt; ZRANGEBYSCORE user:xiaolin:ranking 100 200 WITHSCORES
+1) &amp;quot;arcticle:3&amp;quot;
+2) &amp;quot;100&amp;quot;
+3) &amp;quot;arcticle:5&amp;quot;
+4) &amp;quot;150&amp;quot;
+5) &amp;quot;arcticle:1&amp;quot;
+6) &amp;quot;200&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;电话、姓名排序&#34;&gt;&lt;a href=&#34;#电话、姓名排序&#34; class=&#34;headerlink&#34; title=&#34;电话、姓名排序&#34;&gt;&lt;/a&gt;电话、姓名排序&lt;/h4&gt;&lt;p&gt;使用有序集合的 &lt;code&gt;ZRANGEBYLEX&lt;/code&gt; 或 &lt;code&gt;ZREVRANGEBYLEX&lt;/code&gt; 可以帮助我们实现电话号码或姓名的排序，我们以 &lt;code&gt;ZRANGEBYLEX&lt;/code&gt; （返回指定成员区间内的成员，按 key 正序排列，分数必须相同）为例。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意：不要在分数不一致的 SortSet 集合中去使用 ZRANGEBYLEX和 ZREVRANGEBYLEX 指令，因为获取的结果会不准确。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;1、电话排序&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;我们可以将电话号码存储到 SortSet 中，然后根据需要来获取号段：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;&amp;gt; ZADD phone 0 13100111100 0 13110114300 0 13132110901 
+(integer) 3
+&amp;gt; ZADD phone 0 13200111100 0 13210414300 0 13252110901 
+(integer) 3
+&amp;gt; ZADD phone 0 13300111100 0 13310414300 0 13352110901 
+(integer) 3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;获取所有号码:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;&amp;gt; ZRANGEBYLEX phone - +
+1) &amp;quot;13100111100&amp;quot;
+2) &amp;quot;13110114300&amp;quot;
+3) &amp;quot;13132110901&amp;quot;
+4) &amp;quot;13200111100&amp;quot;
+5) &amp;quot;13210414300&amp;quot;
+6) &amp;quot;13252110901&amp;quot;
+7) &amp;quot;13300111100&amp;quot;
+8) &amp;quot;13310414300&amp;quot;
+9) &amp;quot;13352110901&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;获取 132 号段的号码：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;&amp;gt; ZRANGEBYLEX phone [132 (133
+1) &amp;quot;13200111100&amp;quot;
+2) &amp;quot;13210414300&amp;quot;
+3) &amp;quot;13252110901&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;获取132、133号段的号码：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;&amp;gt; ZRANGEBYLEX phone [132 (134
+1) &amp;quot;13200111100&amp;quot;
+2) &amp;quot;13210414300&amp;quot;
+3) &amp;quot;13252110901&amp;quot;
+4) &amp;quot;13300111100&amp;quot;
+5) &amp;quot;13310414300&amp;quot;
+6) &amp;quot;13352110901&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;em&gt;2、姓名排序&lt;/em&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;&amp;gt; zadd names 0 Toumas 0 Jake 0 Bluetuo 0 Gaodeng 0 Aimini 0 Aidehua 
+(integer) 6
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;获取所有人的名字:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;&amp;gt; ZRANGEBYLEX names - +
+1) &amp;quot;Aidehua&amp;quot;
+2) &amp;quot;Aimini&amp;quot;
+3) &amp;quot;Bluetuo&amp;quot;
+4) &amp;quot;Gaodeng&amp;quot;
+5) &amp;quot;Jake&amp;quot;
+6) &amp;quot;Toumas&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;获取名字中大写字母A开头的所有人：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;&amp;gt; ZRANGEBYLEX names [A (B
+1) &amp;quot;Aidehua&amp;quot;
+2) &amp;quot;Aimini&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;获取名字中大写字母 C 到 Z 的所有人：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;&amp;gt; ZRANGEBYLEX names [C [Z
+1) &amp;quot;Gaodeng&amp;quot;
+2) &amp;quot;Jake&amp;quot;
+3) &amp;quot;Toumas&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;Bitmap&#34;&gt;&lt;a href=&#34;#Bitmap&#34; class=&#34;headerlink&#34; title=&#34;Bitmap&#34;&gt;&lt;/a&gt;Bitmap&lt;/h2&gt;&lt;h3 id=&#34;介绍-5&#34;&gt;&lt;a href=&#34;#介绍-5&#34; class=&#34;headerlink&#34; title=&#34;介绍&#34;&gt;&lt;/a&gt;介绍&lt;/h3&gt;&lt;p&gt;Bitmap，即位图，是一串连续的二进制数组（0和1），可以通过偏移量（offset）定位元素。BitMap通过最小的单位bit来进行&lt;code&gt;0|1&lt;/code&gt;的设置，表示某个元素的值或者状态，时间复杂度为O(1)。&lt;/p&gt;
+&lt;p&gt;由于 bit 是计算机中最小的单位，使用它进行储存将非常节省空间，特别适合一些数据量大且使用&lt;strong&gt;二值统计的场景&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/bitmap.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;内部实现-5&#34;&gt;&lt;a href=&#34;#内部实现-5&#34; class=&#34;headerlink&#34; title=&#34;内部实现&#34;&gt;&lt;/a&gt;内部实现&lt;/h3&gt;&lt;p&gt;Bitmap 本身是用 String 类型作为底层数据结构实现的一种统计二值状态的数据类型。&lt;/p&gt;
+&lt;p&gt;String 类型是会保存为二进制的字节数组，所以，Redis 就把字节数组的每个 bit 位利用起来，用来表示一个元素的二值状态，你可以把 Bitmap 看作是一个 bit 数组。&lt;/p&gt;
+&lt;h3 id=&#34;常用命令-4&#34;&gt;&lt;a href=&#34;#常用命令-4&#34; class=&#34;headerlink&#34; title=&#34;常用命令&#34;&gt;&lt;/a&gt;常用命令&lt;/h3&gt;&lt;p&gt;bitmap 基本操作：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;# 设置值，其中value只能是 0 和 1
+SETBIT key offset value
+
+# 获取值
+GETBIT key offset
+
+# 获取指定范围内值为 1 的个数
+# start 和 end 以字节为单位
+BITCOUNT key start end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;bitmap 运算操作：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;# BitMap间的运算
+# operations 位移操作符，枚举值
+  AND 与运算 &amp;amp;
+  OR 或运算 |
+  XOR 异或 ^
+  NOT 取反 ~
+# result 计算的结果，会存储在该key中
+# key1 … keyn 参与运算的key，可以有多个，空格分割，not运算只能一个key
+# 当 BITOP 处理不同长度的字符串时，较短的那个字符串所缺少的部分会被看作 0。返回值是保存到 destkey 的字符串的长度（以字节byte为单位），和输入 key 中最长的字符串长度相等。
+BITOP [operations] [result] [key1] [keyn…]
+
+# 返回指定key中第一次出现指定value(0/1)的位置
+BITPOS [key] [value]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;应用场景-5&#34;&gt;&lt;a href=&#34;#应用场景-5&#34; class=&#34;headerlink&#34; title=&#34;应用场景&#34;&gt;&lt;/a&gt;应用场景&lt;/h3&gt;&lt;p&gt;Bitmap 类型非常适合二值状态统计的场景，这里的二值状态就是指集合元素的取值就只有 0 和 1 两种，在记录海量数据时，Bitmap 能够有效地节省内存空间。&lt;/p&gt;
+&lt;h4 id=&#34;签到统计&#34;&gt;&lt;a href=&#34;#签到统计&#34; class=&#34;headerlink&#34; title=&#34;签到统计&#34;&gt;&lt;/a&gt;签到统计&lt;/h4&gt;&lt;p&gt;在签到打卡的场景中，我们只用记录签到（1）或未签到（0），所以它就是非常典型的二值状态。&lt;/p&gt;
+&lt;p&gt;签到统计时，每个用户一天的签到用 1 个 bit 位就能表示，一个月（假设是 31 天）的签到情况用 31 个 bit 位就可以，而一年的签到也只需要用 365 个 bit 位，根本不用太复杂的集合类型。&lt;/p&gt;
+&lt;p&gt;假设我们要统计 ID 100 的用户在 2022 年 6 月份的签到情况，就可以按照下面的步骤进行操作。&lt;/p&gt;
+&lt;p&gt;第一步，执行下面的命令，记录该用户 6 月 3 号已签到。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;SETBIT uid:sign:100:202206 2 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;第二步，检查该用户 6 月 3 日是否签到。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;GETBIT uid:sign:100:202206 2 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;第三步，统计该用户在 6 月份的签到次数。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;BITCOUNT uid:sign:100:202206
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这样，我们就知道该用户在 6 月份的签到情况了。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如何统计这个月首次打卡时间呢？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Redis 提供了 &lt;code&gt;BITPOS key bitValue [start] [end]&lt;/code&gt;指令，返回数据表示 Bitmap 中第一个值为 &lt;code&gt;bitValue&lt;/code&gt; 的 offset 位置。&lt;/p&gt;
+&lt;p&gt;在默认情况下， 命令将检测整个位图， 用户可以通过可选的 &lt;code&gt;start&lt;/code&gt; 参数和 &lt;code&gt;end&lt;/code&gt; 参数指定要检测的范围。所以我们可以通过执行这条命令来获取 userID &amp;#x3D; 100 在 2022 年 6 月份&lt;strong&gt;首次打卡&lt;/strong&gt;日期：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;BITPOS uid:sign:100:202206 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;需要注意的是，因为 offset 从 0 开始的，所以我们需要将返回的 value + 1 。&lt;/p&gt;
+&lt;h4 id=&#34;判断用户登陆态&#34;&gt;&lt;a href=&#34;#判断用户登陆态&#34; class=&#34;headerlink&#34; title=&#34;判断用户登陆态&#34;&gt;&lt;/a&gt;判断用户登陆态&lt;/h4&gt;&lt;p&gt;Bitmap 提供了 &lt;code&gt;GETBIT、SETBIT&lt;/code&gt; 操作，通过一个偏移值 offset 对 bit 数组的 offset 位置的 bit 位进行读写操作，需要注意的是 offset 从 0 开始。&lt;/p&gt;
+&lt;p&gt;只需要一个 key &amp;#x3D; login_status 表示存储用户登陆状态集合数据， 将用户 ID 作为 offset，在线就设置为 1，下线设置 0。通过 &lt;code&gt;GETBIT&lt;/code&gt;判断对应的用户是否在线。 5000 万用户只需要 6 MB 的空间。&lt;/p&gt;
+&lt;p&gt;假如我们要判断 ID &amp;#x3D; 10086 的用户的登陆情况：&lt;/p&gt;
+&lt;p&gt;第一步，执行以下指令，表示用户已登录。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;SETBIT login_status 10086 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;第二步，检查该用户是否登陆，返回值 1 表示已登录。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;GETBIT login_status 10086
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;第三步，登出，将 offset 对应的 value 设置成 0。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;SETBIT login_status 10086 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;连续签到用户总数&#34;&gt;&lt;a href=&#34;#连续签到用户总数&#34; class=&#34;headerlink&#34; title=&#34;连续签到用户总数&#34;&gt;&lt;/a&gt;连续签到用户总数&lt;/h4&gt;&lt;p&gt;如何统计出这连续 7 天连续打卡用户总数呢？&lt;/p&gt;
+&lt;p&gt;我们把每天的日期作为 Bitmap 的 key，userId 作为 offset，若是打卡则将 offset 位置的 bit 设置成 1。&lt;/p&gt;
+&lt;p&gt;key 对应的集合的每个 bit 位的数据则是一个用户在该日期的打卡记录。&lt;/p&gt;
+&lt;p&gt;一共有 7 个这样的 Bitmap，如果我们能对这 7 个 Bitmap 的对应的 bit 位做 『与』运算。同样的 UserID offset 都是一样的，当一个 userID 在 7 个 Bitmap 对应对应的 offset 位置的 bit &amp;#x3D; 1 就说明该用户 7 天连续打卡。&lt;/p&gt;
+&lt;p&gt;结果保存到一个新 Bitmap 中，我们再通过 &lt;code&gt;BITCOUNT&lt;/code&gt; 统计 bit &amp;#x3D; 1 的个数便得到了连续打卡 7 天的用户总数了。&lt;/p&gt;
+&lt;p&gt;Redis 提供了 &lt;code&gt;BITOP operation destkey key [key ...]&lt;/code&gt;这个指令用于对一个或者多个 key 的 Bitmap 进行位元操作。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;operation&lt;/code&gt; 可以是 &lt;code&gt;and&lt;/code&gt;、&lt;code&gt;OR&lt;/code&gt;、&lt;code&gt;NOT&lt;/code&gt;、&lt;code&gt;XOR&lt;/code&gt;。当 BITOP 处理不同长度的字符串时，较短的那个字符串所缺少的部分会被看作 &lt;code&gt;0&lt;/code&gt; 。空的 &lt;code&gt;key&lt;/code&gt; 也被看作是包含 &lt;code&gt;0&lt;/code&gt; 的字符串序列。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;假设要统计 3 天连续打卡的用户数，则是将三个 bitmap 进行 AND 操作，并将结果保存到 destmap 中，接着对 destmap 执行 BITCOUNT 统计，如下命令：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;# 与操作
+BITOP AND destmap bitmap:01 bitmap:02 bitmap:03
+# 统计 bit 位 =  1 的个数
+BITCOUNT destmap
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;即使一天产生一个亿的数据，Bitmap 占用的内存也不大，大约占 12 MB 的内存（10^8&amp;#x2F;8&amp;#x2F;1024&amp;#x2F;1024），7 天的 Bitmap 的内存开销约为 84 MB。同时我们最好给 Bitmap 设置过期时间，让 Redis 删除过期的打卡数据，节省内存。&lt;/p&gt;
+&lt;h2 id=&#34;HyperLogLog&#34;&gt;&lt;a href=&#34;#HyperLogLog&#34; class=&#34;headerlink&#34; title=&#34;HyperLogLog&#34;&gt;&lt;/a&gt;HyperLogLog&lt;/h2&gt;&lt;h3 id=&#34;介绍-6&#34;&gt;&lt;a href=&#34;#介绍-6&#34; class=&#34;headerlink&#34; title=&#34;介绍&#34;&gt;&lt;/a&gt;介绍&lt;/h3&gt;&lt;p&gt;Redis HyperLogLog 是 Redis 2.8.9 版本新增的数据类型，是一种用于「统计基数」的数据集合类型，基数统计就是指统计一个集合中不重复的元素个数。但要注意，HyperLogLog 是统计规则是基于概率完成的，不是非常准确，标准误算率是 0.81%。&lt;/p&gt;
+&lt;p&gt;所以，简单来说 HyperLogLog &lt;strong&gt;提供不精确的去重计数&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;HyperLogLog 的优点是，在输入元素的数量或者体积非常非常大时，计算基数所需的内存空间总是固定的、并且是很小的。&lt;/p&gt;
+&lt;p&gt;在 Redis 里面，&lt;strong&gt;每个 HyperLogLog 键只需要花费 12 KB 内存，就可以计算接近 &lt;code&gt;2^64&lt;/code&gt; 个不同元素的基数&lt;/strong&gt;，和元素越多就越耗费内存的 Set 和 Hash 类型相比，HyperLogLog 就非常&lt;code&gt;节省空间&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;这什么概念？举个例子给大家对比一下。&lt;/p&gt;
+&lt;p&gt;用 Java 语言来说，一般 long 类型占用 8 字节，而 1 字节有 8 位，即：1 byte &amp;#x3D; 8 bit，即 long 数据类型最大可以表示的数是：&lt;code&gt;2^63-1&lt;/code&gt;。对应上面的&lt;code&gt;2^64&lt;/code&gt;个数，假设此时有&lt;code&gt;2^63-1&lt;/code&gt;这么多个数，从 &lt;code&gt;0 ~ 2^63-1&lt;/code&gt;，按照&lt;code&gt;long&lt;/code&gt;以及&lt;code&gt;1k = 1024 字节&lt;/code&gt;的规则来计算内存总数，就是：&lt;code&gt;((2^63-1) * 8/1024)K&lt;/code&gt;，这是很庞大的一个数，存储空间远远超过&lt;code&gt;12K&lt;/code&gt;，而 &lt;code&gt;HyperLogLog&lt;/code&gt; 却可以用 &lt;code&gt;12K&lt;/code&gt; 就能统计完。&lt;/p&gt;
+&lt;h3 id=&#34;内部实现-6&#34;&gt;&lt;a href=&#34;#内部实现-6&#34; class=&#34;headerlink&#34; title=&#34;内部实现&#34;&gt;&lt;/a&gt;内部实现&lt;/h3&gt;&lt;h3 id=&#34;常见命令&#34;&gt;&lt;a href=&#34;#常见命令&#34; class=&#34;headerlink&#34; title=&#34;常见命令&#34;&gt;&lt;/a&gt;常见命令&lt;/h3&gt;&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;# 添加指定元素到 HyperLogLog 中
+PFADD key element [element ...]
+
+# 返回给定 HyperLogLog 的基数估算值。
+PFCOUNT key [key ...]
+
+# 将多个 HyperLogLog 合并为一个 HyperLogLogshell
+PFMERGE destkey sourcekey [sourcekey ...]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;应用场景-6&#34;&gt;&lt;a href=&#34;#应用场景-6&#34; class=&#34;headerlink&#34; title=&#34;应用场景&#34;&gt;&lt;/a&gt;应用场景&lt;/h3&gt;&lt;h4 id=&#34;百万级网页-UV-计数&#34;&gt;&lt;a href=&#34;#百万级网页-UV-计数&#34; class=&#34;headerlink&#34; title=&#34;百万级网页 UV 计数&#34;&gt;&lt;/a&gt;百万级网页 UV 计数&lt;/h4&gt;&lt;p&gt;Redis HyperLogLog 优势在于只需要花费 12 KB 内存，就可以计算接近 2^64 个元素的基数，和元素越多就越耗费内存的 Set 和 Hash 类型相比，HyperLogLog 就非常节省空间。&lt;/p&gt;
+&lt;p&gt;所以，非常适合统计百万级以上的网页 UV 的场景。&lt;/p&gt;
+&lt;p&gt;在统计 UV 时，你可以用 PFADD 命令（用于向 HyperLogLog 中添加新元素）把访问页面的每个用户都添加到 HyperLogLog 中。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;PFADD page1:uv user1 user2 user3 user4 user5
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;接下来，就可以用 PFCOUNT 命令直接获得 page1 的 UV 值了，这个命令的作用就是返回 HyperLogLog 的统计结果。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;PFCOUNT page1:uv
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;不过，有一点需要你注意一下，HyperLogLog 的统计规则是基于概率完成的，所以它给出的统计结果是有一定误差的，标准误算率是 0.81%。&lt;/p&gt;
+&lt;p&gt;这也就意味着，你使用 HyperLogLog 统计的 UV 是 100 万，但实际的 UV 可能是 101 万。虽然误差率不算大，但是，如果你需要精确统计结果的话，最好还是继续用 Set 或 Hash 类型。&lt;/p&gt;
+&lt;h2 id=&#34;GEO&#34;&gt;&lt;a href=&#34;#GEO&#34; class=&#34;headerlink&#34; title=&#34;GEO&#34;&gt;&lt;/a&gt;GEO&lt;/h2&gt;&lt;p&gt;Redis GEO 是 Redis 3.2 版本新增的数据类型，主要&lt;strong&gt;用于存储地理位置信息，并对存储的信息进行操作&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;在日常生活中，我们越来越依赖搜索“附近的餐馆”、在打车软件上叫车，这些都离不开基于位置信息服务（Location-Based Service，LBS）的应用。LBS 应用访问的数据是和人或物关联的一组经纬度信息，而且要能查询相邻的经纬度范围，GEO 就非常适合应用在 LBS 服务的场景中。&lt;/p&gt;
+&lt;h3 id=&#34;内部实现-7&#34;&gt;&lt;a href=&#34;#内部实现-7&#34; class=&#34;headerlink&#34; title=&#34;内部实现&#34;&gt;&lt;/a&gt;内部实现&lt;/h3&gt;&lt;p&gt;GEO 本身并没有设计新的底层数据结构，而是直接使用了 &lt;code&gt;Sorted Set&lt;/code&gt; 集合类型。&lt;/p&gt;
+&lt;p&gt;GEO 类型使用 GeoHash 编码方法实现了经纬度到 Sorted Set 中元素权重分数的转换，这其中的两个关键机制就是&lt;code&gt;「对二维地图做区间划分」&lt;/code&gt;和&lt;code&gt;「对区间进行编码」&lt;/code&gt;。一组经纬度落在某个区间后，就用区间的编码值来表示，并把编码值作为 Sorted Set 元素的权重分数。&lt;/p&gt;
+&lt;p&gt;这样一来，我们就可以把经纬度保存到 Sorted Set 中，利用 Sorted Set 提供的“按权重进行有序范围查找”的特性，实现 LBS 服务中频繁使用的“搜索附近”的需求。&lt;/p&gt;
+&lt;h3 id=&#34;常用命令-5&#34;&gt;&lt;a href=&#34;#常用命令-5&#34; class=&#34;headerlink&#34; title=&#34;常用命令&#34;&gt;&lt;/a&gt;常用命令&lt;/h3&gt;&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;# 存储指定的地理空间位置，可以将一个或多个经度(longitude)、纬度(latitude)、位置名称(member)添加到指定的 key 中。
+GEOADD key longitude latitude member [longitude latitude member ...]
+
+# 从给定的 key 里返回所有指定名称(member)的位置（经度和纬度），不存在的返回 nil。
+GEOPOS key member [member ...]
+
+# 返回两个给定位置之间的距离。
+GEODIST key member1 member2 [m|km|ft|mi]
+
+# 根据用户给定的经纬度坐标来获取指定范围内的地理位置集合。
+GEORADIUS key longitude latitude radius m|km|ft|mi [WITHCOORD] [WITHDIST] [WITHHASH] [COUNT count] [ASC|DESC] [STORE key] [STOREDIST key]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;应用场景-7&#34;&gt;&lt;a href=&#34;#应用场景-7&#34; class=&#34;headerlink&#34; title=&#34;应用场景&#34;&gt;&lt;/a&gt;应用场景&lt;/h3&gt;&lt;h4 id=&#34;滴滴叫车&#34;&gt;&lt;a href=&#34;#滴滴叫车&#34; class=&#34;headerlink&#34; title=&#34;滴滴叫车&#34;&gt;&lt;/a&gt;滴滴叫车&lt;/h4&gt;&lt;p&gt;这里以滴滴叫车的场景为例，介绍下具体如何使用 GEO 命令：GEOADD 和 GEORADIUS 这两个命令。&lt;/p&gt;
+&lt;p&gt;假设车辆 ID 是 33，经纬度位置是（116.034579，39.030452），我们可以用一个 GEO 集合保存所有车辆的经纬度，集合 key 是 cars:locations。&lt;/p&gt;
+&lt;p&gt;执行下面的这个命令，就可以把 ID 号为 33 的车辆的当前经纬度位置存入 GEO 集合中：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;GEOADD cars:locations 116.034579 39.030452 33
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;当用户想要寻找自己附近的网约车时，LBS 应用就可以使用 GEORADIUS 命令。&lt;/p&gt;
+&lt;p&gt;例如，LBS 应用执行下面的命令时，Redis 会根据输入的用户的经纬度信息（116.054579，39.030452 ），查找以这个经纬度为中心的 5 公里内的车辆信息，并返回给 LBS 应用。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;GEORADIUS cars:locations 116.054579 39.030452 5 km ASC COUNT 10
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;Stream&#34;&gt;&lt;a href=&#34;#Stream&#34; class=&#34;headerlink&#34; title=&#34;Stream&#34;&gt;&lt;/a&gt;Stream&lt;/h2&gt;&lt;h3 id=&#34;介绍-7&#34;&gt;&lt;a href=&#34;#介绍-7&#34; class=&#34;headerlink&#34; title=&#34;介绍&#34;&gt;&lt;/a&gt;介绍&lt;/h3&gt;&lt;p&gt;Redis Stream 是 Redis 5.0 版本新增加的数据类型，Redis 专门为消息队列设计的数据类型。&lt;/p&gt;
+&lt;p&gt;在 Redis 5.0 Stream 没出来之前，消息队列的实现方式都有着各自的缺陷，例如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;发布订阅模式，不能持久化也就无法可靠的保存消息，并且对于离线重连的客户端不能读取历史消息的缺陷；&lt;/li&gt;
+&lt;li&gt;List 实现消息队列的方式不能重复消费，一个消息消费完就会被删除，而且生产者需要自行实现全局唯一 ID。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;基于以上问题，Redis 5.0 便推出了 Stream 类型也是此版本最重要的功能，用于完美地实现消息队列，它支持消息的持久化、支持自动生成全局唯一 ID、支持 ack 确认消息的模式、支持消费组模式等，让消息队列更加的稳定和可靠。&lt;/p&gt;
+&lt;h3 id=&#34;常见命令-1&#34;&gt;&lt;a href=&#34;#常见命令-1&#34; class=&#34;headerlink&#34; title=&#34;常见命令&#34;&gt;&lt;/a&gt;常见命令&lt;/h3&gt;&lt;p&gt;Stream 消息队列操作命令：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;XADD：插入消息，保证有序，可以自动生成全局唯一 ID；&lt;/li&gt;
+&lt;li&gt;XLEN ：查询消息长度；&lt;/li&gt;
+&lt;li&gt;XREAD：用于读取消息，可以按 ID 读取数据；&lt;/li&gt;
+&lt;li&gt;XDEL ： 根据消息 ID 删除消息；&lt;/li&gt;
+&lt;li&gt;DEL ：删除整个 Stream；&lt;/li&gt;
+&lt;li&gt;XRANGE ：读取区间消息&lt;/li&gt;
+&lt;li&gt;XREADGROUP：按消费组形式读取消息；&lt;/li&gt;
+&lt;li&gt;XPENDING 和 XACK：&lt;ul&gt;
+&lt;li&gt;XPENDING 命令可以用来查询每个消费组内所有消费者「已读取、但尚未确认」的消息；&lt;/li&gt;
+&lt;li&gt;XACK 命令用于向消息队列确认消息处理已完成；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;应用场景-8&#34;&gt;&lt;a href=&#34;#应用场景-8&#34; class=&#34;headerlink&#34; title=&#34;应用场景&#34;&gt;&lt;/a&gt;应用场景&lt;/h3&gt;&lt;h4 id=&#34;消息队列-1&#34;&gt;&lt;a href=&#34;#消息队列-1&#34; class=&#34;headerlink&#34; title=&#34;消息队列&#34;&gt;&lt;/a&gt;消息队列&lt;/h4&gt;&lt;p&gt;生产者通过 XADD 命令插入一条消息：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;# * 表示让 Redis 为插入的数据自动生成一个全局唯一的 ID
+# 往名称为 mymq 的消息队列中插入一条消息，消息的键是 name，值是 xiaolin
+&amp;gt; XADD mymq * name xiaolin
+&amp;quot;1654254953808-0&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;插入成功后会返回全局唯一的 ID：”1654254953808-0”。消息的全局唯一 ID 由两部分组成：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第一部分“1654254953808”是数据插入时，以毫秒为单位计算的当前服务器时间；&lt;/li&gt;
+&lt;li&gt;第二部分表示插入消息在当前毫秒内的消息序号，这是从 0 开始编号的。例如，“1654254953808-0”就表示在“1654254953808”毫秒内的第 1 条消息。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;消费者通过 XREAD 命令从消息队列中读取消息时，可以指定一个消息 ID，并从这个消息 ID 的下一条消息开始进行读取（注意是输入消息 ID 的下一条信息开始读取，不是查询输入ID的消息）。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;# 从 ID 号为 1654254953807-0 的消息开始，读取后续的所有消息（示例中一共 1 条）。
+&amp;gt; XREAD STREAMS mymq 1654254953807-0
+1) 1) &amp;quot;mymq&amp;quot;
+   2) 1) 1) &amp;quot;1654254953808-0&amp;quot;
+         2) 1) &amp;quot;name&amp;quot;
+            2) &amp;quot;xiaolin&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果&lt;strong&gt;想要实现阻塞读（当没有数据时，阻塞住），可以调用 XRAED 时设定 BLOCK 配置项&lt;/strong&gt;，实现类似于 BRPOP 的阻塞读取操作。&lt;/p&gt;
+&lt;p&gt;比如，下面这命令，设置了 BLOCK 10000 的配置项，10000 的单位是毫秒，表明 XREAD 在读取最新消息时，如果没有消息到来，XREAD 将阻塞 10000 毫秒（即 10 秒），然后再返回。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;# 命令最后的“$”符号表示读取最新的消息
+&amp;gt; XREAD BLOCK 10000 STREAMS mymq $
+(nil)
+(10.00s)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Stream 的基础方法，使用 xadd 存入消息和 xread 循环阻塞读取消息的方式可以实现简易版的消息队列，交互流程如下图所示：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/Stream%E7%AE%80%E6%98%93.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;前面介绍的这些操作 List 也支持的，接下来看看 Stream 特有的功能。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Stream 可以以使用 &lt;strong&gt;XGROUP 创建消费组&lt;/strong&gt;，创建消费组之后，Stream 可以使用 XREADGROUP 命令让消费组内的消费者读取消息。&lt;/p&gt;
+&lt;p&gt;创建两个消费组，这两个消费组消费的消息队列是 mymq，都指定从第一条消息开始读取：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;# 创建一个名为 group1 的消费组，0-0 表示从第一条消息开始读取。
+&amp;gt; XGROUP CREATE mymq group1 0-0
+OK
+# 创建一个名为 group2 的消费组，0-0 表示从第一条消息开始读取。
+&amp;gt; XGROUP CREATE mymq group2 0-0
+OK
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;消费组 group1 内的消费者 consumer1 从 mymq 消息队列中读取所有消息的命令如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;# 命令最后的参数“&amp;gt;”，表示从第一条尚未被消费的消息开始读取。
+&amp;gt; XREADGROUP GROUP group1 consumer1 STREAMS mymq &amp;gt;
+1) 1) &amp;quot;mymq&amp;quot;
+   2) 1) 1) &amp;quot;1654254953808-0&amp;quot;
+         2) 1) &amp;quot;name&amp;quot;
+            2) &amp;quot;xiaolin&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;消息队列中的消息一旦被消费组里的一个消费者读取了，就不能再被该消费组内的其他消费者读取了，即同一个消费组里的消费者不能消费同一条消息&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;比如说，我们执行完刚才的 XREADGROUP 命令后，再执行一次同样的命令，此时读到的就是空值了：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;&amp;gt; XREADGROUP GROUP group1 consumer1 STREAMS mymq &amp;gt;
+(nil)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;但是，&lt;strong&gt;不同消费组的消费者可以消费同一条消息（但是有前提条件，创建消息组的时候，不同消费组指定了相同位置开始读取消息）&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;比如说，刚才 group1 消费组里的 consumer1 消费者消费了一条 id 为 1654254953808-0 的消息，现在用 group2 消费组里的 consumer1 消费者消费消息：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;&amp;gt; XREADGROUP GROUP group2 consumer1 STREAMS mymq &amp;gt;
+1) 1) &amp;quot;mymq&amp;quot;
+   2) 1) 1) &amp;quot;1654254953808-0&amp;quot;
+         2) 1) &amp;quot;name&amp;quot;
+            2) &amp;quot;xiaolin&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;因为我创建两组的消费组都是从第一条消息开始读取，所以可以看到第二组的消费者依然可以消费 id 为 1654254953808-0 的这一条消息。因此，不同的消费组的消费者可以消费同一条消息。&lt;/p&gt;
+&lt;p&gt;使用消费组的目的是让组内的多个消费者共同分担读取消息，所以，我们通常会让每个消费者读取部分消息，从而实现消息读取负载在多个消费者间是均衡分布的。&lt;/p&gt;
+&lt;p&gt;例如，我们执行下列命令，让 group2 中的 consumer1、2、3 各自读取一条消息。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;# 让 group2 中的 consumer1 从 mymq 消息队列中消费一条消息
+&amp;gt; XREADGROUP GROUP group2 consumer1 COUNT 1 STREAMS mymq &amp;gt;
+1) 1) &amp;quot;mymq&amp;quot;
+   2) 1) 1) &amp;quot;1654254953808-0&amp;quot;
+         2) 1) &amp;quot;name&amp;quot;
+            2) &amp;quot;xiaolin&amp;quot;
+# 让 group2 中的 consumer2 从 mymq 消息队列中消费一条消息
+&amp;gt; XREADGROUP GROUP group2 consumer2 COUNT 1 STREAMS mymq &amp;gt;
+1) 1) &amp;quot;mymq&amp;quot;
+   2) 1) 1) &amp;quot;1654256265584-0&amp;quot;
+         2) 1) &amp;quot;name&amp;quot;
+            2) &amp;quot;xiaolincoding&amp;quot;
+# 让 group2 中的 consumer3 从 mymq 消息队列中消费一条消息
+&amp;gt; XREADGROUP GROUP group2 consumer3 COUNT 1 STREAMS mymq &amp;gt;
+1) 1) &amp;quot;mymq&amp;quot;
+   2) 1) 1) &amp;quot;1654256271337-0&amp;quot;
+         2) 1) &amp;quot;name&amp;quot;
+            2) &amp;quot;Tom&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;基于 Stream 实现的消息队列，如何保证消费者在发生故障或宕机再次重启后，仍然可以读取未处理完的消息？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Streams 会自动使用内部队列（也称为 PENDING List）留存消费组里每个消费者读取的消息，直到消费者使用 XACK 命令通知 Streams“消息已经处理完成”。&lt;/p&gt;
+&lt;p&gt;消费确认增加了消息的可靠性，一般在业务处理完成之后，需要执行 XACK 命令确认消息已经被消费完成，整个流程的执行如下图所示：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E6%B6%88%E6%81%AF%E7%A1%AE%E8%AE%A4.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
+&lt;p&gt;如果消费者没有成功处理消息，它就不会给 Streams 发送 XACK 命令，消息仍然会留存。此时，&lt;strong&gt;消费者可以在重启后，用 XPENDING 命令查看已读取、但尚未确认处理完成的消息&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;例如，我们来查看一下 group2 中各个消费者已读取、但尚未确认的消息个数，命令如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;127.0.0.1:6379&amp;gt; XPENDING mymq group2
+1) (integer) 3
+2) &amp;quot;1654254953808-0&amp;quot;  # 表示 group2 中所有消费者读取的消息最小 ID
+3) &amp;quot;1654256271337-0&amp;quot;  # 表示 group2 中所有消费者读取的消息最大 ID
+4) 1) 1) &amp;quot;consumer1&amp;quot;
+      2) &amp;quot;1&amp;quot;
+   2) 1) &amp;quot;consumer2&amp;quot;
+      2) &amp;quot;1&amp;quot;
+   3) 1) &amp;quot;consumer3&amp;quot;
+      2) &amp;quot;1&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果想查看某个消费者具体读取了哪些数据，可以执行下面的命令：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;# 查看 group2 里 consumer2 已从 mymq 消息队列中读取了哪些消息
+&amp;gt; XPENDING mymq group2 - + 10 consumer2
+1) 1) &amp;quot;1654256265584-0&amp;quot;
+   2) &amp;quot;consumer2&amp;quot;
+   3) (integer) 410700
+   4) (integer) 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;可以看到，consumer2 已读取的消息的 ID 是 1654256265584-0。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;一旦消息 1654256265584-0 被 consumer2 处理了，consumer2 就可以使用 XACK 命令通知 Streams，然后这条消息就会被删除&lt;/strong&gt;。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;&amp;gt; XACK mymq group2 1654256265584-0
+(integer) 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;当我们再使用 XPENDING 命令查看时，就可以看到，consumer2 已经没有已读取、但尚未确认处理的消息了。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;&amp;gt; XPENDING mymq group2 - + 10 consumer2
+(empty array)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;好了，基于 Stream 实现的消息队列就说到这里了，小结一下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;消息保序：XADD&amp;#x2F;XREAD&lt;/li&gt;
+&lt;li&gt;阻塞读取：XREAD block&lt;/li&gt;
+&lt;li&gt;重复消息处理：Stream 在使用 XADD 命令，会自动生成全局唯一 ID；&lt;/li&gt;
+&lt;li&gt;消息可靠性：内部使用 PENDING List 自动保存消息，使用 XPENDING 命令查看消费组已经读取但是未被确认的消息，消费者使用 XACK 确认消息；&lt;/li&gt;
+&lt;li&gt;支持消费组形式消费数据&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Redis 基于 Stream 消息队列与专业的消息队列有哪些差距？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;一个专业的消息队列，必须要做到两大块：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;消息不丢。&lt;/li&gt;
+&lt;li&gt;消息可堆积。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;1、Redis Stream 消息会丢失吗？&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;使用一个消息队列，其实就分为三大块：&lt;strong&gt;生产者、队列中间件、消费者&lt;/strong&gt;，所以要保证消息就是保证三个环节都不能丢失数据。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E4%B8%89%E4%B8%AA%E9%98%B6%E6%AE%B5.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Redis Stream 消息队列能不能保证三个环节都不丢失数据？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Redis 生产者会不会丢消息？生产者会不会丢消息，取决于生产者对于异常情况的处理是否合理。 从消息被生产出来，然后提交给 MQ 的过程中，只要能正常收到 （ MQ 中间件） 的 ack 确认响应，就表示发送成功，所以只要处理好返回值和异常，如果返回异常则进行消息重发，那么&lt;strong&gt;这个阶段是不会出现消息丢失的&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Redis 消费者会不会丢消息？&lt;strong&gt;不会&lt;/strong&gt;，因为 Stream （ MQ 中间件）会自动使用内部队列（也称为 PENDING List）留存消费组里每个消费者读取的消息，但是未被确认的消息。消费者可以在重启后，用 XPENDING 命令查看已读取、但尚未确认处理完成的消息。等到消费者执行完业务逻辑后，再发送消费确认 XACK 命令，也能保证消息的不丢失。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Redis 消息中间件会不会丢消息？&lt;/p&gt;
+&lt;p&gt;会&lt;/p&gt;
+&lt;p&gt;，Redis 在以下 2 个场景下，都会导致数据丢失：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;AOF 持久化配置为每秒写盘，但这个写盘过程是异步的，Redis 宕机时会存在数据丢失的可能&lt;/li&gt;
+&lt;li&gt;主从复制也是异步的，&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly94aWFvbGluY29kaW5nLmNvbS9yZWRpcy9jbHVzdGVyL21hc3Rlcl9zbGF2ZV9yZXBsaWNhdGlvbi5odG1sI3JlZGlzLSVFNCVCOCVCQiVFNCVCQiU4RSVFNSU4OCU4NyVFNiU4RCVBMiVFNSVBNiU4MiVFNCVCRCU5NSVFNSU4NyU4RiVFNSVCMCU5MSVFNiU5NSVCMCVFNiU4RCVBRSVFNCVCOCVBMiVFNSVBNCVCMQ==&#34;&gt;主从切换时，也存在丢失数据的可能 (opens new window)&lt;/span&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;可以看到，Redis 在队列中间件环节无法保证消息不丢。像 RabbitMQ 或 Kafka 这类专业的队列中间件，在使用时是部署一个集群，生产者在发布消息时，队列中间件通常会写「多个节点」，也就是有多个副本，这样一来，即便其中一个节点挂了，也能保证集群的数据不丢失。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;2、Redis Stream 消息可堆积吗？&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Redis 的数据都存储在内存中，这就意味着一旦发生消息积压，则会导致 Redis 的内存持续增长，如果超过机器内存上限，就会面临被 OOM 的风险。&lt;/p&gt;
+&lt;p&gt;所以 Redis 的 Stream 提供了可以指定队列最大长度的功能，就是为了避免这种情况发生。&lt;/p&gt;
+&lt;p&gt;当指定队列最大长度时，队列长度超过上限后，旧消息会被删除，只保留固定长度的新消息。这么来看，Stream 在消息积压时，如果指定了最大长度，还是有可能丢失消息的。&lt;/p&gt;
+&lt;p&gt;但 Kafka、RabbitMQ 专业的消息队列它们的数据都是存储在磁盘上，当消息积压时，无非就是多占用一些磁盘空间。&lt;/p&gt;
+&lt;p&gt;因此，把 Redis 当作队列来使用时，会面临的 2 个问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Redis 本身可能会丢数据；&lt;/li&gt;
+&lt;li&gt;面对消息挤压，内存资源会紧张；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所以，能不能将 Redis 作为消息队列来使用，关键看你的业务场景：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果你的业务场景&lt;strong&gt;足够简单&lt;/strong&gt;，对于数据丢失不敏感，而且消息积压概率比较小的情况下，把 Redis 当作队列是完全可以的。&lt;/li&gt;
+&lt;li&gt;如果你的业务有海量消息，消息积压的概率比较大，并且不能接受数据丢失，那么还是用专业的消息队列中间件吧。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;补充：Redis 发布&amp;#x2F;订阅机制为什么不可以作为消息队列？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;发布订阅机制存在以下缺点，都是跟丢失数据有关：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;发布&amp;#x2F;订阅机制没有基于任何数据类型实现，所以不具备「数据持久化」的能力，也就是发布&amp;#x2F;订阅机制的相关操作，不会写入到 RDB 和 AOF 中，当 Redis 宕机重启，发布&amp;#x2F;订阅机制的数据也会全部丢失。&lt;/li&gt;
+&lt;li&gt;发布订阅模式是“发后既忘”的工作模式，如果有订阅者离线重连之后不能消费之前的历史消息。&lt;/li&gt;
+&lt;li&gt;当消费端有一定的消息积压时，也就是生产者发送的消息，消费者消费不过来时，如果超过 32M 或者是 60s 内持续保持在 8M 以上，消费端会被强行断开，这个参数是在配置文件中设置的，默认值是 &lt;code&gt;client-output-buffer-limit pubsub 32mb 8mb 60&lt;/code&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;所以，发布&amp;#x2F;订阅机制只适合即时通讯的场景，比如&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly94aWFvbGluY29kaW5nLmNvbS9yZWRpcy9jbHVzdGVyL3NlbnRpbmVsLmh0bWwjJUU1JTkzJUE4JUU1JTg1JUI1JUU5JTlCJTg2JUU3JUJFJUE0JUU2JTk4JUFGJUU1JUE2JTgyJUU0JUJEJTk1JUU3JUJCJTg0JUU2JTg4JTkwJUU3JTlBJTg0&#34;&gt;构建哨兵集群 (opens new window)&lt;/span&gt;的场景采用了发布&amp;#x2F;订阅机制。&lt;/p&gt;
+&lt;h1 id=&#34;参考文章&#34;&gt;&lt;a href=&#34;#参考文章&#34; class=&#34;headerlink&#34; title=&#34;参考文章&#34;&gt;&lt;/a&gt;参考文章&lt;/h1&gt;&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cueGlhb2xpbmNvZGluZy5jb20vcmVkaXMvZGF0YV9zdHJ1Y3QvY29tbWFuZC5odG1s&#34;&gt;https://www.xiaolincoding.com/redis/data_struct/command.html&lt;/span&gt;&lt;/p&gt;
 </content>
         <category term="技术栈" scheme="http://example.com/categories/tech/" />
         <category term="redis" scheme="http://example.com/tags/redis/" />
