@@ -10,9 +10,18 @@
         </author>
         <description>时不可兮再得，聊逍遥兮容与。</description>
         <language>zh-CN</language>
-        <pubDate>Sat, 29 Jul 2023 23:55:43 +0800</pubDate>
-        <lastBuildDate>Sat, 29 Jul 2023 23:55:43 +0800</lastBuildDate>
+        <pubDate>Sun, 30 Jul 2023 14:20:46 +0800</pubDate>
+        <lastBuildDate>Sun, 30 Jul 2023 14:20:46 +0800</lastBuildDate>
         <category term="关键词1，关键词2" />
+        <item>
+            <guid isPermalink="true">http://example.com/2023/07/30/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B8%B8%E8%A7%81%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E/</guid>
+            <title>虚拟机常见配置说明</title>
+            <link>http://example.com/2023/07/30/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B8%B8%E8%A7%81%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E/</link>
+            <category term="计算机基础" scheme="http://example.com/categories/computer/" />
+            <category term="虚拟机" scheme="http://example.com/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" />
+            <pubDate>Sun, 30 Jul 2023 14:20:46 +0800</pubDate>
+            <description><![CDATA[  ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">http://example.com/2023/07/29/DFS/</guid>
             <title>DFS</title>
@@ -769,7 +778,349 @@ shift + n
 &lt;/ul&gt;
 &lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;netstat -anp | grep :22
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&#34;辅助命令&#34;&gt;&lt;a href=&#34;#辅助命令&#34; class=&#34;headerlink&#34; title=&#34;辅助命令&#34;&gt;&lt;/a&gt;辅助命令&lt;/h1&gt; ]]></description>
+&lt;h1 id=&#34;辅助命令&#34;&gt;&lt;a href=&#34;#辅助命令&#34; class=&#34;headerlink&#34; title=&#34;辅助命令&#34;&gt;&lt;/a&gt;辅助命令&lt;/h1&gt;&lt;h2 id=&#34;history&#34;&gt;&lt;a href=&#34;#history&#34; class=&#34;headerlink&#34; title=&#34;history&#34;&gt;&lt;/a&gt;&lt;code&gt;history&lt;/code&gt;&lt;/h2&gt;&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;history
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;作用：查看命令历史。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;技巧：将命令运行的结果写入文件&lt;/p&gt;
+&lt;p&gt;覆盖写：命令 &amp;gt; 文件路径。&lt;/p&gt;
+&lt;p&gt;追加写：命令 &amp;gt;&amp;gt; 文件路径。&lt;/p&gt;
+&lt;p&gt;注意：&amp;#x2F;dev&amp;#x2F;null，被称为 Linux 的黑洞，因为不管写入多少数据到这个文件，数据都会被销毁。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;echo&#34;&gt;&lt;a href=&#34;#echo&#34; class=&#34;headerlink&#34; title=&#34;echo&#34;&gt;&lt;/a&gt;&lt;code&gt;echo&lt;/code&gt;&lt;/h2&gt;&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;echo xxx
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;作用：将数据输出到 standard output（标准输出），echo 主要用来打印环境变量的值。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;关于standard-output&#34;&gt;&lt;a href=&#34;#关于standard-output&#34; class=&#34;headerlink&#34; title=&#34;关于standard output&#34;&gt;&lt;/a&gt;关于standard output&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;如果说将一条数据打印到标准输出，那么就可以说：打印到命令行窗口。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;对于 Java 代码：&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;java&#34;&gt;System.out.println(&amp;quot;Hello World!&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;上面这行 Java 代码将字符串打印到了控制台，而如果我们我们把这段 Java 程序拿到 Linux 系统来执行，那么它就打印到 standard output 了。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;输出环境变量&#34;&gt;&lt;a href=&#34;#输出环境变量&#34; class=&#34;headerlink&#34; title=&#34;输出环境变量&#34;&gt;&lt;/a&gt;输出环境变量&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;① Linux 中引用环境变量：在 Linux 中通过 $ 来引用环境变量&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;$PATH
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;② 使用 echo 输出环境变量：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;echo $PATH
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;help-不是命令，是一系列命令的集合&#34;&gt;&lt;a href=&#34;#help-不是命令，是一系列命令的集合&#34; class=&#34;headerlink&#34; title=&#34;help(不是命令，是一系列命令的集合)&#34;&gt;&lt;/a&gt;&lt;code&gt;help&lt;/code&gt;(不是命令，是一系列命令的集合)&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;man 命令和 info 命令都可以调出一个命令对应的文档。区别在于 man 命令阅读体验略好，info 命令文档内容更完整。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;man&#34;&gt;&lt;a href=&#34;#man&#34; class=&#34;headerlink&#34; title=&#34;man&#34;&gt;&lt;/a&gt;man&lt;/h3&gt;&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;man 要查询的命令
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;控制方式：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;按键&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;空格&lt;/td&gt;
+&lt;td&gt;向下滚动一屏&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;回车&lt;/td&gt;
+&lt;td&gt;向下滚动一行&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;b&lt;/td&gt;
+&lt;td&gt;向上滚动一屏&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;q&lt;/td&gt;
+&lt;td&gt;退出&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&amp;#x2F;关键词&lt;/td&gt;
+&lt;td&gt;搜索关键词 n向下找 N向上找&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h3 id=&#34;info&#34;&gt;&lt;a href=&#34;#info&#34; class=&#34;headerlink&#34; title=&#34;info&#34;&gt;&lt;/a&gt;info&lt;/h3&gt;&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;info 要查询的命令
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;控制方式：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;按键&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;Up&lt;/td&gt;
+&lt;td&gt;Move up one line&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Down&lt;/td&gt;
+&lt;td&gt;Move down one line&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;DEL&lt;/td&gt;
+&lt;td&gt;Scroll backward one screenful&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;SPC&lt;/td&gt;
+&lt;td&gt;Scroll forward one screenful&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;PgUp&lt;/td&gt;
+&lt;td&gt;Scroll backward in this window&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;PgDn&lt;/td&gt;
+&lt;td&gt;Scroll forward in this window&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h3 id=&#34;help&#34;&gt;&lt;a href=&#34;#help&#34; class=&#34;headerlink&#34; title=&#34;--help&#34;&gt;&lt;/a&gt;&lt;code&gt;--help&lt;/code&gt;&lt;/h3&gt;&lt;h2 id=&#34;关机重启&#34;&gt;&lt;a href=&#34;#关机重启&#34; class=&#34;headerlink&#34; title=&#34;关机重启&#34;&gt;&lt;/a&gt;关机重启&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;命令&lt;/th&gt;
+&lt;th&gt;作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;sync&lt;/td&gt;
+&lt;td&gt;将内存数据保存到硬盘上&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;poweroff&lt;/td&gt;
+&lt;td&gt;关机&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;reboot&lt;/td&gt;
+&lt;td&gt;重启&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&#34;backslash（-，不是命令）&#34;&gt;&lt;a href=&#34;#backslash（-，不是命令）&#34; class=&#34;headerlink&#34; title=&#34;backslash（\，不是命令）&#34;&gt;&lt;/a&gt;backslash（\，不是命令）&lt;/h2&gt;&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;\
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;作用：如果一个命令特别长，那么可以使用反斜杠表示到下一行继续输入。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;curl&#34;&gt;&lt;a href=&#34;#curl&#34; class=&#34;headerlink&#34; title=&#34;curl&#34;&gt;&lt;/a&gt;&lt;code&gt;curl&lt;/code&gt;&lt;/h2&gt;&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;curl [-X] [GET|POST...] 资源的URL地址
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;作用：通过命令给服务器发送请求。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;nohup&#34;&gt;&lt;a href=&#34;#nohup&#34; class=&#34;headerlink&#34; title=&#34;nohup&#34;&gt;&lt;/a&gt;&lt;code&gt;nohup&lt;/code&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;nohup 命令就是 &lt;code&gt;no hang up&lt;/code&gt; 的缩写，中文翻译为 &lt;code&gt;不挂断&lt;/code&gt; ，指客户端断开连接后，命令启动的进程仍然运行。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;wget&#34;&gt;&lt;a href=&#34;#wget&#34; class=&#34;headerlink&#34; title=&#34;wget&#34;&gt;&lt;/a&gt;&lt;code&gt;wget&lt;/code&gt;&lt;/h2&gt;&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;wget [-P 指定目标目录] 目标文件的在 web 上的地址
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;字符串处理命令&#34;&gt;&lt;a href=&#34;#字符串处理命令&#34; class=&#34;headerlink&#34; title=&#34;字符串处理命令&#34;&gt;&lt;/a&gt;字符串处理命令&lt;/h1&gt;&lt;h2 id=&#34;正则表达式常用符号&#34;&gt;&lt;a href=&#34;#正则表达式常用符号&#34; class=&#34;headerlink&#34; title=&#34;正则表达式常用符号&#34;&gt;&lt;/a&gt;正则表达式常用符号&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;符号&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;^&lt;/td&gt;
+&lt;td&gt;匹配字符串开始位置的字符&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;$&lt;/td&gt;
+&lt;td&gt;匹配字符串结束位置的字符&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;.&lt;/td&gt;
+&lt;td&gt;匹配任何一个字符&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;*&lt;/td&gt;
+&lt;td&gt;匹配前面的字符出现 0 ~ n 次&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;[a,m,u]&lt;/td&gt;
+&lt;td&gt;匹配字符 a 或 m 或 u&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;[a-z]&lt;/td&gt;
+&lt;td&gt;匹配所有小写字母&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;[A-Z]&lt;/td&gt;
+&lt;td&gt;匹配所有大写字母&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;[a-zA-Z]&lt;/td&gt;
+&lt;td&gt;匹配所有字母&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;[0-9]&lt;/td&gt;
+&lt;td&gt;匹配所有数字&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;\&lt;/td&gt;
+&lt;td&gt;特殊符号转义&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&#34;basename&#34;&gt;&lt;a href=&#34;#basename&#34; class=&#34;headerlink&#34; title=&#34;basename&#34;&gt;&lt;/a&gt;&lt;code&gt;basename&lt;/code&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;返回路径字符串中的资源（文件或目录本身）部分：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;basename /aa/bb/cc/dd
+dd
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;如果指定了后缀，basename会帮我们把后缀部分也去掉。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;basename /aa/bb/cc/dd.txt .txt
+dd
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;dirname&#34;&gt;&lt;a href=&#34;#dirname&#34; class=&#34;headerlink&#34; title=&#34;dirname&#34;&gt;&lt;/a&gt;&lt;code&gt;dirname&lt;/code&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;返回路径字符串中的目录部分：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;dirname /aa/bb/cc/dd
+/aa/bb/cc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;cut&#34;&gt;&lt;a href=&#34;#cut&#34; class=&#34;headerlink&#34; title=&#34;cut&#34;&gt;&lt;/a&gt;&lt;code&gt;cut&lt;/code&gt;&lt;/h2&gt;&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;cut -d xxx -f n 字符串
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;参数 &lt;code&gt;-d&lt;/code&gt; 指定拆分依据的字符。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;参数 &lt;code&gt;-f&lt;/code&gt; 指定要提取的列。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;作用：根据指定符号拆分字符串并提取，默认根据 &lt;code&gt;\t&lt;/code&gt; 拆分。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;切割提取第二列和第三列：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;cut -d &amp;quot; &amp;quot; -f 2,3 cut.txt
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在 cut.txt 中切出 guan :&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;cut -d &amp;quot; &amp;quot; -f 1 cut.txt | grep -i guan
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;cat cut.txt | grep -i guan | cut -d &amp;quot; &amp;quot; -f 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;选取系统 PATH 变量值，第 2 个 &lt;code&gt;:&lt;/code&gt; 开始后的所有路径：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;echo $PATH | cut -d : -f 2-
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;切割 ifconfig 后打印的 IP 地址：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;ifconfig | grep netmask | cut -d i -f 2 | cut -d &amp;quot; &amp;quot; -f 2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;awk&#34;&gt;&lt;a href=&#34;#awk&#34; class=&#34;headerlink&#34; title=&#34;awk&#34;&gt;&lt;/a&gt;&lt;code&gt;awk&lt;/code&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;一个强大的文本分析工具，将文本逐行的读入，以空格为默认分隔符将每行切片，切开的部分再进行分析处理。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;awk [选项参数] &amp;#39;pattern&amp;#123;action1&amp;#125; patten2&amp;#123;action2&amp;#125; ...&amp;#39; filename
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;pattern：表示 awk 在数据中查找的内容，就是匹配模式。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;action：在找到匹配内容时所执行的一系列命令。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;-F&lt;/code&gt; 参数：执行分隔符。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;awk 命令的内置变量包括：&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;变量名&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;FILENAME&lt;/td&gt;
+&lt;td&gt;文件名&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;NR&lt;/td&gt;
+&lt;td&gt;已读取的记录（行号）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;NF&lt;/td&gt;
+&lt;td&gt;浏览记录的域的个数（切割后，列的个数）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;搜索 passwd 文件以 root 关键字开头的所有行，并输出该行的第 7 列：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;awk -F : &amp;#39;/^root/&amp;#123;print $7&amp;#125;&amp;#39; passwd
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;搜索 passwd 文件以 root 关键字开头的所有行，并输出该行的第 1 列和第 7 列，中间以 ，号隔开：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;awk -F : &amp;#39;/^root/&amp;#123;print $1 &amp;quot;,&amp;quot; $7&amp;#125;&amp;#39; passwd
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;只显示 passwd 的第 1 列和第 7 列，以逗号分割，且在所有行前面添加列名  &lt;code&gt;user，shell&lt;/code&gt;  在最后一行添加  &lt;code&gt;heheda，/bin/nidaye&lt;/code&gt;。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;awk -F : &amp;#39;BEGIN&amp;#123;print &amp;quot;user,shell&amp;quot;&amp;#125;&amp;#123;print $1 &amp;quot;,&amp;quot; $7&amp;#125;END&amp;#123;print &amp;quot;heheda,/bin/nidaye&amp;quot;&amp;#125;&amp;#39; passwd
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;将 passwd 文件中的用户 id 增加数值 1 并输出：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;awk -F : &amp;#39;&amp;#123;print $3+1&amp;#125;&amp;#39; passwd
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;统计 passwd 文件名，每行的行号，每列的列数：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;awk -F : &amp;#39;&amp;#123;print &amp;quot;文件名：&amp;quot; FILENAME &amp;quot;, 行号：&amp;quot; NR &amp;quot;, 列数：&amp;quot; NF &amp;#125;&amp;#39; passwd
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;切割 IP ：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;ifconfig | awk -F &amp;#39; &amp;#39; &amp;#39;/netmask/&amp;#123;print $2&amp;#125;&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;查询 ifconfig 中空行所在的行号：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;ifconfig | awk &amp;#39;/^$/&amp;#123;print NR&amp;#125;&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;sort&#34;&gt;&lt;a href=&#34;#sort&#34; class=&#34;headerlink&#34; title=&#34;sort&#34;&gt;&lt;/a&gt;&lt;code&gt;sort&lt;/code&gt;&lt;/h2&gt;&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;sort [参数] [文件路径]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;参数：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;参数名&lt;/th&gt;
+&lt;th&gt;作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;-n&lt;/td&gt;
+&lt;td&gt;依照数值大小排序&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-r&lt;/td&gt;
+&lt;td&gt;相反顺序排序&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-t&lt;/td&gt;
+&lt;td&gt;设置排序时使用的分隔字符&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-k&lt;/td&gt;
+&lt;td&gt;指定需要排序的列&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;作用：将文件或内容进行排序，并将排序结果标准输出。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;根据第 3 列数据进行排序：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;sort -t : -nrk 3 sort.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;xargs&#34;&gt;&lt;a href=&#34;#xargs&#34; class=&#34;headerlink&#34; title=&#34;xargs&#34;&gt;&lt;/a&gt;&lt;code&gt;xargs&lt;/code&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;xargs 命令的作用：将管道符号提供的 stdin 数据转换为后面命令的命令行参数。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;ul&gt;
+&lt;li&gt;rm 命令前面的管道符号把前面的 stdout 转换为了 stdin 再传输给 rm 命令，这种方式对于有些命令可以，但是有些命令不行。例如：mkdir、ls、rm 等命令都是。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;ul&gt;
+&lt;li&gt;使用 xargs 命令将 stdin 转换为命令行参数：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;ls | grep sad | grep -v sad02 | xargs rm
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
         </item>
         <item>
             <guid isPermalink="true">http://example.com/2023/07/29/HTTP/</guid>
@@ -2153,8 +2504,50 @@ OK
             <title>Nginx</title>
             <link>http://example.com/2023/07/23/Nginx/</link>
             <category term="技术栈" scheme="http://example.com/categories/tech/" />
+            <category term="nginx" scheme="http://example.com/tags/nginx/" />
             <pubDate>Sun, 23 Jul 2023 21:24:34 +0800</pubDate>
-            <description><![CDATA[  ]]></description>
+            <description><![CDATA[ &lt;h1 id=&#34;安装Nginx&#34;&gt;&lt;a href=&#34;#安装Nginx&#34; class=&#34;headerlink&#34; title=&#34;安装Nginx&#34;&gt;&lt;/a&gt;安装Nginx&lt;/h1&gt;&lt;h2 id=&#34;下载安装包&#34;&gt;&lt;a href=&#34;#下载安装包&#34; class=&#34;headerlink&#34; title=&#34;下载安装包&#34;&gt;&lt;/a&gt;下载安装包&lt;/h2&gt;&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;wget https://nginx.org/download/nginx-1.16.1.tar.gz
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;解压缩&#34;&gt;&lt;a href=&#34;#解压缩&#34; class=&#34;headerlink&#34; title=&#34;解压缩&#34;&gt;&lt;/a&gt;解压缩&lt;/h2&gt;&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;tar zxvf nginx-1.16.1.tar.gz -C ../module/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;进入目录&#34;&gt;&lt;a href=&#34;#进入目录&#34; class=&#34;headerlink&#34; title=&#34;进入目录&#34;&gt;&lt;/a&gt;进入目录&lt;/h2&gt;&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;cd nginx-1.16.1/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;安装nginx&#34;&gt;&lt;a href=&#34;#安装nginx&#34; class=&#34;headerlink&#34; title=&#34;安装nginx&#34;&gt;&lt;/a&gt;安装nginx&lt;/h2&gt;&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;# 安装gcc
+yum install -y gcc
+# 安装perl
+yum install -y pcre pcre-devel
+# 安装zlib
+yum install -y zlib zlib-devel
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;make
+make install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;安装到指定目录&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;./configure --prefix=/usr/local/nginx
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;启动Nginx&#34;&gt;&lt;a href=&#34;#启动Nginx&#34; class=&#34;headerlink&#34; title=&#34;启动Nginx&#34;&gt;&lt;/a&gt;启动Nginx&lt;/h2&gt;&lt;p&gt;进入&lt;code&gt;/usr/local/nginx/sbin&lt;/code&gt;目录&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;# 启动
+./nginx
+# 快速停止
+./nginx -s stop
+# 优雅关闭，在退出前完成已经接受的连续请求
+./nginx -s quit
+# 重新加载配置
+./nginx -s reload
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;关闭防火墙&#34;&gt;&lt;a href=&#34;#关闭防火墙&#34; class=&#34;headerlink&#34; title=&#34;关闭防火墙&#34;&gt;&lt;/a&gt;关闭防火墙&lt;/h2&gt;&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;systemctl stop firewalld.service
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;禁止防火墙开机启动&#34;&gt;&lt;a href=&#34;#禁止防火墙开机启动&#34; class=&#34;headerlink&#34; title=&#34;禁止防火墙开机启动&#34;&gt;&lt;/a&gt;禁止防火墙开机启动&lt;/h2&gt;&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;systemctl disable firewalld.service
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;放行端口&#34;&gt;&lt;a href=&#34;#放行端口&#34; class=&#34;headerlink&#34; title=&#34;放行端口&#34;&gt;&lt;/a&gt;放行端口&lt;/h2&gt;&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;firewall-cmd --zone=public --add-port=80/tcp --permanent
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;重启防火墙&#34;&gt;&lt;a href=&#34;#重启防火墙&#34; class=&#34;headerlink&#34; title=&#34;重启防火墙&#34;&gt;&lt;/a&gt;重启防火墙&lt;/h2&gt;&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;firewall-cmd --reload
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;查看nginx状态&#34;&gt;&lt;a href=&#34;#查看nginx状态&#34; class=&#34;headerlink&#34; title=&#34;查看nginx状态&#34;&gt;&lt;/a&gt;查看nginx状态&lt;/h2&gt;&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;ps -ef | grep nginx
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;安装成系统服务&#34;&gt;&lt;a href=&#34;#安装成系统服务&#34; class=&#34;headerlink&#34; title=&#34;安装成系统服务&#34;&gt;&lt;/a&gt;安装成系统服务&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;
+&lt;/code&gt;&lt;/pre&gt;
+ ]]></description>
         </item>
         <item>
             <guid isPermalink="true">http://example.com/2023/07/23/src-container/</guid>
