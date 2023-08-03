@@ -1,0 +1,1095 @@
+<!-- build time:Thu Aug 03 2023 23:47:46 GMT+0800 (GMT+08:00) --><!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2"><meta name="theme-color" content="#FFF"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png"><link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="alternate" type="application/rss+xml" title="镜玄的博客" href="http://example.com/rss.xml"><link rel="alternate" type="application/atom+xml" title="镜玄的博客" href="http://example.com/atom.xml"><link rel="alternate" type="application/json" title="镜玄的博客" href="http://example.com/feed.json"><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext"><link rel="stylesheet" href="/css/app.css?v=0.2.5"><meta name="keywords" content="Apollo"><link rel="canonical" href="http://example.com/2023/08/03/Apollo%E9%83%A8%E7%BD%B2%E5%8F%8A%E4%BD%BF%E7%94%A8/"><title>Apollo 部署及使用 - 技术栈 | 镜玄的博客</title><meta name="generator" content="Hexo 6.3.0"></head><body itemscope itemtype="http://schema.org/WebPage"><div id="loading"><div class="cat"><div class="body"></div><div class="head"><div class="face"></div></div><div class="foot"><div class="tummy-end"></div><div class="bottom"></div><div class="legs left"></div><div class="legs right"></div></div><div class="paw"><div class="hands left"></div><div class="hands right"></div></div></div></div><div id="container"><header id="header" itemscope itemtype="http://schema.org/WPHeader"><div class="inner"><div id="brand"><div class="pjax"><h1 itemprop="name headline">Apollo 部署及使用</h1><div class="meta"><span class="item" title="创建时间：2023-08-03 12:59:55"><span class="icon"><i class="ic i-calendar"></i> </span><span class="text">发表于</span> <time itemprop="dateCreated datePublished" datetime="2023-08-03T12:59:55+08:00">2023-08-03</time> </span><span class="item" title="本文字数"><span class="icon"><i class="ic i-pen"></i> </span><span class="text">本文字数</span> <span>50k</span> <span class="text">字</span> </span><span class="item" title="阅读时长"><span class="icon"><i class="ic i-clock"></i> </span><span class="text">阅读时长</span> <span>45 分钟</span></span></div></div></div><nav id="nav"><div class="inner"><div class="toggle"><div class="lines" aria-label="切换导航栏"><span class="line"></span> <span class="line"></span> <span class="line"></span></div></div><ul class="menu"><li class="item title"><a href="/" rel="start">镜玄的博客</a></li></ul><ul class="right"><li class="item theme"><i class="ic i-sun"></i></li><li class="item search"><i class="ic i-search"></i></li></ul></div></nav></div><div id="imgs" class="pjax"><ul><li class="item" data-background-image="https://s2.loli.net/2023/07/24/xKd198wlCvUYLPh.jpg"></li><li class="item" data-background-image="https://s2.loli.net/2023/07/24/TQhMSzbtmWNDY1l.jpg"></li><li class="item" data-background-image="https://s2.loli.net/2023/07/24/SsZLNvVkAe9j4id.jpg"></li><li class="item" data-background-image="https://s2.loli.net/2023/07/26/kbA9zpDBFQ2nar3.png"></li><li class="item" data-background-image="https://s2.loli.net/2023/07/28/BDMdCjP2mg73lw5.jpg"></li><li class="item" data-background-image="https://s2.loli.net/2023/07/24/RfLjK8dBn6eNGAH.jpg"></li></ul></div></header><div id="waves"><svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"/></defs><g class="parallax"><use xlink:href="#gentle-wave" x="48" y="0"/><use xlink:href="#gentle-wave" x="48" y="3"/><use xlink:href="#gentle-wave" x="48" y="5"/><use xlink:href="#gentle-wave" x="48" y="7"/></g></svg></div><main><div class="inner"><div id="main" class="pjax"><div class="article wrap"><div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList"><i class="ic i-home"></i> <span><a href="/">首页</a></span><i class="ic i-angle-right"></i> <span class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/tech/" itemprop="item" rel="index" title="分类于 技术栈"><span itemprop="name">技术栈</span></a><meta itemprop="position" content="1"></span></div><article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN"><link itemprop="mainEntityOfPage" href="http://example.com/2023/08/03/Apollo%E9%83%A8%E7%BD%B2%E5%8F%8A%E4%BD%BF%E7%94%A8/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="image" content="/images/avatar.jpg"><meta itemprop="name" content="镜玄"><meta itemprop="description" content=", 时不可兮再得，聊逍遥兮容与。"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="镜玄的博客"></span><div class="body md" itemprop="articleBody"><h1 id="Docker部署Apollo"><a href="#Docker部署Apollo" class="headerlink" title="Docker部署Apollo"></a>Docker部署Apollo</h1><h2 id="docker-compose-yml"><a href="#docker-compose-yml" class="headerlink" title="docker-compose.yml"></a><code>docker-compose.yml</code></h2><pre><code class="yml">version: &#39;3.8&#39;
+
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql:/var/lib/mysql
+      - ./mysql:/docker-entrypoint-initdb.d
+
+  mysql-admin:
+    image: phpmyadmin
+    ports:
+      - &quot;23306:80&quot;
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: root
+
+  apollo-configservice:
+    image: apolloconfig/apollo-configservice:1.9.2
+    ports:
+      - &quot;18080:8080&quot;
+    environment:
+      SPRING_DATASOURCE_URL: &quot;jdbc:mysql://mysql:3306/ApolloConfigDB?characterEncoding=utf8&quot;
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+
+  apollo-adminservice:
+    image: apolloconfig/apollo-adminservice:1.9.2
+    ports:
+      - &quot;18090:8090&quot;
+    environment:
+      SPRING_DATASOURCE_URL: &quot;jdbc:mysql://mysql:3306/ApolloConfigDB?characterEncoding=utf8&quot;
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+
+  apollo-portal:
+    image: apolloconfig/apollo-portal:1.9.2
+    ports:
+      - &quot;18070:8070&quot;
+    environment:
+      SPRING_DATASOURCE_URL: &quot;jdbc:mysql://mysql:3306/ApolloPortalDB?characterEncoding=utf8&quot;
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      APOLLO_PORTAL_ENVS: dev
+      DEV_META: http://apollo-configservice:8080
+
+
+volumes:
+  mysql: &#123;&#125;
+</code></pre><h2 id="mysql-apolloconfigdb-sql"><a href="#mysql-apolloconfigdb-sql" class="headerlink" title="mysql/apolloconfigdb.sql"></a><code>mysql/apolloconfigdb.sql</code></h2><ul><li><strong>注意将此处，修改成本地ip</strong></li></ul><p>(‘eureka.service.url’, ‘default’, ‘<span class="exturl" data-url="aHR0cDovLzE5Mi4xNjguMC4xMDU6MTgwODAvZXVyZWthLw==">http://192.168.0.105:18080/eureka/</span>‘, ‘Eureka服务Url，多个service以英文逗号分隔’),</p><pre><code class="sql">--
+-- Copyright 2023 Apollo Authors
+--
+-- Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+-- http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+--
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE=&#39;NO_AUTO_VALUE_ON_ZERO&#39; */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+# Create Database
+# ------------------------------------------------------------
+CREATE DATABASE IF NOT EXISTS ApolloConfigDB DEFAULT CHARACTER SET = utf8mb4;
+
+Use ApolloConfigDB;
+
+# Dump of table app
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `App`;
+
+CREATE TABLE `App` (
+                       `Id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;主键&#39;,
+                       `AppId` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;AppID&#39;,
+                       `Name` varchar(500) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;应用名&#39;,
+                       `OrgId` varchar(32) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;部门Id&#39;,
+                       `OrgName` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;部门名字&#39;,
+                       `OwnerName` varchar(500) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;ownerName&#39;,
+                       `OwnerEmail` varchar(500) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;ownerEmail&#39;,
+                       `IsDeleted` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;1: deleted, 0: normal&#39;,
+                       `DeletedAt` BIGINT(20) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;Delete timestamp based on milliseconds&#39;,
+                       `DataChange_CreatedBy` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;创建人邮箱前缀&#39;,
+                       `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+                       `DataChange_LastModifiedBy` varchar(64) DEFAULT &#39;&#39; COMMENT &#39;最后修改人邮箱前缀&#39;,
+                       `DataChange_LastTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+                       PRIMARY KEY (`Id`),
+                       UNIQUE KEY `UK_AppId_DeletedAt` (`AppId`,`DeletedAt`),
+                       KEY `DataChange_LastTime` (`DataChange_LastTime`),
+                       KEY `IX_Name` (`Name`(191))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;应用表&#39;;
+
+
+
+# Dump of table appnamespace
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `AppNamespace`;
+
+CREATE TABLE `AppNamespace` (
+                                `Id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;自增主键&#39;,
+                                `Name` varchar(32) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;namespace名字，注意，需要全局唯一&#39;,
+                                `AppId` varchar(64) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;app id&#39;,
+                                `Format` varchar(32) NOT NULL DEFAULT &#39;properties&#39; COMMENT &#39;namespace的format类型&#39;,
+                                `IsPublic` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;namespace是否为公共&#39;,
+                                `Comment` varchar(64) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;注释&#39;,
+                                `IsDeleted` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;1: deleted, 0: normal&#39;,
+                                `DeletedAt` BIGINT(20) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;Delete timestamp based on milliseconds&#39;,
+                                `DataChange_CreatedBy` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;创建人邮箱前缀&#39;,
+                                `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+                                `DataChange_LastModifiedBy` varchar(64) DEFAULT &#39;&#39; COMMENT &#39;最后修改人邮箱前缀&#39;,
+                                `DataChange_LastTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+                                PRIMARY KEY (`Id`),
+                                UNIQUE KEY `UK_AppId_Name_DeletedAt` (`AppId`,`Name`,`DeletedAt`),
+                                KEY `Name_AppId` (`Name`,`AppId`),
+                                KEY `DataChange_LastTime` (`DataChange_LastTime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;应用namespace定义&#39;;
+
+
+
+# Dump of table audit
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Audit`;
+
+CREATE TABLE `Audit` (
+                         `Id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;主键&#39;,
+                         `EntityName` varchar(50) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;表名&#39;,
+                         `EntityId` int(10) unsigned DEFAULT NULL COMMENT &#39;记录ID&#39;,
+                         `OpName` varchar(50) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;操作类型&#39;,
+                         `Comment` varchar(500) DEFAULT NULL COMMENT &#39;备注&#39;,
+                         `IsDeleted` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;1: deleted, 0: normal&#39;,
+                         `DeletedAt` BIGINT(20) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;Delete timestamp based on milliseconds&#39;,
+                         `DataChange_CreatedBy` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;创建人邮箱前缀&#39;,
+                         `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+                         `DataChange_LastModifiedBy` varchar(64) DEFAULT &#39;&#39; COMMENT &#39;最后修改人邮箱前缀&#39;,
+                         `DataChange_LastTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+                         PRIMARY KEY (`Id`),
+                         KEY `DataChange_LastTime` (`DataChange_LastTime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;日志审计表&#39;;
+
+
+
+# Dump of table cluster
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Cluster`;
+
+CREATE TABLE `Cluster` (
+                           `Id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;自增主键&#39;,
+                           `Name` varchar(32) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;集群名字&#39;,
+                           `AppId` varchar(64) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;App id&#39;,
+                           `ParentClusterId` int(10) unsigned NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;父cluster&#39;,
+                           `IsDeleted` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;1: deleted, 0: normal&#39;,
+                           `DeletedAt` BIGINT(20) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;Delete timestamp based on milliseconds&#39;,
+                           `DataChange_CreatedBy` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;创建人邮箱前缀&#39;,
+                           `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+                           `DataChange_LastModifiedBy` varchar(64) DEFAULT &#39;&#39; COMMENT &#39;最后修改人邮箱前缀&#39;,
+                           `DataChange_LastTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+                           PRIMARY KEY (`Id`),
+                           UNIQUE KEY `UK_AppId_Name_DeletedAt` (`AppId`,`Name`,`DeletedAt`),
+                           KEY `IX_ParentClusterId` (`ParentClusterId`),
+                           KEY `DataChange_LastTime` (`DataChange_LastTime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;集群&#39;;
+
+
+
+# Dump of table commit
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Commit`;
+
+CREATE TABLE `Commit` (
+                          `Id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;主键&#39;,
+                          `ChangeSets` longtext NOT NULL COMMENT &#39;修改变更集&#39;,
+                          `AppId` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;AppID&#39;,
+                          `ClusterName` varchar(500) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;ClusterName&#39;,
+                          `NamespaceName` varchar(500) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;namespaceName&#39;,
+                          `Comment` varchar(500) DEFAULT NULL COMMENT &#39;备注&#39;,
+                          `IsDeleted` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;1: deleted, 0: normal&#39;,
+                          `DeletedAt` BIGINT(20) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;Delete timestamp based on milliseconds&#39;,
+                          `DataChange_CreatedBy` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;创建人邮箱前缀&#39;,
+                          `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+                          `DataChange_LastModifiedBy` varchar(64) DEFAULT &#39;&#39; COMMENT &#39;最后修改人邮箱前缀&#39;,
+                          `DataChange_LastTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+                          PRIMARY KEY (`Id`),
+                          KEY `DataChange_LastTime` (`DataChange_LastTime`),
+                          KEY `AppId` (`AppId`),
+                          KEY `ClusterName` (`ClusterName`(191)),
+                          KEY `NamespaceName` (`NamespaceName`(191))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;commit 历史表&#39;;
+
+# Dump of table grayreleaserule
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `GrayReleaseRule`;
+
+CREATE TABLE `GrayReleaseRule` (
+                                   `Id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;主键&#39;,
+                                   `AppId` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;AppID&#39;,
+                                   `ClusterName` varchar(32) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;Cluster Name&#39;,
+                                   `NamespaceName` varchar(32) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;Namespace Name&#39;,
+                                   `BranchName` varchar(32) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;branch name&#39;,
+                                   `Rules` varchar(16000) DEFAULT &#39;[]&#39; COMMENT &#39;灰度规则&#39;,
+                                   `ReleaseId` int(11) unsigned NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;灰度对应的release&#39;,
+                                   `BranchStatus` tinyint(2) DEFAULT &#39;1&#39; COMMENT &#39;灰度分支状态: 0:删除分支,1:正在使用的规则 2：全量发布&#39;,
+                                   `IsDeleted` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;1: deleted, 0: normal&#39;,
+                                   `DeletedAt` BIGINT(20) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;Delete timestamp based on milliseconds&#39;,
+                                   `DataChange_CreatedBy` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;创建人邮箱前缀&#39;,
+                                   `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+                                   `DataChange_LastModifiedBy` varchar(64) DEFAULT &#39;&#39; COMMENT &#39;最后修改人邮箱前缀&#39;,
+                                   `DataChange_LastTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+                                   PRIMARY KEY (`Id`),
+                                   KEY `DataChange_LastTime` (`DataChange_LastTime`),
+                                   KEY `IX_Namespace` (`AppId`,`ClusterName`,`NamespaceName`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;灰度规则表&#39;;
+
+
+# Dump of table instance
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Instance`;
+
+CREATE TABLE `Instance` (
+                            `Id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;自增Id&#39;,
+                            `AppId` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;AppID&#39;,
+                            `ClusterName` varchar(32) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;ClusterName&#39;,
+                            `DataCenter` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;Data Center Name&#39;,
+                            `Ip` varchar(32) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;instance ip&#39;,
+                            `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+                            `DataChange_LastTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+                            PRIMARY KEY (`Id`),
+                            UNIQUE KEY `IX_UNIQUE_KEY` (`AppId`,`ClusterName`,`Ip`,`DataCenter`),
+                            KEY `IX_IP` (`Ip`),
+                            KEY `IX_DataChange_LastTime` (`DataChange_LastTime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;使用配置的应用实例&#39;;
+
+
+
+# Dump of table instanceconfig
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `InstanceConfig`;
+
+CREATE TABLE `InstanceConfig` (
+                                  `Id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;自增Id&#39;,
+                                  `InstanceId` int(11) unsigned DEFAULT NULL COMMENT &#39;Instance Id&#39;,
+                                  `ConfigAppId` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;Config App Id&#39;,
+                                  `ConfigClusterName` varchar(32) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;Config Cluster Name&#39;,
+                                  `ConfigNamespaceName` varchar(32) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;Config Namespace Name&#39;,
+                                  `ReleaseKey` varchar(64) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;发布的Key&#39;,
+                                  `ReleaseDeliveryTime` timestamp NULL DEFAULT NULL COMMENT &#39;配置获取时间&#39;,
+                                  `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+                                  `DataChange_LastTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+                                  PRIMARY KEY (`Id`),
+                                  UNIQUE KEY `IX_UNIQUE_KEY` (`InstanceId`,`ConfigAppId`,`ConfigNamespaceName`),
+                                  KEY `IX_ReleaseKey` (`ReleaseKey`),
+                                  KEY `IX_DataChange_LastTime` (`DataChange_LastTime`),
+                                  KEY `IX_Valid_Namespace` (`ConfigAppId`,`ConfigClusterName`,`ConfigNamespaceName`,`DataChange_LastTime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;应用实例的配置信息&#39;;
+
+
+
+# Dump of table item
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Item`;
+
+CREATE TABLE `Item` (
+                        `Id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;自增Id&#39;,
+                        `NamespaceId` int(10) unsigned NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;集群NamespaceId&#39;,
+                        `Key` varchar(128) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;配置项Key&#39;,
+                        `Type` tinyint(3) unsigned NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;配置项类型，0: String，1: Number，2: Boolean，3: JSON&#39;,
+                        `Value` longtext NOT NULL COMMENT &#39;配置项值&#39;,
+                        `Comment` varchar(1024) DEFAULT &#39;&#39; COMMENT &#39;注释&#39;,
+                        `LineNum` int(10) unsigned DEFAULT &#39;0&#39; COMMENT &#39;行号&#39;,
+                        `IsDeleted` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;1: deleted, 0: normal&#39;,
+                        `DeletedAt` BIGINT(20) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;Delete timestamp based on milliseconds&#39;,
+                        `DataChange_CreatedBy` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;创建人邮箱前缀&#39;,
+                        `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+                        `DataChange_LastModifiedBy` varchar(64) DEFAULT &#39;&#39; COMMENT &#39;最后修改人邮箱前缀&#39;,
+                        `DataChange_LastTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+                        PRIMARY KEY (`Id`),
+                        KEY `IX_GroupId` (`NamespaceId`),
+                        KEY `DataChange_LastTime` (`DataChange_LastTime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;配置项目&#39;;
+
+
+
+# Dump of table namespace
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Namespace`;
+
+CREATE TABLE `Namespace` (
+                             `Id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;自增主键&#39;,
+                             `AppId` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;AppID&#39;,
+                             `ClusterName` varchar(500) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;Cluster Name&#39;,
+                             `NamespaceName` varchar(500) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;Namespace Name&#39;,
+                             `IsDeleted` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;1: deleted, 0: normal&#39;,
+                             `DeletedAt` BIGINT(20) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;Delete timestamp based on milliseconds&#39;,
+                             `DataChange_CreatedBy` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;创建人邮箱前缀&#39;,
+                             `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+                             `DataChange_LastModifiedBy` varchar(64) DEFAULT &#39;&#39; COMMENT &#39;最后修改人邮箱前缀&#39;,
+                             `DataChange_LastTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+                             PRIMARY KEY (`Id`),
+                             UNIQUE KEY `UK_AppId_ClusterName_NamespaceName_DeletedAt` (`AppId`,`ClusterName`(191),`NamespaceName`(191),`DeletedAt`),
+                             KEY `DataChange_LastTime` (`DataChange_LastTime`),
+                             KEY `IX_NamespaceName` (`NamespaceName`(191))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;命名空间&#39;;
+
+
+
+# Dump of table namespacelock
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `NamespaceLock`;
+
+CREATE TABLE `NamespaceLock` (
+                                 `Id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;自增id&#39;,
+                                 `NamespaceId` int(10) unsigned NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;集群NamespaceId&#39;,
+                                 `DataChange_CreatedBy` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;创建人邮箱前缀&#39;,
+                                 `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+                                 `DataChange_LastModifiedBy` varchar(64) DEFAULT &#39;&#39; COMMENT &#39;最后修改人邮箱前缀&#39;,
+                                 `DataChange_LastTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+                                 `IsDeleted` bit(1) DEFAULT b&#39;0&#39; COMMENT &#39;软删除&#39;,
+                                 `DeletedAt` BIGINT(20) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;Delete timestamp based on milliseconds&#39;,
+                                 PRIMARY KEY (`Id`),
+                                 UNIQUE KEY `UK_NamespaceId_DeletedAt` (`NamespaceId`,`DeletedAt`),
+                                 KEY `DataChange_LastTime` (`DataChange_LastTime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;namespace的编辑锁&#39;;
+
+
+
+# Dump of table release
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Release`;
+
+CREATE TABLE `Release` (
+                           `Id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;自增主键&#39;,
+                           `ReleaseKey` varchar(64) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;发布的Key&#39;,
+                           `Name` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;发布名字&#39;,
+                           `Comment` varchar(256) DEFAULT NULL COMMENT &#39;发布说明&#39;,
+                           `AppId` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;AppID&#39;,
+                           `ClusterName` varchar(500) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;ClusterName&#39;,
+                           `NamespaceName` varchar(500) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;namespaceName&#39;,
+                           `Configurations` longtext NOT NULL COMMENT &#39;发布配置&#39;,
+                           `IsAbandoned` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;是否废弃&#39;,
+                           `IsDeleted` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;1: deleted, 0: normal&#39;,
+                           `DeletedAt` BIGINT(20) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;Delete timestamp based on milliseconds&#39;,
+                           `DataChange_CreatedBy` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;创建人邮箱前缀&#39;,
+                           `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+                           `DataChange_LastModifiedBy` varchar(64) DEFAULT &#39;&#39; COMMENT &#39;最后修改人邮箱前缀&#39;,
+                           `DataChange_LastTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+                           PRIMARY KEY (`Id`),
+                           UNIQUE KEY `UK_ReleaseKey_DeletedAt` (`ReleaseKey`,`DeletedAt`),
+                           KEY `AppId_ClusterName_GroupName` (`AppId`,`ClusterName`(191),`NamespaceName`(191)),
+                           KEY `DataChange_LastTime` (`DataChange_LastTime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;发布&#39;;
+
+
+# Dump of table releasehistory
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `ReleaseHistory`;
+
+CREATE TABLE `ReleaseHistory` (
+                                  `Id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;自增Id&#39;,
+                                  `AppId` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;AppID&#39;,
+                                  `ClusterName` varchar(32) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;ClusterName&#39;,
+                                  `NamespaceName` varchar(32) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;namespaceName&#39;,
+                                  `BranchName` varchar(32) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;发布分支名&#39;,
+                                  `ReleaseId` int(11) unsigned NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;关联的Release Id&#39;,
+                                  `PreviousReleaseId` int(11) unsigned NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;前一次发布的ReleaseId&#39;,
+                                  `Operation` tinyint(3) unsigned NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;发布类型，0: 普通发布，1: 回滚，2: 灰度发布，3: 灰度规则更新，4: 灰度合并回主分支发布，5: 主分支发布灰度自动发布，6: 主分支回滚灰度自动发布，7: 放弃灰度&#39;,
+                                  `OperationContext` longtext NOT NULL COMMENT &#39;发布上下文信息&#39;,
+                                  `IsDeleted` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;1: deleted, 0: normal&#39;,
+                                  `DeletedAt` BIGINT(20) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;Delete timestamp based on milliseconds&#39;,
+                                  `DataChange_CreatedBy` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;创建人邮箱前缀&#39;,
+                                  `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+                                  `DataChange_LastModifiedBy` varchar(64) DEFAULT &#39;&#39; COMMENT &#39;最后修改人邮箱前缀&#39;,
+                                  `DataChange_LastTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+                                  PRIMARY KEY (`Id`),
+                                  KEY `IX_Namespace` (`AppId`,`ClusterName`,`NamespaceName`,`BranchName`),
+                                  KEY `IX_ReleaseId` (`ReleaseId`),
+                                  KEY `IX_DataChange_LastTime` (`DataChange_LastTime`),
+                                  KEY `IX_PreviousReleaseId` (`PreviousReleaseId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;发布历史&#39;;
+
+
+# Dump of table releasemessage
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `ReleaseMessage`;
+
+CREATE TABLE `ReleaseMessage` (
+                                  `Id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;自增主键&#39;,
+                                  `Message` varchar(1024) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;发布的消息内容&#39;,
+                                  `DataChange_LastTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+                                  PRIMARY KEY (`Id`),
+                                  KEY `DataChange_LastTime` (`DataChange_LastTime`),
+                                  KEY `IX_Message` (`Message`(191))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;发布消息&#39;;
+
+
+
+# Dump of table serverconfig
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `ServerConfig`;
+
+CREATE TABLE `ServerConfig` (
+                                `Id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;自增Id&#39;,
+                                `Key` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;配置项Key&#39;,
+                                `Cluster` varchar(32) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;配置对应的集群，default为不针对特定的集群&#39;,
+                                `Value` varchar(2048) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;配置项值&#39;,
+                                `Comment` varchar(1024) DEFAULT &#39;&#39; COMMENT &#39;注释&#39;,
+                                `IsDeleted` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;1: deleted, 0: normal&#39;,
+                                `DeletedAt` BIGINT(20) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;Delete timestamp based on milliseconds&#39;,
+                                `DataChange_CreatedBy` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;创建人邮箱前缀&#39;,
+                                `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+                                `DataChange_LastModifiedBy` varchar(64) DEFAULT &#39;&#39; COMMENT &#39;最后修改人邮箱前缀&#39;,
+                                `DataChange_LastTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+                                PRIMARY KEY (`Id`),
+                                UNIQUE KEY `UK_Key_Cluster_DeletedAt` (`Key`,`Cluster`,`DeletedAt`),
+                                KEY `DataChange_LastTime` (`DataChange_LastTime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;配置服务自身配置&#39;;
+
+# Dump of table accesskey
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `AccessKey`;
+
+CREATE TABLE `AccessKey` (
+                             `Id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;自增主键&#39;,
+                             `AppId` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;AppID&#39;,
+                             `Secret` varchar(128) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;Secret&#39;,
+                             `IsEnabled` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;1: enabled, 0: disabled&#39;,
+                             `IsDeleted` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;1: deleted, 0: normal&#39;,
+                             `DeletedAt` BIGINT(20) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;Delete timestamp based on milliseconds&#39;,
+                             `DataChange_CreatedBy` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;创建人邮箱前缀&#39;,
+                             `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+                             `DataChange_LastModifiedBy` varchar(64) DEFAULT &#39;&#39; COMMENT &#39;最后修改人邮箱前缀&#39;,
+                             `DataChange_LastTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+                             PRIMARY KEY (`Id`),
+                             UNIQUE KEY `UK_AppId_Secret_DeletedAt` (`AppId`,`Secret`,`DeletedAt`),
+                             KEY `DataChange_LastTime` (`DataChange_LastTime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;访问密钥&#39;;
+
+
+# Dump of table serviceregistry
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `ServiceRegistry`;
+
+CREATE TABLE `ServiceRegistry` (
+                                   `Id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT &#39;自增Id&#39;,
+                                   `ServiceName` VARCHAR(64) NOT NULL COMMENT &#39;服务名&#39;,
+                                   `Uri` VARCHAR(64) NOT NULL COMMENT &#39;服务地址&#39;,
+                                   `Cluster` VARCHAR(64) NOT NULL COMMENT &#39;集群，可以用来标识apollo.cluster或者网络分区&#39;,
+                                   `Metadata` VARCHAR(1024) NOT NULL DEFAULT &#39;&#123;&#125;&#39; COMMENT &#39;元数据，key value结构的json object，为了方面后面扩展功能而不需要修改表结构&#39;,
+                                   `DataChange_CreatedTime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+                                   `DataChange_LastTime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+                                   PRIMARY KEY (`Id`),
+                                   UNIQUE INDEX `IX_UNIQUE_KEY` (`ServiceName`, `Uri`),
+                                   INDEX `IX_DataChange_LastTime` (`DataChange_LastTime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;注册中心&#39;;
+
+
+# Config
+# ------------------------------------------------------------
+INSERT INTO `ServerConfig` (`Key`, `Cluster`, `Value`, `Comment`)
+VALUES
+    (&#39;eureka.service.url&#39;, &#39;default&#39;, &#39;http://192.168.0.105:18080/eureka/&#39;, &#39;Eureka服务Url，多个service以英文逗号分隔&#39;),
+    (&#39;namespace.lock.switch&#39;, &#39;default&#39;, &#39;false&#39;, &#39;一次发布只能有一个人修改开关&#39;),
+    (&#39;item.key.length.limit&#39;, &#39;default&#39;, &#39;128&#39;, &#39;item key 最大长度限制&#39;),
+    (&#39;item.value.length.limit&#39;, &#39;default&#39;, &#39;20000&#39;, &#39;item value最大长度限制&#39;),
+    (&#39;config-service.cache.enabled&#39;, &#39;default&#39;, &#39;false&#39;, &#39;ConfigService是否开启缓存，开启后能提高性能，但是会增大内存消耗！&#39;);
+
+# Sample Data
+# ------------------------------------------------------------
+INSERT INTO `App` (`AppId`, `Name`, `OrgId`, `OrgName`, `OwnerName`, `OwnerEmail`)
+VALUES
+    (&#39;SampleApp&#39;, &#39;Sample App&#39;, &#39;TEST1&#39;, &#39;样例部门1&#39;, &#39;apollo&#39;, &#39;apollo@acme.com&#39;);
+
+INSERT INTO `AppNamespace` (`Name`, `AppId`, `Format`, `IsPublic`, `Comment`)
+VALUES
+    (&#39;application&#39;, &#39;SampleApp&#39;, &#39;properties&#39;, 0, &#39;default app namespace&#39;);
+
+INSERT INTO `Cluster` (`Name`, `AppId`)
+VALUES
+    (&#39;default&#39;, &#39;SampleApp&#39;);
+
+INSERT INTO `Namespace` (`Id`, `AppId`, `ClusterName`, `NamespaceName`)
+VALUES
+    (1, &#39;SampleApp&#39;, &#39;default&#39;, &#39;application&#39;);
+
+
+INSERT INTO `Item` (`NamespaceId`, `Key`, `Value`, `Comment`, `LineNum`)
+VALUES
+    (1, &#39;timeout&#39;, &#39;100&#39;, &#39;sample timeout配置&#39;, 1);
+
+INSERT INTO `Release` (`ReleaseKey`, `Name`, `Comment`, `AppId`, `ClusterName`, `NamespaceName`, `Configurations`)
+VALUES
+    (&#39;20161009155425-d3a0749c6e20bc15&#39;, &#39;20161009155424-release&#39;, &#39;Sample发布&#39;, &#39;SampleApp&#39;, &#39;default&#39;, &#39;application&#39;, &#39;&#123;\&quot;timeout\&quot;:\&quot;100\&quot;&#125;&#39;);
+
+INSERT INTO `ReleaseHistory` (`AppId`, `ClusterName`, `NamespaceName`, `BranchName`, `ReleaseId`, `PreviousReleaseId`, `Operation`, `OperationContext`, `DataChange_CreatedBy`, `DataChange_LastModifiedBy`)
+VALUES
+    (&#39;SampleApp&#39;, &#39;default&#39;, &#39;application&#39;, &#39;default&#39;, 1, 0, 0, &#39;&#123;&#125;&#39;, &#39;apollo&#39;, &#39;apollo&#39;);
+
+INSERT INTO `ReleaseMessage` (`Message`)
+VALUES
+    (&#39;SampleApp+default+application&#39;);
+
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+</code></pre><h2 id="mysql-apolloportaldb-sql"><a href="#mysql-apolloportaldb-sql" class="headerlink" title="mysql/apolloportaldb.sql"></a><code>mysql/apolloportaldb.sql</code></h2><pre><code class="sql">--
+-- Copyright 2023 Apollo Authors
+--
+-- Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+-- http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+--
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE=&#39;NO_AUTO_VALUE_ON_ZERO&#39; */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+# Create Database
+# ------------------------------------------------------------
+CREATE DATABASE IF NOT EXISTS ApolloPortalDB DEFAULT CHARACTER SET = utf8mb4;
+
+Use ApolloPortalDB;
+
+# Dump of table app
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `App`;
+
+CREATE TABLE `App` (
+  `Id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;主键&#39;,
+  `AppId` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;AppID&#39;,
+  `Name` varchar(500) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;应用名&#39;,
+  `OrgId` varchar(32) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;部门Id&#39;,
+  `OrgName` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;部门名字&#39;,
+  `OwnerName` varchar(500) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;ownerName&#39;,
+  `OwnerEmail` varchar(500) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;ownerEmail&#39;,
+  `IsDeleted` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;1: deleted, 0: normal&#39;,
+  `DeletedAt` BIGINT(20) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;Delete timestamp based on milliseconds&#39;,
+  `DataChange_CreatedBy` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;创建人邮箱前缀&#39;,
+  `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+  `DataChange_LastModifiedBy` varchar(64) DEFAULT &#39;&#39; COMMENT &#39;最后修改人邮箱前缀&#39;,
+  `DataChange_LastTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `UK_AppId_DeletedAt` (`AppId`,`DeletedAt`),
+  KEY `DataChange_LastTime` (`DataChange_LastTime`),
+  KEY `IX_Name` (`Name`(191))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;应用表&#39;;
+
+
+
+# Dump of table appnamespace
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `AppNamespace`;
+
+CREATE TABLE `AppNamespace` (
+  `Id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;自增主键&#39;,
+  `Name` varchar(32) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;namespace名字，注意，需要全局唯一&#39;,
+  `AppId` varchar(64) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;app id&#39;,
+  `Format` varchar(32) NOT NULL DEFAULT &#39;properties&#39; COMMENT &#39;namespace的format类型&#39;,
+  `IsPublic` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;namespace是否为公共&#39;,
+  `Comment` varchar(64) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;注释&#39;,
+  `IsDeleted` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;1: deleted, 0: normal&#39;,
+  `DeletedAt` BIGINT(20) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;Delete timestamp based on milliseconds&#39;,
+  `DataChange_CreatedBy` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;创建人邮箱前缀&#39;,
+  `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+  `DataChange_LastModifiedBy` varchar(64) DEFAULT &#39;&#39; COMMENT &#39;最后修改人邮箱前缀&#39;,
+  `DataChange_LastTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `UK_AppId_Name_DeletedAt` (`AppId`,`Name`,`DeletedAt`),
+  KEY `Name_AppId` (`Name`,`AppId`),
+  KEY `DataChange_LastTime` (`DataChange_LastTime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;应用namespace定义&#39;;
+
+
+
+# Dump of table consumer
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Consumer`;
+
+CREATE TABLE `Consumer` (
+  `Id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;自增Id&#39;,
+  `AppId` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;AppID&#39;,
+  `Name` varchar(500) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;应用名&#39;,
+  `OrgId` varchar(32) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;部门Id&#39;,
+  `OrgName` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;部门名字&#39;,
+  `OwnerName` varchar(500) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;ownerName&#39;,
+  `OwnerEmail` varchar(500) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;ownerEmail&#39;,
+  `IsDeleted` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;1: deleted, 0: normal&#39;,
+  `DeletedAt` BIGINT(20) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;Delete timestamp based on milliseconds&#39;,
+  `DataChange_CreatedBy` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;创建人邮箱前缀&#39;,
+  `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+  `DataChange_LastModifiedBy` varchar(64) DEFAULT &#39;&#39; COMMENT &#39;最后修改人邮箱前缀&#39;,
+  `DataChange_LastTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `UK_AppId_DeletedAt` (`AppId`,`DeletedAt`),
+  KEY `DataChange_LastTime` (`DataChange_LastTime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;开放API消费者&#39;;
+
+
+
+# Dump of table consumeraudit
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `ConsumerAudit`;
+
+CREATE TABLE `ConsumerAudit` (
+  `Id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;自增Id&#39;,
+  `ConsumerId` int(11) unsigned DEFAULT NULL COMMENT &#39;Consumer Id&#39;,
+  `Uri` varchar(1024) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;访问的Uri&#39;,
+  `Method` varchar(16) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;访问的Method&#39;,
+  `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+  `DataChange_LastTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+  PRIMARY KEY (`Id`),
+  KEY `IX_DataChange_LastTime` (`DataChange_LastTime`),
+  KEY `IX_ConsumerId` (`ConsumerId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;consumer审计表&#39;;
+
+
+
+# Dump of table consumerrole
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `ConsumerRole`;
+
+CREATE TABLE `ConsumerRole` (
+  `Id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;自增Id&#39;,
+  `ConsumerId` int(11) unsigned DEFAULT NULL COMMENT &#39;Consumer Id&#39;,
+  `RoleId` int(10) unsigned DEFAULT NULL COMMENT &#39;Role Id&#39;,
+  `IsDeleted` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;1: deleted, 0: normal&#39;,
+  `DeletedAt` BIGINT(20) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;Delete timestamp based on milliseconds&#39;,
+  `DataChange_CreatedBy` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;创建人邮箱前缀&#39;,
+  `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+  `DataChange_LastModifiedBy` varchar(64) DEFAULT &#39;&#39; COMMENT &#39;最后修改人邮箱前缀&#39;,
+  `DataChange_LastTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `UK_ConsumerId_RoleId_DeletedAt` (`ConsumerId`,`RoleId`,`DeletedAt`),
+  KEY `IX_DataChange_LastTime` (`DataChange_LastTime`),
+  KEY `IX_RoleId` (`RoleId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;consumer和role的绑定表&#39;;
+
+
+
+# Dump of table consumertoken
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `ConsumerToken`;
+
+CREATE TABLE `ConsumerToken` (
+  `Id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;自增Id&#39;,
+  `ConsumerId` int(11) unsigned DEFAULT NULL COMMENT &#39;ConsumerId&#39;,
+  `Token` varchar(128) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;token&#39;,
+  `Expires` datetime NOT NULL DEFAULT &#39;2099-01-01 00:00:00&#39; COMMENT &#39;token失效时间&#39;,
+  `IsDeleted` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;1: deleted, 0: normal&#39;,
+  `DeletedAt` BIGINT(20) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;Delete timestamp based on milliseconds&#39;,
+  `DataChange_CreatedBy` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;创建人邮箱前缀&#39;,
+  `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+  `DataChange_LastModifiedBy` varchar(64) DEFAULT &#39;&#39; COMMENT &#39;最后修改人邮箱前缀&#39;,
+  `DataChange_LastTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `UK_Token_DeletedAt` (`Token`,`DeletedAt`),
+  KEY `DataChange_LastTime` (`DataChange_LastTime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;consumer token表&#39;;
+
+# Dump of table favorite
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Favorite`;
+
+CREATE TABLE `Favorite` (
+  `Id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;主键&#39;,
+  `UserId` varchar(32) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;收藏的用户&#39;,
+  `AppId` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;AppID&#39;,
+  `Position` int(32) NOT NULL DEFAULT &#39;10000&#39; COMMENT &#39;收藏顺序&#39;,
+  `IsDeleted` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;1: deleted, 0: normal&#39;,
+  `DeletedAt` BIGINT(20) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;Delete timestamp based on milliseconds&#39;,
+  `DataChange_CreatedBy` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;创建人邮箱前缀&#39;,
+  `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+  `DataChange_LastModifiedBy` varchar(64) DEFAULT &#39;&#39; COMMENT &#39;最后修改人邮箱前缀&#39;,
+  `DataChange_LastTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `UK_UserId_AppId_DeletedAt` (`UserId`,`AppId`,`DeletedAt`),
+  KEY `AppId` (`AppId`),
+  KEY `DataChange_LastTime` (`DataChange_LastTime`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COMMENT=&#39;应用收藏表&#39;;
+
+# Dump of table permission
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Permission`;
+
+CREATE TABLE `Permission` (
+  `Id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;自增Id&#39;,
+  `PermissionType` varchar(32) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;权限类型&#39;,
+  `TargetId` varchar(256) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;权限对象类型&#39;,
+  `IsDeleted` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;1: deleted, 0: normal&#39;,
+  `DeletedAt` BIGINT(20) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;Delete timestamp based on milliseconds&#39;,
+  `DataChange_CreatedBy` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;创建人邮箱前缀&#39;,
+  `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+  `DataChange_LastModifiedBy` varchar(64) DEFAULT &#39;&#39; COMMENT &#39;最后修改人邮箱前缀&#39;,
+  `DataChange_LastTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `UK_TargetId_PermissionType_DeletedAt` (`TargetId`,`PermissionType`,`DeletedAt`),
+  KEY `IX_DataChange_LastTime` (`DataChange_LastTime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;permission表&#39;;
+
+
+
+# Dump of table role
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Role`;
+
+CREATE TABLE `Role` (
+  `Id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;自增Id&#39;,
+  `RoleName` varchar(256) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;Role name&#39;,
+  `IsDeleted` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;1: deleted, 0: normal&#39;,
+  `DeletedAt` BIGINT(20) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;Delete timestamp based on milliseconds&#39;,
+  `DataChange_CreatedBy` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;创建人邮箱前缀&#39;,
+  `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+  `DataChange_LastModifiedBy` varchar(64) DEFAULT &#39;&#39; COMMENT &#39;最后修改人邮箱前缀&#39;,
+  `DataChange_LastTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `UK_RoleName_DeletedAt` (`RoleName`,`DeletedAt`),
+  KEY `IX_DataChange_LastTime` (`DataChange_LastTime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;角色表&#39;;
+
+
+
+# Dump of table rolepermission
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `RolePermission`;
+
+CREATE TABLE `RolePermission` (
+  `Id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;自增Id&#39;,
+  `RoleId` int(10) unsigned DEFAULT NULL COMMENT &#39;Role Id&#39;,
+  `PermissionId` int(10) unsigned DEFAULT NULL COMMENT &#39;Permission Id&#39;,
+  `IsDeleted` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;1: deleted, 0: normal&#39;,
+  `DeletedAt` BIGINT(20) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;Delete timestamp based on milliseconds&#39;,
+  `DataChange_CreatedBy` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;创建人邮箱前缀&#39;,
+  `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+  `DataChange_LastModifiedBy` varchar(64) DEFAULT &#39;&#39; COMMENT &#39;最后修改人邮箱前缀&#39;,
+  `DataChange_LastTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `UK_RoleId_PermissionId_DeletedAt` (`RoleId`,`PermissionId`,`DeletedAt`),
+  KEY `IX_DataChange_LastTime` (`DataChange_LastTime`),
+  KEY `IX_PermissionId` (`PermissionId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;角色和权限的绑定表&#39;;
+
+
+
+# Dump of table serverconfig
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `ServerConfig`;
+
+CREATE TABLE `ServerConfig` (
+  `Id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;自增Id&#39;,
+  `Key` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;配置项Key&#39;,
+  `Value` varchar(2048) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;配置项值&#39;,
+  `Comment` varchar(1024) DEFAULT &#39;&#39; COMMENT &#39;注释&#39;,
+  `IsDeleted` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;1: deleted, 0: normal&#39;,
+  `DeletedAt` BIGINT(20) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;Delete timestamp based on milliseconds&#39;,
+  `DataChange_CreatedBy` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;创建人邮箱前缀&#39;,
+  `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+  `DataChange_LastModifiedBy` varchar(64) DEFAULT &#39;&#39; COMMENT &#39;最后修改人邮箱前缀&#39;,
+  `DataChange_LastTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `UK_Key_DeletedAt` (`Key`,`DeletedAt`),
+  KEY `DataChange_LastTime` (`DataChange_LastTime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;配置服务自身配置&#39;;
+
+
+
+# Dump of table userrole
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `UserRole`;
+
+CREATE TABLE `UserRole` (
+  `Id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;自增Id&#39;,
+  `UserId` varchar(128) DEFAULT &#39;&#39; COMMENT &#39;用户身份标识&#39;,
+  `RoleId` int(10) unsigned DEFAULT NULL COMMENT &#39;Role Id&#39;,
+  `IsDeleted` bit(1) NOT NULL DEFAULT b&#39;0&#39; COMMENT &#39;1: deleted, 0: normal&#39;,
+  `DeletedAt` BIGINT(20) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;Delete timestamp based on milliseconds&#39;,
+  `DataChange_CreatedBy` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;创建人邮箱前缀&#39;,
+  `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
+  `DataChange_LastModifiedBy` varchar(64) DEFAULT &#39;&#39; COMMENT &#39;最后修改人邮箱前缀&#39;,
+  `DataChange_LastTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;最后修改时间&#39;,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `UK_UserId_RoleId_DeletedAt` (`UserId`,`RoleId`,`DeletedAt`),
+  KEY `IX_DataChange_LastTime` (`DataChange_LastTime`),
+  KEY `IX_RoleId` (`RoleId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;用户和role的绑定表&#39;;
+
+# Dump of table Users
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Users`;
+
+CREATE TABLE `Users` (
+  `Id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;自增Id&#39;,
+  `Username` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;用户登录账户&#39;,
+  `Password` varchar(512) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;密码&#39;,
+  `UserDisplayName` varchar(512) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;用户名称&#39;,
+  `Email` varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;邮箱地址&#39;,
+  `Enabled` tinyint(4) DEFAULT NULL COMMENT &#39;是否有效&#39;,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `UK_Username` (`Username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#39;用户表&#39;;
+
+
+# Dump of table Authorities
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Authorities`;
+
+CREATE TABLE `Authorities` (
+  `Id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT &#39;自增Id&#39;,
+  `Username` varchar(64) NOT NULL,
+  `Authority` varchar(50) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+# Config
+# ------------------------------------------------------------
+INSERT INTO `ServerConfig` (`Key`, `Value`, `Comment`)
+VALUES
+    (&#39;apollo.portal.envs&#39;, &#39;dev&#39;, &#39;可支持的环境列表&#39;),
+    (&#39;organizations&#39;, &#39;[&#123;\&quot;orgId\&quot;:\&quot;TEST1\&quot;,\&quot;orgName\&quot;:\&quot;样例部门1\&quot;&#125;,&#123;\&quot;orgId\&quot;:\&quot;TEST2\&quot;,\&quot;orgName\&quot;:\&quot;样例部门2\&quot;&#125;]&#39;, &#39;部门列表&#39;),
+    (&#39;superAdmin&#39;, &#39;apollo&#39;, &#39;Portal超级管理员&#39;),
+    (&#39;api.readTimeout&#39;, &#39;10000&#39;, &#39;http接口read timeout&#39;),
+    (&#39;consumer.token.salt&#39;, &#39;someSalt&#39;, &#39;consumer token salt&#39;),
+    (&#39;admin.createPrivateNamespace.switch&#39;, &#39;true&#39;, &#39;是否允许项目管理员创建私有namespace&#39;),
+    (&#39;configView.memberOnly.envs&#39;, &#39;dev&#39;, &#39;只对项目成员显示配置信息的环境列表，多个env以英文逗号分隔&#39;),
+    (&#39;apollo.portal.meta.servers&#39;, &#39;&#123;&#125;&#39;, &#39;各环境Meta Service列表&#39;);
+
+
+INSERT INTO `Users` (`Username`, `Password`, `UserDisplayName`, `Email`, `Enabled`)
+VALUES
+  (&#39;apollo&#39;, &#39;$2a$10$7r20uS.BQ9uBpf3Baj3uQOZvMVvB1RN3PYoKE94gtz2.WAOuiiwXS&#39;, &#39;apollo&#39;, &#39;apollo@acme.com&#39;, 1);
+
+INSERT INTO `Authorities` (`Username`, `Authority`) VALUES (&#39;apollo&#39;, &#39;ROLE_user&#39;);
+
+-- spring session (https://github.com/spring-projects/spring-session/blob/faee8f1bdb8822a5653a81eba838dddf224d92d6/spring-session-jdbc/src/main/resources/org/springframework/session/jdbc/schema-mysql.sql)
+CREATE TABLE SPRING_SESSION (
+  PRIMARY_ID CHAR(36) NOT NULL,
+  SESSION_ID CHAR(36) NOT NULL,
+  CREATION_TIME BIGINT NOT NULL,
+  LAST_ACCESS_TIME BIGINT NOT NULL,
+  MAX_INACTIVE_INTERVAL INT NOT NULL,
+  EXPIRY_TIME BIGINT NOT NULL,
+  PRINCIPAL_NAME VARCHAR(100),
+  CONSTRAINT SPRING_SESSION_PK PRIMARY KEY (PRIMARY_ID)
+) ENGINE=InnoDB ROW_FORMAT=DYNAMIC;
+
+CREATE UNIQUE INDEX SPRING_SESSION_IX1 ON SPRING_SESSION (SESSION_ID);
+CREATE INDEX SPRING_SESSION_IX2 ON SPRING_SESSION (EXPIRY_TIME);
+CREATE INDEX SPRING_SESSION_IX3 ON SPRING_SESSION (PRINCIPAL_NAME);
+
+CREATE TABLE SPRING_SESSION_ATTRIBUTES (
+  SESSION_PRIMARY_ID CHAR(36) NOT NULL,
+  ATTRIBUTE_NAME VARCHAR(200) NOT NULL,
+  ATTRIBUTE_BYTES BLOB NOT NULL,
+  CONSTRAINT SPRING_SESSION_ATTRIBUTES_PK PRIMARY KEY (SESSION_PRIMARY_ID, ATTRIBUTE_NAME),
+  CONSTRAINT SPRING_SESSION_ATTRIBUTES_FK FOREIGN KEY (SESSION_PRIMARY_ID) REFERENCES SPRING_SESSION(PRIMARY_ID) ON DELETE CASCADE
+) ENGINE=InnoDB ROW_FORMAT=DYNAMIC;
+
+# Sample Data
+# ------------------------------------------------------------
+INSERT INTO `App` (`AppId`, `Name`, `OrgId`, `OrgName`, `OwnerName`, `OwnerEmail`)
+VALUES
+  (&#39;SampleApp&#39;, &#39;Sample App&#39;, &#39;TEST1&#39;, &#39;样例部门1&#39;, &#39;apollo&#39;, &#39;apollo@acme.com&#39;);
+
+INSERT INTO `AppNamespace` (`Name`, `AppId`, `Format`, `IsPublic`, `Comment`)
+VALUES
+  (&#39;application&#39;, &#39;SampleApp&#39;, &#39;properties&#39;, 0, &#39;default app namespace&#39;);
+
+INSERT INTO `Permission` (`Id`, `PermissionType`, `TargetId`)
+VALUES
+  (1, &#39;CreateCluster&#39;, &#39;SampleApp&#39;),
+  (2, &#39;CreateNamespace&#39;, &#39;SampleApp&#39;),
+  (3, &#39;AssignRole&#39;, &#39;SampleApp&#39;),
+  (4, &#39;ModifyNamespace&#39;, &#39;SampleApp+application&#39;),
+  (5, &#39;ReleaseNamespace&#39;, &#39;SampleApp+application&#39;);
+
+INSERT INTO `Role` (`Id`, `RoleName`)
+VALUES
+  (1, &#39;Master+SampleApp&#39;),
+  (2, &#39;ModifyNamespace+SampleApp+application&#39;),
+  (3, &#39;ReleaseNamespace+SampleApp+application&#39;);
+
+INSERT INTO `RolePermission` (`RoleId`, `PermissionId`)
+VALUES
+  (1, 1),
+  (1, 2),
+  (1, 3),
+  (2, 4),
+  (3, 5);
+
+INSERT INTO `UserRole` (`UserId`, `RoleId`)
+VALUES
+  (&#39;apollo&#39;, 1),
+  (&#39;apollo&#39;, 2),
+  (&#39;apollo&#39;, 3);
+
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+</code></pre><p>部署好后如图所示</p><p><img data-src="https://s2.loli.net/2023/08/03/7sbKrFc3JZUwX9t.png" alt="~VC03W$Z3Z@({MAC7QSE$BC.png"></p><p>访问<code>http://localhost:18070</code>进入面板</p><p>默认用户名<code>apollo</code>密码<code>admin</code></p><h1 id="面板操作"><a href="#面板操作" class="headerlink" title="面板操作"></a>面板操作</h1><p>官方文档：</p><p><span class="exturl" data-url="aHR0cHM6Ly93d3cuYXBvbGxvY29uZmlnLmNvbS8jL3poL3VzYWdlL2Fwb2xsby11c2VyLWd1aWRl">https://www.apolloconfig.com/#/zh/usage/apollo-user-guide</span></p><p><del>会点鼠标即可</del></p><h1 id="Go-Apollo客户端连接"><a href="#Go-Apollo客户端连接" class="headerlink" title="Go Apollo客户端连接"></a>Go Apollo客户端连接</h1><pre><code class="shell">go get -u github.com/apolloconfig/agollo/v4@latest
+</code></pre><h2 id="客户端初始化"><a href="#客户端初始化" class="headerlink" title="客户端初始化"></a>客户端初始化</h2><pre><code class="go">func main() &#123;
+    c := &amp;config.AppConfig&#123;
+        AppID:          &quot;1234567&quot;,
+        Cluster:        &quot;dev&quot;,
+        IP:             &quot;http://localhost:18080&quot;,//如果参考以上部署方式，不用修改
+        NamespaceName:  &quot;TEST1.abc&quot;,
+        IsBackupConfig: true,
+        Secret:         &quot;70f716e7cc5044b4894829a8db612f08&quot;,
+    &#125;
+
+    client, err := agollo.StartWithConfig(func() (*config.AppConfig, error) &#123;
+        return c, nil
+    &#125;)
+    if err != nil &#123;
+        log.Printf(&quot;agollo start err:%v\n&quot;, err)
+        return
+    &#125;
+    fmt.Println(&quot;初始化Apollo配置成功&quot;)
+&#125;		
+</code></pre><ul><li><code>AppID</code>：配置中心中的应用程序ID，用于标识不同的应用程序。每个应用程序都有唯一的AppID。</li><li><code>Cluster</code>：配置中心中的集群名称。应用程序可以分布在不同的集群中，根据实际情况设置相应的集群名称。</li><li><code>IP</code>：配置中心的服务地址。</li><li><code>NamespaceName</code>：应用程序的命名空间名称。命名空间是配置项的逻辑分组，不同的应用程序可以有不同的命名空间，用于隔离配置。</li><li><code>IsBackupConfig</code>：是否备份配置。如果为true，当连接到配置中心失败时，将使用本地缓存的配置备份数据。</li><li><code>Secret</code>：配置中心的访问密钥，用于授权认证。如果启用了配置中心的授权认证，需要设置相应的密钥。</li></ul><h2 id="获取配置"><a href="#获取配置" class="headerlink" title="获取配置"></a>获取配置</h2><h3 id="GetConfig"><a href="#GetConfig" class="headerlink" title="GetConfig"></a><code>GetConfig</code></h3><pre><code class="go">func GetFromStorage(client agollo.Client) &#123;
+    key := &quot;timeout&quot;
+    //获取配置
+    storage := client.GetConfig(common.NameSpaceDemo)
+    //获取键值
+    strVal := storage.GetStringValue(key, &quot;xxx&quot;)
+    fmt.Println(strVal)
+    //获取键值
+    strVal = storage.GetStringValueImmediately(key, &quot;xxx&quot;)
+    fmt.Println(strVal)
+    //storage是否初始化
+    b := storage.GetIsInit()
+    fmt.Println(b)
+    //获取全部内容，string格式
+    content := storage.GetContent()
+    fmt.Println(content)
+    /*
+        GetValue(key string) string
+        GetStringValue(key string, defaultValue string) string
+        GetStringSliceValue(key string, separator string, defaultValue []string) []string
+        GetIntSliceValue(key string, separator string, defaultValue []int) []int
+        GetSliceValue(key string, defaultValue []interface&#123;&#125;) []interface&#123;&#125;
+        GetIntValue(key string, defaultValue int) int
+        GetFloatValue(key string, defaultValue float64) float64
+        GetBoolValue(key string, defaultValue bool) bool
+    */
+    /*
+        GetValueImmediately(key string) string
+        GetStringValueImmediately(key string, defaultValue string) string
+        GetStringSliceValueImmediately(key string, defaultValue []string) []string
+        GetIntSliceValueImmediately(key string, defaultValue []int) []int
+        GetSliceValueImmediately(key string, defaultValue []interface&#123;&#125;) []interface&#123;&#125;
+        GetIntValueImmediately(key string, defaultValue int) int
+        GetFloatValueImmediately(key string, defaultValue float64) float64
+        GetBoolValueImmediately(key string, defaultValue bool) bool
+    */
+&#125;
+</code></pre><blockquote><p><code>GetStringValue</code>和<code>GetStringValueImmediately</code>有什么区别呢？让我们看一下源码。</p></blockquote><pre><code class="go">// GetStringValue 获取配置值（string），获取不到则取默认值
+func (c *Config) GetStringValue(key string, defaultValue string) string &#123;
+    value := c.GetValue(key)
+    if value == utils.Empty &#123;
+        return defaultValue
+    &#125;
+
+    return value
+&#125;
+</code></pre><pre><code class="go">// GetStringValueImmediately 获取配置值（string），立即返回，初始化未完成直接返回错误
+func (c *Config) GetStringValueImmediately(key string, defaultValue string) string &#123;
+    value := c.GetValueImmediately(key)
+    if value == utils.Empty &#123;
+        return defaultValue
+    &#125;
+
+    return value
+&#125;
+</code></pre><p>这时候应该比较一下<code>c.GetValue</code>和<code>c.GetValueImmediately</code></p><pre><code class="go">// GetValue 获取配置值（string）
+func (c *Config) GetValue(key string) string &#123;
+    value := c.getConfigValue(key, true)
+    ...
+&#125;
+</code></pre><pre><code class="go">func (c *Config) GetValueImmediately(key string) string &#123;
+    value := c.getConfigValue(key, false)
+    ...
+&#125;
+</code></pre><p>区别在这:</p><pre><code class="go">// getConfigValue 获取配置值
+func (c *Config) getConfigValue(key string, waitInit bool) interface&#123;&#125; &#123;
+   b := c.GetIsInit()
+   if !b &#123;
+      if !waitInit &#123;
+         log.Errorf(&quot;getConfigValue fail, init not done, namespace:%s key:%s&quot;, c.namespace, key)
+         return nil
+      &#125;
+      c.waitInit.Wait()
+   &#125;
+   if c.cache == nil &#123;
+      log.Errorf(&quot;get config value fail!namespace:%s is not exist!&quot;, c.namespace)
+      return nil
+   &#125;
+
+   value, err := c.cache.Get(key)
+   if err != nil &#123;
+      log.Errorf(&quot;get config value fail!key:%s,err:%s&quot;, key, err)
+      return nil
+   &#125;
+
+   return value
+&#125;
+</code></pre><p>说明不带immediately的函数有阻塞，也就是说假如你的ip地址写错了，它就会一直等待，而不会直接给你返回错误。所以选择的标准就是是否希望立即获取并使用。</p><p>如果应用程序希望在获取配置值的同时继续执行其他操作，不阻塞当前线程，那不带immedialy的函数肯定更适合。</p><h3 id="GetConfigCache"><a href="#GetConfigCache" class="headerlink" title="GetConfigCache"></a><code>GetConfigCache</code></h3><pre><code class="go">func GetFromCache(client agollo.Client) &#123;
+    key := &quot;timeout&quot;
+    cache := client.GetConfigCache(common.NameSpaceDemo)
+    value, err := cache.Get(key)
+    if err != nil &#123;
+        fmt.Println(err)
+        return
+    &#125;
+    fmt.Println(value)
+&#125;
+</code></pre><h2 id="踩坑点"><a href="#踩坑点" class="headerlink" title="踩坑点"></a>踩坑点</h2><h3 id="直接用client获取键值"><a href="#直接用client获取键值" class="headerlink" title="直接用client获取键值"></a>直接用<code>client</code>获取键值</h3><pre><code class="go">func GetFromStorage(client agollo.Client) &#123;
+    key := &quot;timeout&quot;
+    strVal := client.GetStringValue(key, &quot;xxx&quot;)
+    fmt.Println(strVal)
+&#125;
+</code></pre><p>查看源码：</p><pre><code class="go">//GetStringValue 获取string配置值
+func (c *internalClient) GetStringValue(key string, defaultValue string) string &#123;
+    return c.GetConfig(storage.GetDefaultNamespace()).GetStringValue(key, defaultValue)
+&#125;
+</code></pre><pre><code class="go">// GetDefaultNamespace 获取默认命名空间
+func GetDefaultNamespace() string &#123;
+   return defaultNamespace
+&#125;
+</code></pre><pre><code class="go">const defaultNamespace string = &quot;application&quot;
+</code></pre><ul><li>如果默认命名空间没有你想获取的键，就会报空指针的错误。</li><li>因为会判断出<code>storage</code>没有初始化。</li></ul><p>以下方法皆同理：</p><pre><code class="text">    GetValue(key string) string
+    GetStringValue(key string, defaultValue string) string
+    GetIntValue(key string, defaultValue int) int
+    GetFloatValue(key string, defaultValue float64) float64
+    GetBoolValue(key string, defaultValue bool) bool
+    GetStringSliceValue(key string, defaultValue []string) []string
+    GetIntSliceValue(key string, defaultValue []int) []int
+</code></pre><div class="tags"><a href="/tags/Apollo/" rel="tag"><i class="ic i-tag"></i> Apollo</a></div></div><footer><div class="meta"><span class="item"><span class="icon"><i class="ic i-calendar-check"></i> </span><span class="text">更新于</span> <time title="修改时间：2023-08-03 21:20:51" itemprop="dateModified" datetime="2023-08-03T21:20:51+08:00">2023-08-03</time> </span><span id="2023/08/03/Apollo部署及使用/" class="item leancloud_visitors" data-flag-title="Apollo 部署及使用" title="阅读次数"><span class="icon"><i class="ic i-eye"></i> </span><span class="text">阅读次数</span> <span class="leancloud-visitors-count"></span> <span class="text">次</span></span></div><div class="reward"><button><i class="ic i-heartbeat"></i> 赞赏</button><p>请我喝[茶]~(￣▽￣)~*</p><div id="qr"><div><img data-src="/images/wechatpay.png" alt="镜玄 微信支付"><p>微信支付</p></div><div><img data-src="/images/alipay.png" alt="镜玄 支付宝"><p>支付宝</p></div><div><img data-src="/images/paypal.png" alt="镜玄 贝宝"><p>贝宝</p></div></div></div><div id="copyright"><ul><li class="author"><strong>本文作者： </strong>镜玄 <i class="ic i-at"><em>@</em></i>镜玄的博客</li><li class="link"><strong>本文链接：</strong> <a href="http://example.com/2023/08/03/Apollo%E9%83%A8%E7%BD%B2%E5%8F%8A%E4%BD%BF%E7%94%A8/" title="Apollo 部署及使用">http://example.com/2023/08/03/Apollo部署及使用/</a></li><li class="license"><strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！</li></ul></div></footer></article></div><div class="post-nav"><div class="item left"><a href="/2023/08/01/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2023&#x2F;07&#x2F;24&#x2F;JFtqCaXRbeDQ5Lx.jpg" title="TCP三次握手与四次挥手"><span class="type">上一篇</span> <span class="category"><i class="ic i-flag"></i> 计算机基础</span><h3>TCP三次握手与四次挥手</h3></a></div><div class="item right"></div></div><div class="wrap" id="comments"></div></div><div id="sidebar"><div class="inner"><div class="panels"><div class="inner"><div class="contents panel pjax" data-title="文章目录"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Docker%E9%83%A8%E7%BD%B2Apollo"><span class="toc-number">1.</span> <span class="toc-text">Docker部署Apollo</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#docker-compose-yml"><span class="toc-number">1.1.</span> <span class="toc-text">docker-compose.yml</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql-apolloconfigdb-sql"><span class="toc-number">1.2.</span> <span class="toc-text">mysql&#x2F;apolloconfigdb.sql</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql-apolloportaldb-sql"><span class="toc-number">1.3.</span> <span class="toc-text">mysql&#x2F;apolloportaldb.sql</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9D%A2%E6%9D%BF%E6%93%8D%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text">面板操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Go-Apollo%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5"><span class="toc-number">3.</span> <span class="toc-text">Go Apollo客户端连接</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">3.1.</span> <span class="toc-text">客户端初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E9%85%8D%E7%BD%AE"><span class="toc-number">3.2.</span> <span class="toc-text">获取配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GetConfig"><span class="toc-number">3.2.1.</span> <span class="toc-text">GetConfig</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GetConfigCache"><span class="toc-number">3.2.2.</span> <span class="toc-text">GetConfigCache</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B8%A9%E5%9D%91%E7%82%B9"><span class="toc-number">3.3.</span> <span class="toc-text">踩坑点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E7%94%A8client%E8%8E%B7%E5%8F%96%E9%94%AE%E5%80%BC"><span class="toc-number">3.3.1.</span> <span class="toc-text">直接用client获取键值</span></a></li></ol></li></ol></li></ol></div><div class="related panel pjax" data-title="系列文章"><ul><li><a href="/2023/07/23/Nginx/" rel="bookmark" title="Nginx">Nginx</a></li><li><a href="/2023/07/24/Rabbitmq/" rel="bookmark" title="Rabbitmq">Rabbitmq</a></li><li><a href="/2023/07/26/Redis%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/" rel="bookmark" title="Redis常见数据类型和应用场景">Redis常见数据类型和应用场景</a></li><li><a href="/2023/07/28/Redis%E6%8C%81%E4%B9%85%E5%8C%96/" rel="bookmark" title="Redis持久化篇">Redis持久化篇</a></li><li class="active"><a href="/2023/08/03/Apollo%E9%83%A8%E7%BD%B2%E5%8F%8A%E4%BD%BF%E7%94%A8/" rel="bookmark" title="Apollo部署及使用">Apollo部署及使用</a></li></ul></div><div class="overview panel" data-title="站点概览"><div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person"><img class="image" itemprop="image" alt="镜玄" data-src="/images/avatar.jpg"><p class="name" itemprop="name">镜玄</p><div class="description" itemprop="description">时不可兮再得，聊逍遥兮容与。</div></div><nav class="state"><div class="item posts"><a href="/archives/"><span class="count">16</span> <span class="name">文章</span></a></div><div class="item categories"><a href="/categories/"><span class="count">5</span> <span class="name">分类</span></a></div><div class="item tags"><a href="/tags/"><span class="count">13</span> <span class="name">标签</span></a></div></nav><div class="social"><span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3dpdGhvdXRhYmM=" title="https:&#x2F;&#x2F;github.com&#x2F;withoutabc"><i class="ic i-github"></i></span></div><ul class="menu"><li class="item"><a href="/" rel="section"><i class="ic i-home"></i>首页</a></li><li class="item"><a href="/about/" rel="section"><i class="ic i-user"></i>关于</a></li><li class="item dropdown"><a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a><ul class="submenu"><li class="item"><a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a></li><li class="item"><a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a></li><li class="item"><a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a></li></ul></li><li class="item"><a href="/friends/" rel="section"><i class="ic i-heart"></i>友链</a></li></ul></div></div></div><ul id="quick"><li class="prev pjax"></li><li class="up"><i class="ic i-arrow-up"></i></li><li class="down"><i class="ic i-arrow-down"></i></li><li class="next pjax"></li><li class="percent"></li></ul></div></div><div class="dimmer"></div></div></main><footer id="footer"><div class="inner"><div class="widgets"><div class="rpost pjax"><h2>随机文章</h2><ul><li class="item"><div class="breadcrumb"><a href="/categories/computer/" title="分类于 计算机基础">计算机基础</a></div><span><a href="/2023/07/30/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B8%B8%E8%A7%81%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E/" title="虚拟机常见配置说明">虚拟机常见配置说明</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/operations/" title="分类于 运维">运维</a></div><span><a href="/2023/07/22/NFS%E5%8A%A8%E6%80%81%E5%8D%B7%E9%83%A8%E7%BD%B2yaml%E6%96%87%E4%BB%B6/" title="NFS动态卷部署yaml文件">NFS动态卷部署yaml文件</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/operations/" title="分类于 运维">运维</a></div><span><a href="/2023/07/22/nfs%E9%85%8D%E7%BD%AE/" title="NFS配置">NFS配置</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/tech/" title="分类于 技术栈">技术栈</a></div><span><a href="/2023/07/28/Redis%E6%8C%81%E4%B9%85%E5%8C%96/" title="Redis持久化篇">Redis持久化篇</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/tech/" title="分类于 技术栈">技术栈</a></div><span><a href="/2023/07/26/Redis%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/" title="Redis常见数据类型和应用场景">Redis常见数据类型和应用场景</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/gobase/" title="分类于 go 语言基础">go 语言基础</a></div><span><a href="/2023/07/23/src-container/" title="src&#x2F;container">src/container</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/operations/" title="分类于 运维">运维</a></div><span><a href="/2023/07/22/%E5%88%9D%E8%AF%86Kubenetes/" title="初识Kubernetes">初识Kubernetes</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/computer/" title="分类于 计算机基础">计算机基础</a></div><span><a href="/2023/07/29/HTTP/" title="HTTP">HTTP</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/tech/" title="分类于 技术栈">技术栈</a></div><span><a href="/2023/08/03/Apollo%E9%83%A8%E7%BD%B2%E5%8F%8A%E4%BD%BF%E7%94%A8/" title="Apollo部署及使用">Apollo部署及使用</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/algorithm/" title="分类于 算法">算法</a></div><span><a href="/2023/07/29/DFS/" title="DFS">DFS</a></span></li></ul></div><div><h2>最新评论</h2><ul class="leancloud-recent-comment"></ul></div></div><div class="status"><div class="copyright">&copy; <span itemprop="copyrightYear">2023</span> <span class="with-love"><i class="ic i-sakura rotate"></i> </span><span class="author" itemprop="copyrightHolder">镜玄 @ 镜玄的博客</span></div><div class="count"><span class="post-meta-item-icon"><i class="ic i-chart-area"></i> </span><span title="站点总字数">147k 字</span> <span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="ic i-coffee"></i> </span><span title="站点阅读时长">2:14</span></div><div class="powered-by">基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span></div></div></div></footer></div><script data-config type="text/javascript">var LOCAL={path:"2023/08/03/Apollo部署及使用/",favicon:{show:"（●´3｀●）やれやれだぜ",hide:"(´Д｀)大変だ！"},search:{placeholder:"文章搜索",empty:"关于 「 ${query} 」，什么也没搜到",stats:"${time} ms 内找到 ${hits} 条结果"},valine:!0,fancybox:!0,copyright:'复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',ignores:[function(e){return e.includes("#")},function(e){return new RegExp(LOCAL.path+"$").test(e)}]}</script><script src="https://cdn.polyfill.io/v2/polyfill.js"></script><script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script><script src="/js/app.js?v=0.2.5"></script></body></html><!-- rebuild by hrmmi -->
