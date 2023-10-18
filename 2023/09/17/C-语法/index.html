@@ -1,0 +1,430 @@
+<!-- build time:Wed Oct 18 2023 19:25:50 GMT+0800 (GMT+08:00) --><!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2"><meta name="theme-color" content="#FFF"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png"><link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="alternate" type="application/rss+xml" title="镜玄的博客" href="http://example.com/rss.xml"><link rel="alternate" type="application/atom+xml" title="镜玄的博客" href="http://example.com/atom.xml"><link rel="alternate" type="application/json" title="镜玄的博客" href="http://example.com/feed.json"><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext"><link rel="stylesheet" href="/css/app.css?v=0.2.5"><meta name="keywords" content="c++"><link rel="canonical" href="http://example.com/2023/09/17/C-%E8%AF%AD%E6%B3%95/"><title>C++ 语法 | 镜玄的博客</title><meta name="generator" content="Hexo 6.3.0"></head><body itemscope itemtype="http://schema.org/WebPage"><div id="loading"><div class="cat"><div class="body"></div><div class="head"><div class="face"></div></div><div class="foot"><div class="tummy-end"></div><div class="bottom"></div><div class="legs left"></div><div class="legs right"></div></div><div class="paw"><div class="hands left"></div><div class="hands right"></div></div></div></div><div id="container"><header id="header" itemscope itemtype="http://schema.org/WPHeader"><div class="inner"><div id="brand"><div class="pjax"><h1 itemprop="name headline">C++ 语法</h1><div class="meta"><span class="item" title="创建时间：2023-09-17 15:56:51"><span class="icon"><i class="ic i-calendar"></i> </span><span class="text">发表于</span> <time itemprop="dateCreated datePublished" datetime="2023-09-17T15:56:51+08:00">2023-09-17</time> </span><span class="item" title="本文字数"><span class="icon"><i class="ic i-pen"></i> </span><span class="text">本文字数</span> <span>8.2k</span> <span class="text">字</span> </span><span class="item" title="阅读时长"><span class="icon"><i class="ic i-clock"></i> </span><span class="text">阅读时长</span> <span>7 分钟</span></span></div></div></div><nav id="nav"><div class="inner"><div class="toggle"><div class="lines" aria-label="切换导航栏"><span class="line"></span> <span class="line"></span> <span class="line"></span></div></div><ul class="menu"><li class="item title"><a href="/" rel="start">镜玄的博客</a></li></ul><ul class="right"><li class="item theme"><i class="ic i-sun"></i></li><li class="item search"><i class="ic i-search"></i></li></ul></div></nav></div><div id="imgs" class="pjax"><ul><li class="item" data-background-image="https://s2.loli.net/2023/07/24/RfLjK8dBn6eNGAH.jpg"></li><li class="item" data-background-image="https://s2.loli.net/2023/07/24/5j4WC2ohz9Em7xR.jpg"></li><li class="item" data-background-image="https://s2.loli.net/2023/07/24/VEqHsuJXPzaoWfr.jpg"></li><li class="item" data-background-image="https://s2.loli.net/2023/07/24/SsZLNvVkAe9j4id.jpg"></li><li class="item" data-background-image="https://s2.loli.net/2023/07/26/r2lgYQCFXzUINaV.jpg"></li><li class="item" data-background-image="https://s2.loli.net/2023/07/26/MLlZraVcWXv1ixp.jpg"></li></ul></div></header><div id="waves"><svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"/></defs><g class="parallax"><use xlink:href="#gentle-wave" x="48" y="0"/><use xlink:href="#gentle-wave" x="48" y="3"/><use xlink:href="#gentle-wave" x="48" y="5"/><use xlink:href="#gentle-wave" x="48" y="7"/></g></svg></div><main><div class="inner"><div id="main" class="pjax"><div class="article wrap"><div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList"><i class="ic i-home"></i> <span><a href="/">首页</a></span></div><article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN"><link itemprop="mainEntityOfPage" href="http://example.com/2023/09/17/C-%E8%AF%AD%E6%B3%95/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="image" content="/images/avatar.jpg"><meta itemprop="name" content="镜玄"><meta itemprop="description" content=", 时不可兮再得，聊逍遥兮容与。"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="镜玄的博客"></span><div class="body md" itemprop="articleBody"><pre><code class="text">作为一个熟悉 C 语言的学习者，在学习 C++ 时可以重点关注以下几个方面：
+1. 面向对象编程（OOP）：C++ 是一种面向对象的编程语言，因此重点学习和理解面向对象的概念和特性，如类、对象、继承、多态等。掌握 OOP 的概念和实践可以帮助你更好地利用 C++ 的强大功能。
+2. 标准库：C++ 的标准库相比 C 语言更为丰富，包含了许多有用的容器、算法和其他功能。重点学习和使用标准模板库（STL），其中包括容器（如 vector、list、map 等）、算法（如排序、查找等）和迭代器等。熟练使用标准库可以提高开发效率和代码质量。
+3. 异常处理：C++ 引入了异常处理机制，可以在程序中处理可能发生的异常情况，提高程序的健壮性。学习如何使用 try-catch 块来捕获和处理异常，以及如何定义和抛出自定义异常可以帮助你编写更健壮的代码。
+4. 内存管理：C++ 相比 C 语言在内存管理方面更加灵活，但也需要更多的注意。学习和了解 C++ 的内存管理机制，包括堆和栈的概念、内存分配和释放的方式（如 new/delete、malloc/free）以及智能指针的使用，能够帮助你避免常见的内存泄漏和错误。
+5. 类型转换：C++ 中的类型系统更加复杂和丰富，学习类型转换的规则和机制，包括隐式类型转换和显式类型转换（如 static_cast、dynamic_cast、reinterpret_cast 等），可以帮助你处理类型相关的问题。
+
+除了以上重点，还可以进一步学习 C++ 中的模板、多线程编程、文件处理等更高级的特性和技术，根据个人兴趣和需求进行深入学习。最重要的是通过实践和项目经验来巩固所学知识，提升自己的编程能力。加油！
+</code></pre><h1 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h1><pre><code class="c++">#include &lt;iostream&gt;
+using namespace std;
+ 
+// main() 是程序开始执行的地方
+ 
+int main()
+&#123;
+   cout &lt;&lt; &quot;Hello World&quot;; // 输出 Hello World
+   return 0;
+&#125;
+</code></pre><h1 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h1><ul><li>局部变量不初始化，全局变量自动初始化。</li></ul><table><thead><tr><th align="center">数据类型</th><th align="center">初始化默认值</th></tr></thead><tbody><tr><td align="center">int</td><td align="center">0</td></tr><tr><td align="center">char</td><td align="center">‘\0’</td></tr><tr><td align="center">float</td><td align="center">0</td></tr><tr><td align="center">double</td><td align="center">0</td></tr><tr><td align="center">pointer</td><td align="center">NULL</td></tr></tbody></table><h1 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h1><ul><li><p>字符串常量可以用<code>\</code>换行</p></li><li><p><code>#define</code>预处理器</p><pre><code class="c++">#define WIDTH  5
+</code></pre></li><li><p><code>const</code>关键字</p><pre><code class="c++">const int  LENGTH = 10;
+</code></pre></li></ul><h1 id="数学运算"><a href="#数学运算" class="headerlink" title="数学运算"></a>数学运算</h1><h2 id="库"><a href="#库" class="headerlink" title="&lt;cmath&gt;库"></a><code>&lt;cmath&gt;</code>库</h2><pre><code class="c++">// 引用&lt;cmath&gt;
+double cos(double);
+double sin(double);
+double tan(double);
+double log(double);
+double pow(double,double) // x的y次方
+double hypot(double, double); // 计算三角形斜边长度
+double sqrt(double); // 开方
+int abs(int); // 绝对值
+double fabs(double); // 绝对值
+double floor(double); // 返回一个小于或等于传入参数的最大整数
+</code></pre><h2 id="随机数"><a href="#随机数" class="headerlink" title="随机数"></a>随机数</h2><pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;ctime&gt;
+#include &lt;cstdlib&gt;
+ 
+using namespace std;
+ 
+int main ()
+&#123;
+   int i,j;
+ 
+   // 设置种子
+   srand( (unsigned)time( NULL ) );
+ 
+   /* 生成 10 个随机数 */
+   for( i = 0; i &lt; 10; i++ )
+   &#123;
+      // 生成实际的随机数
+      j= rand();
+      cout &lt;&lt;&quot;随机数： &quot; &lt;&lt; j &lt;&lt; endl;
+   &#125;
+ 
+   return 0;
+&#125;
+</code></pre><h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><h2 id="setw-n"><a href="#setw-n" class="headerlink" title="setw(n)"></a>setw(n)</h2><p>n 表示宽度，用数字表示。</p><ul><li><p><strong><code>setw()</code> 函数只对紧接着的输出产生作用。</strong></p></li><li><p><strong>当后面紧跟着的输出字段长度小于 n 的时候，在该字段前面用空格补齐，当输出字段长度大于 n 时，全部整体输出。</strong></p></li></ul><h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+ 
+using namespace std;
+ 
+int main ()
+&#123;
+   string str1 = &quot;runoob&quot;;
+   string str2 = &quot;google&quot;;
+   string str3;
+   int  len ;
+ 
+   // 复制 str1 到 str3
+   str3 = str1;
+   cout &lt;&lt; &quot;str3 : &quot; &lt;&lt; str3 &lt;&lt; endl;
+ 
+   // 连接 str1 和 str2
+   str3 = str1 + str2;
+   cout &lt;&lt; &quot;str1 + str2 : &quot; &lt;&lt; str3 &lt;&lt; endl;
+ 
+   // 连接后，str3 的总长度
+   len = str3.size();
+   cout &lt;&lt; &quot;str3.size() :  &quot; &lt;&lt; len &lt;&lt; endl;
+ 
+   return 0;
+&#125;
+</code></pre><h1 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h1><pre><code class="c++">#include &lt;iostream&gt;
+ 
+using namespace std;
+ 
+int main ()
+&#123;
+   int  var = 20;   // 实际变量的声明
+   int  *ip;        // 指针变量的声明
+ 
+   ip = &amp;var;       // 在指针变量中存储 var 的地址
+ 
+   cout &lt;&lt; &quot;Value of var variable: &quot;;
+   cout &lt;&lt; var &lt;&lt; endl;
+ 
+   // 输出在指针变量中存储的地址
+   cout &lt;&lt; &quot;Address stored in ip variable: &quot;;
+   cout &lt;&lt; ip &lt;&lt; endl;
+ 
+   // 访问指针中地址的值
+   cout &lt;&lt; &quot;Value of *ip variable: &quot;;
+   cout &lt;&lt; *ip &lt;&lt; endl;
+ 
+   return 0;
+&#125;
+</code></pre><h1 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h1><pre><code class="c++">#include &lt;iostream&gt;
+ 
+using namespace std;
+ 
+int main ()
+&#123;
+   // 声明简单的变量
+   int    i;
+   double d;
+ 
+   // 声明引用变量
+   int&amp;    r = i;
+   double&amp; s = d;
+   
+   i = 5;
+   cout &lt;&lt; &quot;Value of i : &quot; &lt;&lt; i &lt;&lt; endl;
+   cout &lt;&lt; &quot;Value of i reference : &quot; &lt;&lt; r  &lt;&lt; endl;
+ 
+   d = 11.7;
+   cout &lt;&lt; &quot;Value of d : &quot; &lt;&lt; d &lt;&lt; endl;
+   cout &lt;&lt; &quot;Value of d reference : &quot; &lt;&lt; s  &lt;&lt; endl;
+   
+   return 0;
+&#125;
+</code></pre><h1 id="日期-时间"><a href="#日期-时间" class="headerlink" title="日期&amp;时间"></a>日期&amp;时间</h1><pre><code class="c++">//&lt;ctime&gt;
+//返回系统的当前日历时间，自 1970 年 1 月 1 日以来经过的秒数。如果系统没有时间，则返回 -1。
+time_t time(time_t *time);
+//返回一个表示当地时间的字符串指针，字符串形式 day month year hours:minutes:seconds year\n\0
+char *ctime(const time_t *time);
+//返回一个指向表示本地时间的 tm 结构的指针
+struct tm *localtime(const time_t *time);
+//返回程序执行起（一般为程序的开头），处理器时钟所使用的时间。如果时间不可用，则返回 -1。
+clock_t clock(void);
+//返回一个指向字符串的指针，字符串包含了 time 所指向结构中存储的信息，返回形式为：day month date hours:minutes:seconds year\n\0
+char * asctime ( const struct tm * time );
+//返回一个指向 time 的指针，time 为 tm 结构，用协调世界时（UTC）也被称为格林尼治标准时间（GMT）表示
+struct tm *gmtime(const time_t *time);
+//返回日历时间，相当于 time 所指向结构中存储的时间
+time_t mktime(struct tm *time);
+//返回 time1 和 time2 之间相差的秒数
+double difftime ( time_t time2, time_t time1 );
+//可用于格式化日期和时间为指定的格式
+size_t strftime();
+</code></pre><h2 id="当前日期和时间"><a href="#当前日期和时间" class="headerlink" title="当前日期和时间"></a>当前日期和时间</h2><pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;ctime&gt;
+ 
+using namespace std;
+ 
+int main( )
+&#123;
+   // 基于当前系统的当前日期/时间
+   time_t now = time(0);
+   
+   // 把 now 转换为字符串形式
+   char* dt = ctime(&amp;now);
+ 
+   cout &lt;&lt; &quot;本地日期和时间：&quot; &lt;&lt; dt &lt;&lt; endl;
+ 
+   // 把 now 转换为 tm 结构
+   tm *gmtm = gmtime(&amp;now);
+   dt = asctime(gmtm);
+   cout &lt;&lt; &quot;UTC 日期和时间：&quot;&lt;&lt; dt &lt;&lt; endl;
+&#125;
+</code></pre><h2 id="使用结构tm格式化时间"><a href="#使用结构tm格式化时间" class="headerlink" title="使用结构tm格式化时间"></a>使用结构tm格式化时间</h2><pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;ctime&gt;
+ 
+using namespace std;
+ 
+int main( )
+&#123;
+   // 基于当前系统的当前日期/时间
+   time_t now = time(0);
+ 
+   cout &lt;&lt; &quot;1970 到目前经过秒数:&quot; &lt;&lt; now &lt;&lt; endl;
+ 
+   tm *ltm = localtime(&amp;now);
+ 
+   // 输出 tm 结构的各个组成部分
+   cout &lt;&lt; &quot;年: &quot;&lt;&lt; 1900 + ltm-&gt;tm_year &lt;&lt; endl;
+   cout &lt;&lt; &quot;月: &quot;&lt;&lt; 1 + ltm-&gt;tm_mon&lt;&lt; endl;
+   cout &lt;&lt; &quot;日: &quot;&lt;&lt;  ltm-&gt;tm_mday &lt;&lt; endl;
+   cout &lt;&lt; &quot;时间: &quot;&lt;&lt; ltm-&gt;tm_hour &lt;&lt; &quot;:&quot;;
+   cout &lt;&lt; ltm-&gt;tm_min &lt;&lt; &quot;:&quot;;
+   cout &lt;&lt; ltm-&gt;tm_sec &lt;&lt; endl;
+&#125;
+</code></pre><h1 id="基本的输入输出"><a href="#基本的输入输出" class="headerlink" title="基本的输入输出"></a>基本的输入输出</h1><h2 id="标准输出流（cout）"><a href="#标准输出流（cout）" class="headerlink" title="标准输出流（cout）"></a>标准输出流（cout）</h2><pre><code class="c++">char str[] = &quot;Hello C++&quot;;
+cout &lt;&lt; &quot;Value of str is : &quot; &lt;&lt; str &lt;&lt; endl;
+</code></pre><ul><li>流插入运算符 &lt;&lt; 在一个语句中可以多次使用</li></ul><h2 id="标准输入流（cin）"><a href="#标准输入流（cin）" class="headerlink" title="标准输入流（cin）"></a>标准输入流（cin）</h2><pre><code class="c++">char name[50];
+cout &lt;&lt; &quot;请输入您的名称： &quot;;
+cin &gt;&gt; name;
+cout &lt;&lt; &quot;您的名称是： &quot; &lt;&lt; name &lt;&lt; endl;
+</code></pre><ul><li>多次输入：<code>cin &gt;&gt; name &gt;&gt; age;</code></li></ul><h2 id="标准错误流（cerr）"><a href="#标准错误流（cerr）" class="headerlink" title="标准错误流（cerr）"></a>标准错误流（cerr）</h2><pre><code class="c++">char str[] = &quot;Unable to read....&quot;;
+cerr &lt;&lt; &quot;Error message : &quot; &lt;&lt; str &lt;&lt; endl;
+</code></pre><h2 id="标准日志流（clog）"><a href="#标准日志流（clog）" class="headerlink" title="标准日志流（clog）"></a>标准日志流（clog）</h2><pre><code class="c++">char str[] = &quot;Unable to read....&quot;;
+clog &lt;&lt; &quot;Error message : &quot; &lt;&lt; str &lt;&lt; endl;
+</code></pre><h1 id="类-对象"><a href="#类-对象" class="headerlink" title="类 &amp; 对象"></a>类 &amp; 对象</h1><pre><code class="c++">#include &lt;iostream&gt;
+ 
+using namespace std;
+ 
+class Box
+&#123;
+   public:
+      double length;   // 长度
+      double breadth;  // 宽度
+      double height;   // 高度
+      // 成员函数声明
+      double get(void);
+      void set( double len, double bre, double hei );
+&#125;;
+// 成员函数定义
+double Box::get(void)
+&#123;
+    return length * breadth * height;
+&#125;
+ 
+void Box::set( double len, double bre, double hei)
+&#123;
+    length = len;
+    breadth = bre;
+    height = hei;
+&#125;
+int main( )
+&#123;
+   Box Box1;        // 声明 Box1，类型为 Box
+   Box Box2;        // 声明 Box2，类型为 Box
+   Box Box3;        // 声明 Box3，类型为 Box
+   double volume = 0.0;     // 用于存储体积
+ 
+   // box 1 详述
+   Box1.height = 5.0; 
+   Box1.length = 6.0; 
+   Box1.breadth = 7.0;
+ 
+   // box 2 详述
+   Box2.height = 10.0;
+   Box2.length = 12.0;
+   Box2.breadth = 13.0;
+ 
+   // box 1 的体积
+   volume = Box1.height * Box1.length * Box1.breadth;
+   cout &lt;&lt; &quot;Box1 的体积：&quot; &lt;&lt; volume &lt;&lt;endl;
+ 
+   // box 2 的体积
+   volume = Box2.height * Box2.length * Box2.breadth;
+   cout &lt;&lt; &quot;Box2 的体积：&quot; &lt;&lt; volume &lt;&lt;endl;
+ 
+ 
+   // box 3 详述
+   Box3.set(16.0, 8.0, 12.0); 
+   volume = Box3.get(); 
+   cout &lt;&lt; &quot;Box3 的体积：&quot; &lt;&lt; volume &lt;&lt;endl;
+   return 0;
+&#125;
+</code></pre><h1 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h1><pre><code class="c++">#include &lt;iostream&gt;
+ 
+using namespace std;
+ 
+// 基类
+class Shape 
+&#123;
+   public:
+      void setWidth(int w)
+      &#123;
+         width = w;
+      &#125;
+      void setHeight(int h)
+      &#123;
+         height = h;
+      &#125;
+   protected:
+      int width;
+      int height;
+&#125;;
+ 
+// 派生类
+class Rectangle: public Shape
+&#123;
+   public:
+      int getArea()
+      &#123; 
+         return (width * height); 
+      &#125;
+&#125;;
+ 
+int main(void)
+&#123;
+   Rectangle Rect;
+ 
+   Rect.setWidth(5);
+   Rect.setHeight(7);
+ 
+   // 输出对象的面积
+   cout &lt;&lt; &quot;Total area: &quot; &lt;&lt; Rect.getArea() &lt;&lt; endl;
+ 
+   return 0;
+&#125;
+</code></pre><h1 id="运算符重载"><a href="#运算符重载" class="headerlink" title="运算符重载"></a>运算符重载</h1><pre><code class="c++">#include &lt;iostream&gt;
+using namespace std;
+ 
+class Box
+&#123;
+   public:
+ 
+      double getVolume(void)
+      &#123;
+         return length * breadth * height;
+      &#125;
+      void setLength( double len )
+      &#123;
+          length = len;
+      &#125;
+ 
+      void setBreadth( double bre )
+      &#123;
+          breadth = bre;
+      &#125;
+ 
+      void setHeight( double hei )
+      &#123;
+          height = hei;
+      &#125;
+      // 重载 + 运算符，用于把两个 Box 对象相加
+      Box operator+(const Box&amp; b)
+      &#123;
+         Box box;
+         box.length = this-&gt;length + b.length;
+         box.breadth = this-&gt;breadth + b.breadth;
+         box.height = this-&gt;height + b.height;
+         return box;
+      &#125;
+   private:
+      double length;      // 长度
+      double breadth;     // 宽度
+      double height;      // 高度
+&#125;;
+// 程序的主函数
+int main( )
+&#123;
+   Box Box1;                // 声明 Box1，类型为 Box
+   Box Box2;                // 声明 Box2，类型为 Box
+   Box Box3;                // 声明 Box3，类型为 Box
+   double volume = 0.0;     // 把体积存储在该变量中
+ 
+   // Box1 详述
+   Box1.setLength(6.0); 
+   Box1.setBreadth(7.0); 
+   Box1.setHeight(5.0);
+ 
+   // Box2 详述
+   Box2.setLength(12.0); 
+   Box2.setBreadth(13.0); 
+   Box2.setHeight(10.0);
+ 
+   // Box1 的体积
+   volume = Box1.getVolume();
+   cout &lt;&lt; &quot;Volume of Box1 : &quot; &lt;&lt; volume &lt;&lt;endl;
+ 
+   // Box2 的体积
+   volume = Box2.getVolume();
+   cout &lt;&lt; &quot;Volume of Box2 : &quot; &lt;&lt; volume &lt;&lt;endl;
+ 
+   // 把两个对象相加，得到 Box3
+   Box3 = Box1 + Box2;
+ 
+   // Box3 的体积
+   volume = Box3.getVolume();
+   cout &lt;&lt; &quot;Volume of Box3 : &quot; &lt;&lt; volume &lt;&lt;endl;
+ 
+   return 0;
+&#125;
+</code></pre><h1 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h1><pre><code class="c++">#include &lt;iostream&gt;
+using namespace std;
+
+class Shape &#123;
+   protected:
+      int width, height;
+   public:
+      Shape( int a=0, int b=0)
+      &#123;
+         width = a;
+         height = b;
+      &#125;
+      virtual area()
+      &#123;
+         cout &lt;&lt; &quot;Parent class area :&quot; &lt;&lt;endl;
+         return 0;
+      &#125;
+&#125;;
+class Rectangle: public Shape&#123;
+   public:
+      Rectangle( int a=0, int b=0):Shape(a, b) &#123; &#125;
+      int area ()
+      &#123;
+         cout &lt;&lt; &quot;Rectangle class area :&quot; &lt;&lt;endl;
+         return (width * height);
+      &#125;
+&#125;;
+class Triangle: public Shape&#123;
+   public:
+      Triangle( int a=0, int b=0):Shape(a, b) &#123; &#125;
+      int area ()
+      &#123;
+         cout &lt;&lt; &quot;Triangle class area :&quot; &lt;&lt;endl;
+         return (width * height / 2);
+      &#125;
+&#125;;
+// 程序的主函数
+int main( )
+&#123;
+   Shape *shape;
+   Rectangle rec(10,7);
+   Triangle  tri(10,5);
+
+   // 存储矩形的地址
+   shape = &amp;rec;
+   // 调用矩形的求面积函数 area
+   shape-&gt;area();
+
+   // 存储三角形的地址
+   shape = &amp;tri;
+   // 调用三角形的求面积函数 area
+   shape-&gt;area();
+
+   return 0;
+&#125;
+</code></pre><div class="tags"><a href="/tags/c/" rel="tag"><i class="ic i-tag"></i> c++</a></div></div><footer><div class="meta"><span class="item"><span class="icon"><i class="ic i-calendar-check"></i> </span><span class="text">更新于</span> <time title="修改时间：2023-09-18 17:35:23" itemprop="dateModified" datetime="2023-09-18T17:35:23+08:00">2023-09-18</time> </span><span id="2023/09/17/C-语法/" class="item leancloud_visitors" data-flag-title="C++ 语法" title="阅读次数"><span class="icon"><i class="ic i-eye"></i> </span><span class="text">阅读次数</span> <span class="leancloud-visitors-count"></span> <span class="text">次</span></span></div><div class="reward"><button><i class="ic i-heartbeat"></i> 赞赏</button><p>请我喝[茶]~(￣▽￣)~*</p><div id="qr"><div><img data-src="/images/wechatpay.png" alt="镜玄 微信支付"><p>微信支付</p></div><div><img data-src="/images/alipay.png" alt="镜玄 支付宝"><p>支付宝</p></div><div><img data-src="/images/paypal.png" alt="镜玄 贝宝"><p>贝宝</p></div></div></div><div id="copyright"><ul><li class="author"><strong>本文作者： </strong>镜玄 <i class="ic i-at"><em>@</em></i>镜玄的博客</li><li class="link"><strong>本文链接：</strong> <a href="http://example.com/2023/09/17/C-%E8%AF%AD%E6%B3%95/" title="C++ 语法">http://example.com/2023/09/17/C-语法/</a></li><li class="license"><strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！</li></ul></div></footer></article></div><div class="post-nav"><div class="item left"><a href="/2023/08/26/Sentinel/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2023&#x2F;07&#x2F;24&#x2F;dGOSq6h2UIEXJMF.jpg" title="Sentinel"><span class="type">上一篇</span> <span class="category"><i class="ic i-flag"></i></span><h3>Sentinel</h3></a></div><div class="item right"><a href="/2023/10/18/%E5%A4%A7%E4%B8%80%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2023&#x2F;07&#x2F;24&#x2F;TQhMSzbtmWNDY1l.jpg" title="大一学习心得"><span class="type">下一篇</span> <span class="category"><i class="ic i-flag"></i></span><h3>大一学习心得</h3></a></div></div><div class="wrap" id="comments"></div></div><div id="sidebar"><div class="inner"><div class="panels"><div class="inner"><div class="contents panel pjax" data-title="文章目录"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Hello-World"><span class="toc-number">1.</span> <span class="toc-text">Hello World</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">2.</span> <span class="toc-text">变量作用域</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F"><span class="toc-number">3.</span> <span class="toc-text">常量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E5%AD%A6%E8%BF%90%E7%AE%97"><span class="toc-number">4.</span> <span class="toc-text">数学运算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%93"><span class="toc-number">4.1.</span> <span class="toc-text">&lt;cmath&gt;库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E6%95%B0"><span class="toc-number">4.2.</span> <span class="toc-text">随机数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-number">5.</span> <span class="toc-text">数组</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#setw-n"><span class="toc-number">5.1.</span> <span class="toc-text">setw(n)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">6.</span> <span class="toc-text">字符串</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8C%87%E9%92%88"><span class="toc-number">7.</span> <span class="toc-text">指针</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%95%E7%94%A8"><span class="toc-number">8.</span> <span class="toc-text">引用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%97%A5%E6%9C%9F-%E6%97%B6%E9%97%B4"><span class="toc-number">9.</span> <span class="toc-text">日期&amp;时间</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%93%E5%89%8D%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4"><span class="toc-number">9.1.</span> <span class="toc-text">当前日期和时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%BB%93%E6%9E%84tm%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%97%B6%E9%97%B4"><span class="toc-number">9.2.</span> <span class="toc-text">使用结构tm格式化时间</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA"><span class="toc-number">10.</span> <span class="toc-text">基本的输入输出</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E8%BE%93%E5%87%BA%E6%B5%81%EF%BC%88cout%EF%BC%89"><span class="toc-number">10.1.</span> <span class="toc-text">标准输出流（cout）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5%E6%B5%81%EF%BC%88cin%EF%BC%89"><span class="toc-number">10.2.</span> <span class="toc-text">标准输入流（cin）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E9%94%99%E8%AF%AF%E6%B5%81%EF%BC%88cerr%EF%BC%89"><span class="toc-number">10.3.</span> <span class="toc-text">标准错误流（cerr）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E6%97%A5%E5%BF%97%E6%B5%81%EF%BC%88clog%EF%BC%89"><span class="toc-number">10.4.</span> <span class="toc-text">标准日志流（clog）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B1%BB-%E5%AF%B9%E8%B1%A1"><span class="toc-number">11.</span> <span class="toc-text">类 &amp; 对象</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF"><span class="toc-number">12.</span> <span class="toc-text">继承</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD"><span class="toc-number">13.</span> <span class="toc-text">运算符重载</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%9A%E6%80%81"><span class="toc-number">14.</span> <span class="toc-text">多态</span></a></li></ol></div><div class="related panel pjax" data-title="系列文章"></div><div class="overview panel" data-title="站点概览"><div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person"><img class="image" itemprop="image" alt="镜玄" data-src="/images/avatar.jpg"><p class="name" itemprop="name">镜玄</p><div class="description" itemprop="description">时不可兮再得，聊逍遥兮容与。</div></div><nav class="state"><div class="item posts"><a href="/archives/"><span class="count">27</span> <span class="name">文章</span></a></div><div class="item categories"><a href="/categories/"><span class="count">5</span> <span class="name">分类</span></a></div><div class="item tags"><a href="/tags/"><span class="count">23</span> <span class="name">标签</span></a></div></nav><div class="social"><span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3dpdGhvdXRhYmM=" title="https:&#x2F;&#x2F;github.com&#x2F;withoutabc"><i class="ic i-github"></i></span></div><ul class="menu"><li class="item"><a href="/" rel="section"><i class="ic i-home"></i>首页</a></li><li class="item"><a href="/about/" rel="section"><i class="ic i-user"></i>关于</a></li><li class="item dropdown"><a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a><ul class="submenu"><li class="item"><a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a></li><li class="item"><a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a></li><li class="item"><a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a></li></ul></li><li class="item"><a href="/friends/" rel="section"><i class="ic i-heart"></i>友链</a></li></ul></div></div></div><ul id="quick"><li class="prev pjax"><a href="/2023/08/26/Sentinel/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a></li><li class="up"><i class="ic i-arrow-up"></i></li><li class="down"><i class="ic i-arrow-down"></i></li><li class="next pjax"><a href="/2023/10/18/%E5%A4%A7%E4%B8%80%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a></li><li class="percent"></li></ul></div></div><div class="dimmer"></div></div></main><footer id="footer"><div class="inner"><div class="widgets"><div class="rpost pjax"><h2>随机文章</h2><ul><li class="item"><div class="breadcrumb"><a href="/categories/operations/" title="分类于 运维">运维</a></div><span><a href="/2023/07/22/%E5%88%9D%E8%AF%86Kubenetes/" title="初识Kubernetes">初识Kubernetes</a></span></li><li class="item"><div class="breadcrumb"></div><span><a href="/2023/07/22/%E7%BD%AE%E9%A1%B6/" title="置顶">置顶</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/tech/" title="分类于 技术栈">技术栈</a></div><span><a href="/2023/07/24/Rabbitmq/" title="Rabbitmq">Rabbitmq</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/computer/" title="分类于 计算机基础">计算机基础</a></div><span><a href="/2023/08/24/thrift/" title="thrift">thrift</a></span></li><li class="item"><div class="breadcrumb"></div><span><a href="/2023/09/17/C-%E8%AF%AD%E6%B3%95/" title="C++语法">C++语法</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/gobase/" title="分类于 go 语言基础">go 语言基础</a></div><span><a href="/2023/07/23/src-container/" title="src&#x2F;container">src/container</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/tech/" title="分类于 技术栈">技术栈</a></div><span><a href="/2023/07/23/Nginx/" title="Nginx">Nginx</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/operations/" title="分类于 运维">运维</a></div><span><a href="/2023/07/22/NFS%E5%8A%A8%E6%80%81%E5%8D%B7%E9%83%A8%E7%BD%B2yaml%E6%96%87%E4%BB%B6/" title="NFS动态卷部署yaml文件">NFS动态卷部署yaml文件</a></span></li><li class="item"><div class="breadcrumb"></div><span><a href="/2023/08/05/viper/" title="viper">viper</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/algorithm/" title="分类于 算法">算法</a></div><span><a href="/2023/07/29/DFS/" title="DFS">DFS</a></span></li></ul></div><div><h2>最新评论</h2><ul class="leancloud-recent-comment"></ul></div></div><div class="status"><div class="copyright">&copy; <span itemprop="copyrightYear">2023</span> <span class="with-love"><i class="ic i-sakura rotate"></i> </span><span class="author" itemprop="copyrightHolder">镜玄 @ 镜玄的博客</span></div><div class="count"><span class="post-meta-item-icon"><i class="ic i-chart-area"></i> </span><span title="站点总字数">223k 字</span> <span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="ic i-coffee"></i> </span><span title="站点阅读时长">3:22</span></div><div class="powered-by">基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span></div></div></div></footer></div><script data-config type="text/javascript">var LOCAL={path:"2023/09/17/C-语法/",favicon:{show:"（●´3｀●）やれやれだぜ",hide:"(´Д｀)大変だ！"},search:{placeholder:"文章搜索",empty:"关于 「 ${query} 」，什么也没搜到",stats:"${time} ms 内找到 ${hits} 条结果"},valine:!0,fancybox:!0,copyright:'复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',ignores:[function(e){return e.includes("#")},function(e){return new RegExp(LOCAL.path+"$").test(e)}]}</script><script src="https://cdn.polyfill.io/v2/polyfill.js"></script><script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script><script src="/js/app.js?v=0.2.5"></script></body></html><!-- rebuild by hrmmi -->
